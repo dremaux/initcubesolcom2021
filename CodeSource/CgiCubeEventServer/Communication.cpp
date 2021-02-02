@@ -25,7 +25,7 @@ Communication::Communication(string adresse,string port){
 //La méthode lancerInitCubeServeur() démarre le serveur InitCibeServeur
 void Communication::lancerInitCubeServeur() {
 	//usleep(5000000);	
-	system("../InitCubeServeur/InitCubeServeur&");
+	system("/home/Axel/VisualStudioCodeProjects/InitCubeServeur/InitCubeServer");
 }
 
 //La méthode connexion tente de se connecter au serveur InitCubeServeur
@@ -60,6 +60,7 @@ int Communication::connexion() {
     if(status < 0)
     {
         fprintf(stderr, "Erreur de connexion \n"); //Retour en cas d'un problème de connexion
+        perror("oui");
         return -1;
     }
 	return 0;

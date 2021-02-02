@@ -40,20 +40,20 @@ void CubeEventServer::transmettreJSON(TypeMessage evt,string trame){
 			// com->envoieMessage(trameInstru);
 			break;
 		default :
-			cout << "error: aucune trame"
+			cout << "error: aucune trame" << endl;
 			// com->envoieMessage('-1');
 			break;
 	}
 }
 
-void CubeEventServer::traiterEvenement()
+/*void CubeEventServer::traiterEvenement()
 {
 	//Si le serveur répond, on transmet les données reçues    
 	if (com->recevoirDonnees() > 0){
 		string message(com->recevoirDonnees());
-		TypeMessage type = identifierEvt(message) 
+		TypeMessage type = identifierEvt(message); 
 		if (type != UNKNOWN)
-			transmettreJSON(type, message)
+			transmettreJSON(type, message);
 	}
     	// this->transmettreEtat(com->getBuffer());
     	
@@ -75,6 +75,6 @@ TypeMessage CubeEventServer::identifierEvt(string message){
 	else
 		typeMessage = UNKNOWN;
 	return typeMessage;
-}
+}*/
 
 
