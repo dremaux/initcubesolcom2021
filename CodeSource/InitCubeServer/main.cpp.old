@@ -1,0 +1,10 @@
+#include "InitCubeServeur.h"
+
+int main()
+{
+	InitCubeServeur* leServeur = new InitCubeServeur();
+	leServeur->attendreConnexion();
+	std::string fakeTrame = leServeur->genFakeTram();
+	leServeur->transmettre((char*)fakeTrame.c_str(),fakeTrame.length());
+	return 0;
+}
