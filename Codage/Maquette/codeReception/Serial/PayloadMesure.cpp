@@ -10,7 +10,7 @@
 
 using namespace std;
 
-PayloadMesure::PayloadMesure(char* payloadBrut ){
+PayloadMesure::PayloadMesure(char* _payloadBrut ):Payload(_payloadBrut){ //ajout du constructeur de Payload pour quel que chose de cohérent? (lopes)
 	//doit initialiser l'attribut payloadBrut type = 2 ;
 	cout<<" \n Création de l'objet Payload Mesure "<<endl;
 }
