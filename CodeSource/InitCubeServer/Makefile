@@ -1,21 +1,24 @@
-CFLAGS=-W -Wall -ansi -pedantic -std=c++11 -lpthread
-
-all: InitCubeServeur
-
+CXX		  := arm-linux-gnueabi-g++
+CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
 
 
-InitCubeServeur: main.o InitCubeServeur.o
-		g++ -o InitCubeServeur InitCubeServeur.o main.o $(CFLAGS)
-main.o: main.cpp
-		g++ -o main.o -c main.cpp $(CFLAGS)
-InitCubeServeur.o: InitCubeServeur.cpp Communication.cpp
-		g++ -o InitCubeServeur.o -c InitCubeServeur.cpp  $(CFLAGS)
-CubeEventServer.o: CubeEventServer.cpp Communication.cpp
-		g++ -o CubeEventServer.o -c CubeEventServer.cpp  $(CFLAGS)
-Communication.o: Communication.cpp 
-		g++ -o Communication.o -c Communication.cpp $(CFLAGS)
-clean: 
-		rm -rf *.o
-mrproper: clean
-		rm -rf InitCubeServeur
+BIN		:= bin
+SRC		:= src
+INCLUDE	:= include
+LIB		:= lib
 
+LIBRARIES	:=
+EXECUTABLE	:= InitCubeServeur
+
+
+all: $(BIN)/$(EXECUTABLE)
+
+run: clean all
+	clear
+	./$(BIN)/$(EXECUTABLE)
+
+$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+
+clean:
+	-rm $(BIN)/*
