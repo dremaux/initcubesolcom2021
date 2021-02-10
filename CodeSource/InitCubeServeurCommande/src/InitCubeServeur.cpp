@@ -15,7 +15,7 @@
 
 #define NB_CLIENT_MAX 20
 #define ADRESSE "127.0.0.1"
-#define PORT 9950
+#define PORT 9951
 #define BUF_SIZE 500
 
 using json = nlohmann::json;
@@ -59,6 +59,24 @@ void InitCubeServeur::attendreConnexion(){
 	cout << "Nombre de clients connectés : " << connexions.size() << endl;
 }
 
+void InitCubeServeur::attendreCommande(){
+    int i,retour = 0;
+    for (i=0; i<2000; i++){
+         buffer[i] = 0;
+    }
+    for (i=0;i<connexions.size();i++){
+        retour = recv(connexions[i], buffer,2000 , 0);
+	    if(retour>0){
+            afficherCommande(buffer);
+        }
+    }
+     
+    
+}
+
+void InitCubeServeur::afficherCommande(char buff[2000]){
+    cout << "data:"<<buff<<"\r\n\r\n" << endl;
+}
 
 void InitCubeServeur::transmettre(char* message, int taille) {
     char buf[BUF_SIZE];

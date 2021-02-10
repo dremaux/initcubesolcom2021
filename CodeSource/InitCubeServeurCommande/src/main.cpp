@@ -3,7 +3,7 @@
 
 
 void* ThreadConnexion(void *);
-void* ThreadEnvoyerTrame(void *);
+void* ThreadReceptionTrame(void *);
 
 using namespace std;
 
@@ -13,13 +13,13 @@ using namespace std;
 int main()
 {
 	pthread_t threadConnexion;
-	pthread_t threadEnvoyerTrame;
+	pthread_t threadReceptionTrame;
 	int err_threadConnexion;
 	int err_threadEnvoyerTrame;
 	err_threadConnexion = pthread_create(&threadConnexion,NULL,ThreadConnexion,NULL);
-	err_threadEnvoyerTrame = pthread_create(&threadEnvoyerTrame,NULL,ThreadEnvoyerTrame,NULL);
+	err_threadEnvoyerTrame = pthread_create(&threadReceptionTrame,NULL,ThreadReceptionTrame,NULL);
 	pthread_join(threadConnexion, NULL);
-   	pthread_join(threadEnvoyerTrame, NULL);
+   	pthread_join(threadReceptionTrame, NULL);
 	return 0;
 }
 
@@ -31,19 +31,8 @@ void* ThreadConnexion(void *){
 
 
 /*Thread de mise en forme des trames*/
-void* ThreadEnvoyerTrame(void *){
+void* ThreadReceptionTrame(void *){
 	while(1) {
-		//génération de la fausse trame d'état		
-		std::string fakeTrameEtat = serveur->genFakeStateFrame()+"\r\n";
-		//Envoi de la fausse trame
-		serveur->transmettre((char*)fakeTrameEtat.c_str(), fakeTrameEtat.length());
-		//temporisation
-		usleep (1000000);  
-		//génération de la fausse trame de mesure instrument		
-		std::string fakeTrameInstrument = serveur->genFakeInstrumentFrame()+"\r\n";
-		//Envoi de la fausse trame
-		serveur->transmettre((char*)fakeTrameInstrument.c_str(), fakeTrameInstrument.length());
-		//temporisation
-		usleep (1000000);  
+		serveur->attendreCommande();
 	}
 }

@@ -25,7 +25,7 @@ Communication::Communication(string adresse,string port){
 //La méthode lancerInitCubeServeur() démarre le serveur InitCibeServeur
 void Communication::lancerInitCubeServeur() {
 	//usleep(5000000);	
-	system("/home/Axel/VisualStudioCodeProjects/InitCubeServeur/InitCubeServer");
+	system("../../InitCubeServeur/InitCubeServer");
 }
 
 //La méthode connexion tente de se connecter au serveur InitCubeServeur
