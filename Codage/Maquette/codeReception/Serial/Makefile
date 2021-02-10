@@ -1,4 +1,4 @@
-CXX		  := arm-linux-gnueabi-g++
+CXX		  := arm-linux-gnueabihf-g++
 CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
 
 BIN		:= bin
