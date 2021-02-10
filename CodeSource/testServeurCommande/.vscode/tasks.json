@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build C++ project",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "make",
+        },
+        {
+            "label": "Build & run C++ project",
+            "dependsOn":[
+                "Build C++ project"
+            ],
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "command": "sshpass",
+            "args": [
+                "-p",
+                "raspberry",
+                "scp",
+                "./bin/*",
+                "pi@initcubesolcom.local:~/cubeEventServer/",
+                "&&",
+                "echo",
+                "&&",
+                "sshpass",
+                "-p",
+                "raspberry",
+                "ssh",
+                "pi@initcubesolcom.local",
+                "./cubeEventServer/testCubeEventServer.cgi",
+            ]
+        }
+    ]
+}

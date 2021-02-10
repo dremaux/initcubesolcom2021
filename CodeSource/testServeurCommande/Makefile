@@ -7,7 +7,7 @@ INCLUDE	:= include
 LIB		:= lib
 
 LIBRARIES	:=
-EXECUTABLE	:= cubeEventServer.cgi
+EXECUTABLE	:= testCubeEventServer.cgi
 
 
 all: $(BIN)/$(EXECUTABLE)
