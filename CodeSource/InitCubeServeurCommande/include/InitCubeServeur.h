@@ -13,8 +13,10 @@
 
 #ifndef INITCUBESERVEUR_H
 #define INITCUBESERVEUR_H
+#define TAILLEBUFFER 2000
 
 #include "Lib.h"
+#include <thread>
 
 using namespace std;
 
@@ -27,15 +29,19 @@ class InitCubeServeur {
     void transmettre(char* message,int taille);
     string genFakeInstrumentFrame();
 	  string genFakeStateFrame();
-    void attendreCommande();
-    void afficherCommande(char buff[2000]);
+    void attendreCommande(int fd);
+    void afficherCommande(string buff);
+    void nouvelleConnexion();
+    thread member1Thread();
 
   private:
+    
     struct sockaddr_in ecoute;  //Structure de la socket
     int canal;  //canal de la socket du serveur
     int sockAccept; //canal de la socket venant de se connecter au serveur
     vector <int> connexions; //collection des canaux connectés au serveur 
-    char buffer[2000]; 
+    vector <string> reçu; //collection de commande reçu
+    
 };
 
 #endif /* INITCUBESERVEUR_H */

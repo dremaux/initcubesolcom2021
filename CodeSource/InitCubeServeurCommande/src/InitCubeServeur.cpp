@@ -13,10 +13,12 @@
 
 #include "InitCubeServeur.h"
 
+
 #define NB_CLIENT_MAX 20
 #define ADRESSE "127.0.0.1"
 #define PORT 9951
 #define BUF_SIZE 500
+
 
 using json = nlohmann::json;
 
@@ -56,26 +58,48 @@ void InitCubeServeur::attendreConnexion(){
     }
 	//Ajout de la socket à la liste des clients
     connexions.push_back(sockAccept);
+    nouvelleConnexion();
 	cout << "Nombre de clients connectés : " << connexions.size() << endl;
 }
 
-void InitCubeServeur::attendreCommande(){
+/*
+n = position du canal d'écoute dans la colection 
+*/
+void InitCubeServeur::attendreCommande(int n){
     int i,retour = 0;
-    for (i=0; i<2000; i++){
-         buffer[i] = 0;
+    char buffer[TAILLEBUFFER];
+    for (i=0; i<TAILLEBUFFER; i++){
+        buffer[i] = 0;
     }
-    for (i=0;i<connexions.size();i++){
-        retour = recv(connexions[i], buffer,2000 , 0);
-	    if(retour>0){
-            afficherCommande(buffer);
-        }
+    retour = recv(connexions[n], buffer,TAILLEBUFFER , 0);
+    reçu.push_back(buffer);
+    afficherCommande(reçu.back());
+    if(retour>0){
+        close(connexions[n]);
+        connexions.erase( connexions.begin()+n);
+        
+    }
+    else{
+        perror("Erreur d'ecriture dans le buffer");
+        close(connexions[n]);
+        connexions.erase( connexions.begin()+n);
+        
     }
      
-    
 }
 
-void InitCubeServeur::afficherCommande(char buff[2000]){
-    cout << "data:"<<buff<<"\r\n\r\n" << endl;
+thread InitCubeServeur::member1Thread(){
+    return thread([=] { attendreCommande(connexions.size()-1); });
+}
+
+void InitCubeServeur::nouvelleConnexion(){
+    
+    thread tw1 = member1Thread();
+    tw1.detach();
+}
+
+void InitCubeServeur::afficherCommande(string buff){
+    cout << buff << endl;
 }
 
 void InitCubeServeur::transmettre(char* message, int taille) {
@@ -83,7 +107,7 @@ void InitCubeServeur::transmettre(char* message, int taille) {
 	for(int i=0; i<connexions.size(); i++) {
         int envoyer = send(connexions[i], message,taille,0);
         int reception = recv(connexions[i],buf,BUF_SIZE,MSG_DONTWAIT);
-		//Si un client se déconnecte, on le supprie de la liste        
+		//Si un client se déconnecte, on le supprime de la liste        
 		if(reception==0) {
         	close(connexions[i]);
 			connexions.erase(connexions.begin()+i);
