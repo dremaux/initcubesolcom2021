@@ -74,16 +74,17 @@ void InitCubeServeur::attendreCommande(int n){
     retour = recv(connexions[n], buffer,TAILLEBUFFER , 0);
     reçu.push_back(buffer);
     afficherCommande(reçu.back());
-    if(retour>0){
-        close(connexions[n]);
-        connexions.erase( connexions.begin()+n);
-        
-    }
-    else{
+    if(retour<0){
         perror("Erreur d'ecriture dans le buffer");
         close(connexions[n]);
         connexions.erase( connexions.begin()+n);
+        cout << "En Attente De Connexion:"<<endl;
         
+    }
+    else{
+        close(connexions[n]);
+        connexions.erase( connexions.begin()+n);
+        cout << "En Attente De Connexion:"<<endl;
     }
      
 }
