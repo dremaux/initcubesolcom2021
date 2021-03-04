@@ -6,7 +6,7 @@ using namespace std ;
 
 CubeEventServer::CubeEventServer(string adresse,string port){
 	com = new Communication(adresse,port);
-	com->connexion();
+	//com->connexion();
 }
 
 CubeEventServer::~CubeEventServer() {
