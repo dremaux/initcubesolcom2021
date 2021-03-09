@@ -50,47 +50,59 @@ void InitCubeServeur::attendreConnexion(){
    	cout << "En Attente De Connexion:"<<endl;
     socklen_t taille_ecoute = sizeof(ecoute);//Taille de la socket
     sockAccept=accept(canal,(struct sockaddr*)&ecoute, &taille_ecoute);//bloque l'attente de connexion.
-    cout << "Connexion d'un nouveau client."<<endl;
-	if(sockAccept<0){
-            close(canal);
-            perror("Erreur d'acceptation de la socket.");
-            exit(0);
+    if(connexions.size()< NB_CLIENT_MAX){
+        cout << "Connexion d'un nouveau client."<<endl;
+    	if(sockAccept<0){
+                close(canal);
+                perror("Erreur d'acceptation de la socket.");
+             exit(0);
+        }
+	    //Ajout de la socket à la liste des clients
+        connexions.push_back(sockAccept);
+        nouvelleConnexion();
+	    cout << "Nombre de clients connectés : " << connexions.size() << endl;
     }
-	//Ajout de la socket à la liste des clients
-    connexions.push_back(sockAccept);
-    nouvelleConnexion();
-	cout << "Nombre de clients connectés : " << connexions.size() << endl;
+    else{
+        close(sockAccept);
+        cout<<"Trop de client connectés"<<endl;
+        
+    }
 }
 
 /*
 n = position du canal d'écoute dans la colection 
 */
-void InitCubeServeur::attendreCommande(int n){
+int InitCubeServeur::attendreCommande(int n){
     int i,retour = 0;
     char buffer[TAILLEBUFFER];
+    
     for (i=0; i<TAILLEBUFFER; i++){
         buffer[i] = 0;
     }
+
     retour = recv(connexions[n], buffer,TAILLEBUFFER , 0);
-    reçu.push_back(buffer);
-    afficherCommande(reçu.back());
-    if(retour<0){
-        perror("Erreur d'ecriture dans le buffer");
+    
+    
+    if(retour==0){
+        perror("Client partie");
+        
         close(connexions[n]);
         connexions.erase( connexions.begin()+n);
+        cout << "Nombre de clients connectés : " << connexions.size() << endl;
         cout << "En Attente De Connexion:"<<endl;
-        
+        return(-1);
+    
     }
     else{
-        close(connexions[n]);
-        connexions.erase( connexions.begin()+n);
-        cout << "En Attente De Connexion:"<<endl;
+        cout<<"valeur buffer"<<retour<<endl;
+        reçu.push_back(buffer);
+        afficherCommande(reçu.back());
     }
-     
+    return(0);
 }
 
 thread InitCubeServeur::member1Thread(){
-    return thread([=] { attendreCommande(connexions.size()-1); });
+    return thread([=] {int retour = 0; while(retour >= 0){retour = attendreCommande(connexions.size()-1);} });
 }
 
 void InitCubeServeur::nouvelleConnexion(){

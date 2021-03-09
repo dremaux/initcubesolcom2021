@@ -29,7 +29,7 @@ class InitCubeServeur {
     void transmettre(char* message,int taille);
     string genFakeInstrumentFrame();
 	  string genFakeStateFrame();
-    void attendreCommande(int fd);
+    int attendreCommande(int fd);
     void afficherCommande(string buff);
     void nouvelleConnexion();
     thread member1Thread();
