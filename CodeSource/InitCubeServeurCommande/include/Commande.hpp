@@ -1,0 +1,42 @@
+#pragma once
+#include "Lib.h"
+#include "Cmd.h"
+
+using namespace std;
+using json = nlohmann::json;
+
+class Commande {
+
+public:
+    Commande(string json,int numeroCommande);
+    Commande(string json);
+    ~Commande();
+    void extraireDonnees();
+    char* genererTrame();
+
+
+private:
+    void calculerChecksum(char* trameF,char & PF, char & pf);
+    void extraireDonneesMis();
+    void extraireDonneesMea();
+    void extraireDonneesSta();
+    void extraireDonneesMee();
+    void testAfficherTrame(string trameInter, char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
+    char nCommande[1];
+    Cmd CMD;
+    json trame;
+    string id;
+    string cmd;
+    string periode;
+    string duree;
+    string date;
+    string ack;
+    string bord;
+    string inst;
+    string batt;
+    string reboot;
+    string cube;
+    string typeMeasure;
+    string save;
+    int nbOctets;
+};

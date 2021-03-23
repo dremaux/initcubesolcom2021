@@ -41,6 +41,7 @@ InitCubeServeur::InitCubeServeur() {
 		exit(0);
 	}
 }
+
 void InitCubeServeur::attendreConnexion(){
     if(listen(canal, NB_CLIENT_MAX)<0){//Ecoute du canal de la socket
 		close(canal);
@@ -97,6 +98,7 @@ int InitCubeServeur::attendreCommande(int n){
         cout<<"valeur buffer"<<retour<<endl;
         reçu.push_back(buffer);
         afficherCommande(reçu.back());
+        send(connexions[n],"ACK",3,0);
     }
     return(0);
 }
