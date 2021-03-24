@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/KeCommande.h"
+#include "../include/ComInit.h"
 #include "../include/Serial.h"
 
 /*using namespace std;

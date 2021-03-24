@@ -31,7 +31,7 @@ class Serial
      * la méthode rend la main dès qu'elle reçoit un retour chariot("\n")
      * génère une exception boost::system::system_error en cas d'erreur
     **/
-   std::string readLine(); 
+   std::string readLine();
 };
 
 #endif /* SERIAL_H */
