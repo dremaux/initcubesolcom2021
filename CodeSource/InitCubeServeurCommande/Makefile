@@ -1,5 +1,5 @@
 CXX		  := aarch64-linux-gnu-g++
-CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
+CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 
 
 
 BIN		:= bin
@@ -7,7 +7,7 @@ SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
 
-LIBRARIES	:=
+LIBRARIES	:= -lpthread
 EXECUTABLE	:= InitCubeServeurCommande
 
 
