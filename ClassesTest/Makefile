@@ -1,12 +1,12 @@
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -lpthread
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb 
 
 BIN		:= bin
 SRC		:= src
 INCLUDE	:= defs
 LIB		:= lib
 
-LIBRARIES	:=
+LIBRARIES	:= -lpthread
 EXECUTABLE	:= main
 
 
