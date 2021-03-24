@@ -1,4 +1,4 @@
-/* Boulanger Ga/brielle-Anne
+/* Boulanger Gabrielle-Anne
  * classe qui ....
  * ligne de compilation :
  * création de 29/04/2020

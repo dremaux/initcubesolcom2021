@@ -1,5 +1,5 @@
-CXX		  := arm-linux-gnueabihf-g++
-CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
+CXX		  := g++
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
 BIN		:= bin
 SRC		:= src
@@ -7,7 +7,7 @@ INCLUDE	:= include
 LIB		:= lib
 
 LIBRARIES	:=
-EXECUTABLE	:= serial
+EXECUTABLE	:= main
 
 
 all: $(BIN)/$(EXECUTABLE)

@@ -1,9 +1,3 @@
-/* BOULANGER GABRIELLE-ANNE
- * Trame.h
- * ligne de compilation :
- * fait le 29/04/2020
- */
- 
 #ifndef TRAME_H
 #define TRAME_H
 
@@ -34,4 +28,4 @@ class Trame {
 		Payload *payload;				//initialisation d'un objet probenant d'une classe abstraite
 };
 
-#endif /* TRAME_H */
+#endif
