@@ -1,10 +1,3 @@
-/* Boulanger Gabrielle-Anne
- * classe qui ....
- * ligne de compilation :
- * fait le 29/04/2020
- */
-
-
 #ifndef PAYLOAD_H
 #define PAYLOAD_H
 
@@ -20,4 +13,4 @@ class Payload {
 		int numeroPaquet;			//Déclaration d'une variable ..... 
 };
 
-#endif /* PAYLOAD_H */
+#endif

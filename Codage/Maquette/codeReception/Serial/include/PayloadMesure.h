@@ -1,9 +1,3 @@
-/* Boulanger Gabrielle-Anne
- * classe qui ....
- * ligne de compilation :
- * création de 29/04/2020
- */
- 
 #ifndef PAYLOADMESURE_H
 #define PAYLOADMESURE_H
  

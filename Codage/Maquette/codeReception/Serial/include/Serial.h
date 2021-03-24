@@ -18,7 +18,7 @@ public:
      */
     Serial(std::string port, unsigned int baud_rate);
 
-    /**
+    /**#include <boost/asio.hpp>
      * Ecrit une chaîne de caractère sur le port série.
      * \paramètre s : chaîne de caractère à transmettre
      * \génère une exception boost::system::system_error en cas d'erreur
@@ -34,4 +34,4 @@ public:
 
 };
 
-#endif /* SERIAL_H */
+#endif
