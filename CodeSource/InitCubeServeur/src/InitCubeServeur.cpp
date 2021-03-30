@@ -16,7 +16,6 @@
 
 #define NB_CLIENT_MAX 20
 #define ADRESSE "127.0.0.1"
-#define PORT 9951
 #define BUF_SIZE 500
 
 
@@ -24,8 +23,12 @@ using json = nlohmann::json;
 
 using namespace std;
 
-InitCubeServeur::InitCubeServeur() {
-	ecoute.sin_port=htons(PORT);//port d'écoute.
+/*
+port = num port du serveur
+ecriture = true si c'est un serveur qui ecrit sur le cgi ou false si il les ecoutes
+ */
+InitCubeServeur::InitCubeServeur(int port,bool ecriture):ecriture(ecriture) {
+	ecoute.sin_port=htons(port);//port d'écoute.
 	ecoute.sin_addr.s_addr=inet_addr(ADRESSE);
 	ecoute.sin_family=AF_INET;
 	canal=socket(AF_INET, SOCK_STREAM,0);//Création de la socket
@@ -60,7 +63,9 @@ void InitCubeServeur::attendreConnexion(){
         }
 	    //Ajout de la socket à la liste des clients
         connexions.push_back(sockAccept);
-        nouvelleConnexion();
+        if(ecriture == false){
+            nouvelleConnexion();
+        }
 	    cout << "Nombre de clients connectés : " << connexions.size() << endl;
     }
     else{

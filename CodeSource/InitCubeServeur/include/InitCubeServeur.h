@@ -22,7 +22,7 @@ using namespace std;
 
 class InitCubeServeur {
   public:
-    InitCubeServeur();
+    InitCubeServeur(int port,bool ecoute);
     virtual ~InitCubeServeur();
     void multiClient();
     void attendreConnexion();
@@ -35,7 +35,7 @@ class InitCubeServeur {
     thread member1Thread();
 
   private:
-    
+    bool ecriture;
     struct sockaddr_in ecoute;  //Structure de la socket
     int canal;  //canal de la socket du serveur
     int sockAccept; //canal de la socket venant de se connecter au serveur
