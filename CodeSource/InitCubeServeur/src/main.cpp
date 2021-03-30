@@ -1,39 +1,36 @@
 #include "Lib.h"
 #include "InitCubeServeur.h"
 #include <thread>
-#include "Commande.hpp"
 
 
-int main(){
-	Commande* c = new Commande("e");
-	c->extraireDonnees();
-	c->genererTrame();
-	
-}
-
-/*void ThreadConnexion();
+void ThreadConnexion();
 
 using namespace std;
 
 
 
 
- InitCubeServeur* serveur= new InitCubeServeur();
+InitCubeServeur* serveurEcouteJTP= new InitCubeServeur(9951,false);//json to protocol
+InitCubeServeur* serveurEcriturePTJ= new InitCubeServeur(9950,true);//protocol to json
 
 int main()
 {
-	thread* monThread = new thread(ThreadConnexion);
+	thread* monThreadEcoute = new thread(ThreadConnexionEcoute);
+	thread* monThreadEcriture = new thread(ThreadConnexionEcriture);
 	
-	monThread->join();
+	monThreadEcoute->join();
+	monThreadEcriture->join();
 
 	return 0;
 }
 
 
-void ThreadConnexion(){
+void ThreadConnexionEcoute(){
 	while(1)//Appel la methode d'écoute du serveur en boucle
-		serveur -> attendreConnexion();
+		serveurEcouteJTP -> attendreConnexion();
 }
-*/
 
-
+void ThreadConnexionEcriture(){
+	while(1)//Appel la methode d'écoute du serveur en boucle
+		serveurEcriturePTJ -> attendreConnexion();
+}

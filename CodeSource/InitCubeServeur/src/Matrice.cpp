@@ -11,7 +11,7 @@ Matrice::~Matrice() {
 void Matrice::extraireDonnee(char* trame){
     if(trame[NUM_TRAME] == compteur){
         caseFinM = trame[2] + 1;
-        caseDebutM = 16;
+        caseDebutM = DEBUT_TRAME;
         if(trame[NUM_TRAME] == 1){
             donneeExtraite = "";
         }
@@ -39,10 +39,21 @@ void Matrice::extraireDonnee(char* trame){
             }
         }
     }else{
-        perror("tramme precedente non complete");
+        perror("trame precedente non complete");
         if(trame[NUM_TRAME]==1){
             compteur = 1;
             extraireDonnee(trame);
         }
     }
 }
+
+string Matrice::genereTrame(){
+    json trame;
+    if(compteur = 1){
+        trame["instrument"]["matrice"] = donneeExtraite;
+        return trame.dump();
+    }
+    else{
+        perror("trame precedente non complete");
+    }
+}   
