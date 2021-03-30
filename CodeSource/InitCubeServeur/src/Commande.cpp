@@ -169,6 +169,13 @@ void Commande::extraireDonneesMee(){
     }
 }
 
+void Commande::extraireDonneesDat(){
+    if(trame["CMD"].find("DATE") != trame["CMD"].end()){
+        date =trame["CMD"]["DATE"];
+        date = "-DT"+ date;
+    }
+}
+
 char* Commande::genererTrame(){
     string trameInter;
     switch (CMD)
@@ -225,6 +232,7 @@ char* Commande::genererTrame(){
     trameF[2] = nbOctets;
     trameF[trameInter.length()+2] = '\n';
     calculerChecksum(trameF,trameF[trameInter.length()],trameF[trameInter.length()+1]);
+    testAfficherTrame(trameInter,trameF);
     return trameF;
 
 
@@ -234,7 +242,7 @@ void Commande::calculerChecksum(char* trameF,char & PF, char & pf){
     short Checksum=0;
     char leChecksum[2];
 
-    for (int i=1;i<nbOctets;i++)
+    for (int i=1;i<nbOctets+3;i++)
     {
         Checksum=Checksum^trameF[i];
     }

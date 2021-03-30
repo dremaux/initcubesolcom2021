@@ -21,6 +21,7 @@ private:
     void extraireDonneesMea();
     void extraireDonneesSta();
     void extraireDonneesMee();
+    void extraireDonneesDat();
     void testAfficherTrame(string trameInter, char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
     char nCommande[1];
     Cmd CMD;

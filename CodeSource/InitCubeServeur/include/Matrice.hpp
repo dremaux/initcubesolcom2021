@@ -1,5 +1,7 @@
 #pragma 
 #include "Lib.h"
+#define NBRE_TRAMES 9
+#define NUM_TRAME 10
 
 using namespace std;
 
@@ -12,8 +14,8 @@ public:
     string getDonneeExtraite(){return donneeExtraite;};
 
 private:
-    bool trameComplete = true;
     string donneeExtraite;
     int caseFinM;
     int caseDebutM;
+    int compteur = 1;
 };

@@ -9,16 +9,15 @@ Matrice::~Matrice() {
 }
 
 void Matrice::extraireDonnee(char* trame){
-    if(trame[10] != 1 || trameComplete == true){
-        trameComplete = false;
+    if(trame[NUM_TRAME] == compteur){
         caseFinM = trame[2] + 1;
         caseDebutM = 16;
-        if(trame[10] == 1){
+        if(trame[NUM_TRAME] == 1){
             donneeExtraite = "";
         }
     
-        if(trame[9] == trame[10]){
-            trameComplete = true;
+        if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
+            compteur = 1;//reset du compteur
             for(int i = caseDebutM+1; i < caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
                 if(trame[i]== ' '){
                     donneeExtraite = donneeExtraite + ',';
@@ -29,6 +28,7 @@ void Matrice::extraireDonnee(char* trame){
             }
         }
         else{
+            compteur ++;
             for(int i = caseDebutM+1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
                 if(trame[i]== ' '){
                     donneeExtraite = donneeExtraite + ',';
@@ -40,5 +40,9 @@ void Matrice::extraireDonnee(char* trame){
         }
     }else{
         perror("tramme precedente non complete");
+        if(trame[NUM_TRAME]==1){
+            compteur = 1;
+            extraireDonnee(trame);
+        }
     }
 }

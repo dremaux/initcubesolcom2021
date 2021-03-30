@@ -1,21 +1,23 @@
 #include "Lib.h"
 #include "InitCubeServeur.h"
 #include <thread>
-#include "Matrice.hpp"
+#include "Commande.hpp"
+
 
 int main(){
-	Matrice* m = new Matrice();
-	m->extraireDonnee();
-	cout<<m->getDonneeExtraite()<<endl;
-
+	Commande* c = new Commande("e");
+	c->extraireDonnees();
+	c->genererTrame();
+	
 }
+
 /*void ThreadConnexion();
 
 using namespace std;
 
 
 
-/*Variables globales
+
  InitCubeServeur* serveur= new InitCubeServeur();
 
 int main()
@@ -27,11 +29,11 @@ int main()
 	return 0;
 }
 
-/*Thread d'attente de connexion
+
 void ThreadConnexion(){
 	while(1)//Appel la methode d'écoute du serveur en boucle
 		serveur -> attendreConnexion();
 }
-
 */
+
 

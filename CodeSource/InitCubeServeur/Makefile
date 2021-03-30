@@ -1,4 +1,4 @@
-CXX		  := aarch64-linux-gnu-g++
+CXX		  := g++
 CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 
 
 
