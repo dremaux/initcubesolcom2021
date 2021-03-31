@@ -29,9 +29,9 @@
      * et retourne la ligne reçue sous forme d'une chaîne de caractère
      * \génère une exception boost::system::system_error en cas d'erreur
      */
-    std::string Serial::readLine()
+        std::string Serial::readLine()
     {
-        
+
         using namespace boost;
         char c;
         std::string result;
@@ -47,3 +47,5 @@
 				result+=c;	
         }
     }
+
+    

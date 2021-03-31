@@ -18,7 +18,7 @@ class Serial
      * génère exception "boost::system:system_error" si port série pas ouvrable.
     **/
     Serial(std::string port, unsigned int baud_rate);
-
+    
     /**
      * /// Ecrit une chaine de caratères à transmettre
      * paramètre "s": chaine de caractères que l'on veut transmettre
@@ -31,7 +31,7 @@ class Serial
      * la méthode rend la main dès qu'elle reçoit un retour chariot("\n")
      * génère une exception boost::system::system_error en cas d'erreur
     **/
-   std::string readLine();
-
+   char* readLine();
 };
-#endif /* SERIAL_H */ 
+
+#endif /* SERIAL_H */
