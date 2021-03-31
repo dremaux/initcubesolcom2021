@@ -11,11 +11,8 @@ class GestionCommandes {
         
 
         void transmettreDernieresCommandes();
-        DCommandes getDerieresCommandes(int nombreCommande);
+        void getDerieresCommandes(int nombreCommande);
 
     private:
-
-       DCommandes ;
-
 
 }
