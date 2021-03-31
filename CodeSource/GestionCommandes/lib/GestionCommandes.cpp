@@ -1,11 +1,13 @@
 #include <iostream>
 #include "../include/GestionCommandes.h"
 
-GestionCommandes::getDerniereCommande(){
+using namespace std;
 
+
+void GestionCommandes::transmettreDernieresCommandes(){
+    cout << "" << endl;
 }
 
-
-GestionCommandes::transmettreDerniereCommandes(){
-    
+GestionCommandes::DernieresCommandes(int){
+    cout << "" << endl;
 }

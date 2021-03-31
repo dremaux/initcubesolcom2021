@@ -1,4 +1,5 @@
 #include <iostream>
+#include "DernieresCommandes.h"
 
 using namespace std;
 
@@ -8,12 +9,13 @@ class GestionCommandes {
         GestionCommandes();
         ~GestionCommandes();
         
-        void transmettreDerniereCommandes();
-        DerniereCommandes getDerniereCommandes();
 
+        void transmettreDernieresCommandes();
+        DCommandes getDerieresCommandes(int nombreCommande);
 
     private:
-       
+
+       DCommandes ;
 
 
 }
