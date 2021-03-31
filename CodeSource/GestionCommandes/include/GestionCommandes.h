@@ -13,8 +13,7 @@ class GestionCommandes {
 
 
     private:
-
-        DerniereCommandes etat;        
+       
 
 
 }
