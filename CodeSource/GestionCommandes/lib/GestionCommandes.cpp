@@ -4,14 +4,13 @@
 
 using namespace std;
 
-
+// 
 void GestionCommandes::transmettreDernieresCommandes(){
-/*recupère les données de la trame JSON, 
-des derniere commandes en registrer et utilise*/
 
     cout << "" << endl;
 }
 
+// récupère les trames de la BDD 
 void GestionCommandes::DernieresCommandes(int){
     cout << "" << endl;
 }
