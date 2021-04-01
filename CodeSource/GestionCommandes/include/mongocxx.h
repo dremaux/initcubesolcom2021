@@ -20,6 +20,12 @@ using bsoncxx::builder::stream::open_document;
 
 using namespace std;
 
+    mongocxx::instance instance{};
+    mongocxx::client client{mongocxx::uri{}};
+
+    mongocxx::database db = client["initcube"];
+    mongocxx::collection coll = db["commande"];
+
 /*
 
 using bsoncxx::builder::basic::kvp;
