@@ -27,13 +27,20 @@ using namespace std;
 
     bool ComInitCube::attendreAck()
     {
-        /*if ()
+        const char* ack;
+        std::string result;
+
+        liaisonSerie->readLine();
+
+        if (ack=="ack")
         {
-            
+            cout << "commande reçue par le cube" << endl;
+            return ack;
         }
         else
         {
-
-        }*/
+            cout << "le cube n'a pas envoyé de réponse ..." << endl;
+            result+=ack;
+        }
         
     }
