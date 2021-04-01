@@ -9,10 +9,7 @@ class GestionCommandes {
         GestionCommandes();
         ~GestionCommandes();
         
-
+        getDerieresCommandes(int nombreCommandes);
         void transmettreDernieresCommandes();
-        void getDerieresCommandes(int nombreCommande);
-
-    private:
 
 }
