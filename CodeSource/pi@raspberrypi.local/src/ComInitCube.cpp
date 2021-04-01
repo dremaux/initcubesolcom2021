@@ -13,7 +13,7 @@ using namespace std;
    void ComInitCube::transmettreTrame(std::string s)
     {
         liaisonSerie->writeString(s);
-
+        attendreAck();
     }
 
     void ComInitCube::lireTrame(std::string s)
@@ -21,26 +21,22 @@ using namespace std;
         int a =1; //La constante "a" va nous permettre de faire une boucle infinie
         string message; //La variable qui va nous servir pour le message
         Serial maLiaisonSerie("/dev/ttyS0",9600); //Parametrer le débit et le port d'arrivé du message
-            message = maLiaisonSerie.readLine(); //On stocke le message reçu de la liaison série dans "message"
-            cout << "Message reçu : " << message << endl; // affiche le message reçu
+        message = maLiaisonSerie.readLine(); //On stocke le message reçu de la liaison série dans "message"
+        cout << "Message reçu : " << message << endl; // affiche le message reçu
     }
 
     bool ComInitCube::attendreAck()
     {
-        const char* ack;
-        std::string result;
-
+        string result;
         liaisonSerie->readLine();
-
-        if (ack=="ack")
+        if (result.find("ACK"))
         {
             cout << "commande reçue par le cube" << endl;
-            return ack;
+            return true;
         }
         else
         {
             cout << "le cube n'a pas envoyé de réponse ..." << endl;
-            result+=ack;
+            return false;
         }
-        
     }
