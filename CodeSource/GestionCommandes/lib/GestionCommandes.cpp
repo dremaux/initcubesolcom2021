@@ -1,9 +1,9 @@
-#include <json.hpp>
+#include <../include/json.hpp>
 #include "../include/GestionCommandes.h"
 #include "../include/mongocxx.h"
 
 
-// 
+// fait un Cout de derniereCommandes
 void GestionCommandes::transmettreDernieresCommandes(){
 
     cout << "" << endl;
@@ -12,17 +12,13 @@ void GestionCommandes::transmettreDernieresCommandes(){
 // récupère les trames de la BDD 
 void GestionCommandes::DernieresCommandes(int){
     
-    mongocxx::instance instance{};
-    mongocxx::client client{mongocxx::uri{}};
 
-    mongocxx::database db = client["initcube"];
-    mongocxx::collection coll = db["commande"];
+   mongocxx::cursor cursor = coll.find({"CMD.DATE": "16"});
+for(auto doc : cursor) {
+cout << bsoncxx::to_json(doc) << endl;
+}
 
 
-    // affiche tout les éléments de la collection
-    mongocxx::cursor cursor = coll.find({});
-    for(auto doc : cursor) {
-    cout << bsoncxx::to_json(doc) << endl;
 }
 
 }
