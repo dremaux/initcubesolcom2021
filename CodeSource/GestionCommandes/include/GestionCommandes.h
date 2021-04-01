@@ -1,7 +1,3 @@
-#include <iostream>
-#include "DernieresCommandes.h"
-
-using namespace std;
 
 class GestionCommandes {
     public:
@@ -9,7 +5,11 @@ class GestionCommandes {
         GestionCommandes();
         ~GestionCommandes();
         
-        getDerieresCommandes(int nombreCommandes);
+        int GetDCommandes(int nombreCommandes);
         void transmettreDernieresCommandes();
+    
+    private:
+
+        int DCommandes;
 
 }
