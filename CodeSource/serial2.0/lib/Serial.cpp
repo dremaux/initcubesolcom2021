@@ -40,7 +40,7 @@
 			//lecture caractère par caractère            
 			asio::read(serial,asio::buffer(&c,1));
 			//retour de la chaîne de caractère coplète en cas de réception du retour chariot			
-			if (c==0x0a)
+			if (c==255)
 				return result;
 			//sinon ajout du carctère reçu à la chaiîne de caractère			
 			else
