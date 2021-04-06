@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-#include <bsoncxx/json.hpp>
+#include "../lib/json.hpp"
 #include <mongocxx/client.hpp>
 #include <mongocxx/stdx.hpp>
 #include <mongocxx/uri.hpp>

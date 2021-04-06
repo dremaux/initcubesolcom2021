@@ -1,12 +1,11 @@
-#include "json.hpp"
-#include "GestionCommandes.h"
-#include "mongocxx.h"
+#include "../include/GestionCommandes.h"
+#include "../include/mongocxx.h"
 
 // récupère les trames de la BDD 
-void GestionCommandes::DCommandes(int){
+int GestionCommandes::DCommandes(int){
     
 //on trouve l'info
-int mongocxx::cursor cursor = coll.find({"CMD.DATE": { $gt:"16"}});
+int mongocxx::cursor cursor = coll.find({"CMD.DATE": { $gt:"15"}});
     for(auto doc : cursor) {
         cout << bsoncxx::to_json(doc) << endl;
     }
@@ -16,7 +15,7 @@ return DCommandes;
 
 
 // fait un Cout de derniereCommandes
-void GestionCommandes::transmettreDernieresCommandes(){
+void GestionCommandes::TDCommandes(){
 
     cout << "" << endl;
 }
