@@ -1,9 +1,21 @@
 /// Les Inclusions
 #include <iostream>
 #include "../include/ComInitCube.h"
-//#include "../include/serialib.h"
+
 
 using namespace std;
+
+
+int main()
+{
+    ComInitCube* maLiaisonSerie;
+    maLiaisonSerie = new ComInitCube("dev/ttyS0",9600);
+    string message = "Bonjour!"; //La variable qui va nous servir pour le message
+    maLiaisonSerie->transmettreTrame(message); //On stocke le message pour l'envoyer dans "message"
+    cout << "Message envoyé : " << message << endl;
+}
+
+
 /*
 ///Code principal("main")
 int main()
@@ -86,12 +98,3 @@ int serveurEcoute()
         }
     }
 */
-
-int main()
-{
-    string message; //La variable qui va nous servir pour le message
-    Serial maLiaisonSerie("/dev/ttyS0",9600); //Parametrer le débit et le port d'arrivé du message
-
-    maLiaisonSerie.writeString("Bonjour!"); //On stocke le message pour l'envoyer dans "message"
-    cout << "Message envoyé : " << message << endl;
-}

@@ -1,14 +1,13 @@
 #ifndef COMINITCUBE_H
 #define COMINITCUBE_H
 #include <Serial.h>
-#include <timercpp.h>
 
 
 class ComInitCube
 {
     private:
     bool attendreAck();
-    Serial* maLiaisonSerie;
+    Serial* liaisonSerie;
 
     public:
 
