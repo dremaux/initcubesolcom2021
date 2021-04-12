@@ -1,6 +1,7 @@
 #include "../include/Serial.h"
+#include <iostream>
 
-
+using namespace std;
     /**
      * Constructeur.
      * \paramètre port : nom du device, exemple "/dev/ttyUSB0" ou "/dev/ttyAMA0" sous R-Pi
@@ -14,9 +15,9 @@
     }
 
     /**
-     * Ecrit une chaîne de caractères sur le port série.
-     * paramètre "s" : chaîne de caractères à transmettre
-     * Génère une exception boost::system::system_error en cas d'erreur
+     * Ecrit une chaîne de caractère sur le port série.
+     * \paramètre s : chaîne de caractère à transmettre
+     * \génère une exception boost::system::system_error en cas d'erreur
      */
     void Serial::writeString(std::string s)
     {
@@ -25,27 +26,34 @@
 
     /**
      * Méthode blocante jusqu'à réception d'une ligne (ou trame) sur le port série
-     * la méthode rends la main quand elle reçois un caractère "255"
-     * et retourne la ligne reçue sous forme d'une chaîne de caractères
-     * Génère une exception boost::system::system_error en cas d'erreur
+     * la méthode rend la main à réception d'un caractère retour chariot ('\r')
+     * et retourne la ligne reçue sous forme d'une chaîne de caractère
+     * \génère une exception boost::system::system_error en cas d'erreur
      */
-        std::string Serial::readLine()
+    char* Serial::readLine()
     {
 
         using namespace boost;
+
+        std::string buff;
         char c;
-        std::string result;
         for(;;)
         {
 			//lecture caractère par caractère            
 			asio::read(serial,asio::buffer(&c,1));
-			//retour de la chaîne de caractère complète en cas de réception de "255"		
-			if (c==255)
-				return result;
-			//sinon ajout du carctère reçu à la chaîne de caractères			
+			//retour de la chaîne de caractère coplète en cas de réception du retour chariot			
+			if (c==0x0a)
+			{   
+                char result[buff.length()];
+                strcpy(result,buff.c_str());
+                return result;
+            }
+        
+			//sinon ajout du carctère reçu à la chaîne de caractère			
 			else
-				result+=c;	
+			{
+                buff  +=c;
+            }
+
         }
     }
-
-    

@@ -1,12 +1,12 @@
 CXX		  := g++
-CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++17
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
 
 BIN		:= bin
 SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
 
-LIBRARIES	:= -lboost_system -lpthread
+LIBRARIES	:=
 EXECUTABLE	:= main
 
 
