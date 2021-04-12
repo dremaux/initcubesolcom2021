@@ -3,18 +3,10 @@
 
 
 Commande::Commande(string tJson,int numeroCommande):trame(tJson){
-    trame =R"({ "INITCUBE": {
-            "ID": 1,
-            "INSTRUMENT": [
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"temperature","ID":"TC","TYPE":"simple"}},
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"matrice","ID":"PIX","TYPE":"matrice"}}
-                ],
-            "TYPE": "STATUS",
-            "TYPEMEASURE": "PIX",
-            "PERIODE": 10,
-            "DUREE": 100,
-            "DATE": "2021/03/10 15:55:30",
-            "SAVE":""
+    trame =R"({ "CMD": {
+            "ID": "1",
+            "TYPE": "MEASURE",
+            "TYPEMEASURE": "TC"
             }
         })"_json;
 
@@ -37,7 +29,7 @@ Commande::~Commande() {
 }
 
 void Commande::extraireDonnees(){
-    if(trame.find("CMD") != trame.end() && trame["CMD"].find("ID") != trame["CMD"].end()){
+    if(trame.find("CMD") != trame.end() && trame["CMD"].find("ID") != trame["CMD"].end() && trame["CMD"].find("TYPE") != trame["CMD"].end()){
         id = trame["CMD"]["ID"];
         cmd = trame["CMD"]["TYPE"];
         if(cmd == "MISSION"){
@@ -180,7 +172,7 @@ void Commande::extraireDonneesDat(){
     }
 }
 
-char* Commande::genererTrame(){
+string Commande::genererTrame(){
     string trameInter;
     switch (CMD)
     {
@@ -228,16 +220,18 @@ char* Commande::genererTrame(){
         break;
     }
     nbOctets = trameInter.length();
-    trameInter = "~  " + trameInter ; //les deux espace sont pour le 2eme octet de id et pour le nombre d'octets dans le payload 
+    trameInter = "   " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
     
     char trameF[trameInter.length()+3];
     strcpy(trameF, trameInter.c_str());
+    trameF[0] = 255;
     trameF[1] = stoi(id,nullptr);
     trameF[2] = nbOctets;
     trameF[trameInter.length()+2] = '\n';
     calculerChecksum(trameF,trameF[trameInter.length()],trameF[trameInter.length()+1]);
-    testAfficherTrame(trameInter,trameF);
-    return trameF;
+    //testAfficherTrame(trameInter,trameF);
+    string s(trameF);
+    return s;
 
 
 }
@@ -264,4 +258,8 @@ void Commande::testAfficherTrame(string trameInter, char* trameF){
     }
     cout<<(int)trameF[1]<<" "<<(int)trameF[2]<<endl;
     cout<<trameInter<<endl;
+}
+
+void Commande::setTrame(string trame){
+    this->trame = trame; 
 }

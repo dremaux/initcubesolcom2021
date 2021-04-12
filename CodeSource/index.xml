@@ -16,12 +16,12 @@
 
 	<etat>
 		<date>2019-02-13 12:12:36</date>
-    <bord>
-		   <temperature unite="°C" seuilAlerteHaut="90" seuilAlerteBas="-50">45</temperature>
-    </bord>
-    <processeur>
-       <temperature unite="°C" seuilAlerteHaut="70" seuilAlerteBas="-50">45</temperature>
-    </processeur>
+    	<bord>
+			   <temperature unite="°C" seuilAlerteHaut="90" seuilAlerteBas="-50">45</temperature>
+	    </bord>
+	    <processeur>
+	       <temperature unite="°C" seuilAlerteHaut="70" seuilAlerteBas="-50">45</temperature>
+	    </processeur>
 		<batterie>
 			<capacite unite="mAh">10000</capacite>
 			<niveauCharge unite="%" seuilAlerte="10">65</niveauCharge>

@@ -12,7 +12,8 @@ public:
     Commande(string json);
     ~Commande();
     void extraireDonnees();
-    char* genererTrame();
+    string genererTrame();
+    void setTrame(string trame);
 
 
 private:

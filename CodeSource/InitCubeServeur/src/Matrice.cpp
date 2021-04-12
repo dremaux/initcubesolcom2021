@@ -1,17 +1,19 @@
 #include "Matrice.hpp"
 
 Matrice::Matrice() {
-    
+    security = false;
+    compteur = 1;
 }
 
 Matrice::~Matrice() {
 
 }
 
-void Matrice::extraireDonnee(char* trame){
+void Matrice::extraireDonnee(char* trame, int nbOctetType){
     if(trame[NUM_TRAME] == compteur){
-        caseFinM = trame[2] + 1;
-        caseDebutM = DEBUT_TRAME;
+        security = false;
+        caseFinM = trame[2] + 2;
+        caseDebutM = DEBUT_TRAME + nbOctetType;
         if(trame[NUM_TRAME] == 1){
             donneeExtraite = "";
         }
@@ -40,21 +42,24 @@ void Matrice::extraireDonnee(char* trame){
         }
     }else{
         cout<<"trame precedente non complete"<<endl;
+        security = true;
         if(trame[NUM_TRAME]==1){
             cout<<"debut nouvelle trame abandon de la precedente"<<endl;
             compteur = 1;
-            extraireDonnee(trame);
+            extraireDonnee(trame,nbOctetType);
         }
     }
 }
 
 string Matrice::genereTrame(){
     json trame;
-    if(compteur = 1){
+    if(compteur == 1 && security == false){
         trame["instrument"]["matrice"] = donneeExtraite;
         return trame.dump();
     }
     else{
-        cout<<"trame precedente non complete"<<endl;
+        cout<<"trame precedente pas fini"<<endl;
+        return "";
+        
     }
 }   
