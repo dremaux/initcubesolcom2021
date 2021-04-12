@@ -3,12 +3,16 @@
 
 
 Commande::Commande(string tJson,int numeroCommande):trame(tJson){
-    trame =R"({ "CMD": {
-            "ID": "1",
+    trame =R"({ "INITCUBE": {
+            "ID": 1,
+            "INSTRUMENT": [
+                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"temperature","ID":"TC","TYPE":"simple"}},
+                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"matrice","ID":"PIX","TYPE":"matrice"}}
+                ],
             "TYPE": "STATUS",
             "TYPEMEASURE": "PIX",
-            "PERIODE": "10",
-            "DUREE": "100",
+            "PERIODE": 10,
+            "DUREE": 100,
             "DATE": "2021/03/10 15:55:30",
             "SAVE":""
             }

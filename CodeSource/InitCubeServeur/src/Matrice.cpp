@@ -39,8 +39,9 @@ void Matrice::extraireDonnee(char* trame){
             }
         }
     }else{
-        perror("trame precedente non complete");
+        cout<<"trame precedente non complete"<<endl;
         if(trame[NUM_TRAME]==1){
+            cout<<"debut nouvelle trame abandon de la precedente"<<endl;
             compteur = 1;
             extraireDonnee(trame);
         }
@@ -54,6 +55,6 @@ string Matrice::genereTrame(){
         return trame.dump();
     }
     else{
-        perror("trame precedente non complete");
+        cout<<"trame precedente non complete"<<endl;
     }
 }   
