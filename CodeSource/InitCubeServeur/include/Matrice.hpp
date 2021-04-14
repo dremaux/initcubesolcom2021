@@ -1,4 +1,4 @@
-#pragma 
+#pragma once
 #include "Lib.h"
 #define NBRE_TRAMES 10
 #define NUM_TRAME 11
@@ -13,7 +13,7 @@ public:
     Matrice();
     ~Matrice();
     void extraireDonnee(char* trame, int nbOctetType);
-    string genereTrame();
+    string genereTrame(string nom);
 
 private:
     bool security;
