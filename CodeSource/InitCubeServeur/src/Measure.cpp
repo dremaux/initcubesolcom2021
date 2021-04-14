@@ -1,11 +1,21 @@
 #include "Measure.hpp"
 
 Measure::Measure(){
-
+    reponse = "";
+    trame = "";
+    type = "";
+    matrice = new Matrice();
+    simple = new Simple();
+    image = new Image();
 }
 
 Measure::Measure(string trame):trame(trame) {
-
+    reponse = "";
+    trame = "";
+    type = "";
+    matrice = new Matrice();
+    simple = new Simple();
+    image = new Image();
 }
 
 void Measure::identifierType(){
@@ -24,6 +34,7 @@ void Measure::setTrame(string trame){
 }
 
 string Measure::genererTrame(){
+    char* trameC = (char*)trame.c_str();
     json instrument;
     instrument =R"({
         "INITCUBE": {
@@ -42,17 +53,27 @@ string Measure::genererTrame(){
             if(type == id){
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
                 if(typeMesure == "simple"){
-                    simple->extraireDonner((char*)trame.c_str(),type.length());
+                    simple->extraireDonner(trameC,type.length());
                     reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"],instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     return reponse;
                 }
                 if(typeMesure == "matrice"){
-                    matrice->extraireDonnee((char*)trame.c_str(),type.length());
-                    reponse = matrice->genereTrame();
-                    return reponse;
+                    matrice->extraireDonnee(trameC,type.length());
+                    if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
+                        reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"]);
+                        return reponse;
+                    }
+                    
                 }
                 if(typeMesure == "image"){
-                    cout<<"appel methode image"<<endl;
+                    image->extraireDonnee(trameC,type.length());
+                    if(trame[NBRE_TRAMES] == trame[NUM_TRAME] && trame[NBRE_SECTION] == trame[NUM_SECTION]){
+                        time_t now = time(0);
+                        string dt = ctime(&now);
+                        image->setName(dt);
+                        reponse = image->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"]);
+                        return reponse;
+                    }
                 }
             }
         }
