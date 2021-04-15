@@ -25,7 +25,7 @@ Commande::Commande(string tJson):trame(tJson){
 }
 
 Commande::~Commande() {
-
+    
 }
 
 void Commande::extraireDonnees(){
@@ -222,21 +222,21 @@ string Commande::genererTrame(){
     nbOctets = trameInter.length();
     trameInter = "   " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
     
-    char trameF[trameInter.length()+3];
-    strcpy(trameF, trameInter.c_str());
-    trameF[0] = 255;
+    unsigned char trameF[trameInter.length()+3];
+    memcpy(trameF,trameInter.c_str(),trameInter.length());
+    trameF[0] = '~';
     trameF[1] = stoi(id,nullptr);
     trameF[2] = nbOctets;
-    trameF[trameInter.length()+2] = '\n';
+    trameF[trameInter.length()+2] = 255;
     calculerChecksum(trameF,trameF[trameInter.length()],trameF[trameInter.length()+1]);
     //testAfficherTrame(trameInter,trameF);
-    string s(trameF);
+    string s(reinterpret_cast<char*>(trameF));
     return s;
 
 
 }
 
-void Commande::calculerChecksum(char* trameF,char & PF, char & pf){
+void Commande::calculerChecksum(unsigned char* trameF,unsigned char & PF, unsigned char & pf){
     short Checksum=0;
     char leChecksum[2];
 

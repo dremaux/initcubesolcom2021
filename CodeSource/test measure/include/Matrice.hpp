@@ -7,15 +7,18 @@
 using namespace std;
 using json = nlohmann::json;
 
-class Simple {
+class Matrice {
 
 public:
-    Simple();
-    void extraireDonner(char* trame, int nbOctetType);
-    string genererTrame(string nom,string unite);
-    ~Simple();
+    Matrice();
+    ~Matrice();
+    void extraireDonnee(char* trame, int nbOctetType);
+    string genereTrame(string nom);
+
 private:
+    bool security;
     string donneeExtraite;
     int caseFinM;
     int caseDebutM;
+    int compteur;
 };

@@ -11,7 +11,7 @@ class Simple {
 
 public:
     Simple();
-    void extraireDonner(char* trame, int nbOctetType);
+    void extraireDonner(char* trame, int nbOctetType, string unite);
     string genererTrame(string nom,string unite);
     ~Simple();
 private:

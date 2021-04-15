@@ -17,7 +17,7 @@ public:
 
 
 private:
-    void calculerChecksum(char* trameF,char & PF, char & pf);
+    void calculerChecksum(unsigned char* trameF,unsigned char & PF,unsigned char & pf);
     void extraireDonneesMis();
     void extraireDonneesMea();
     void extraireDonneesSta();
