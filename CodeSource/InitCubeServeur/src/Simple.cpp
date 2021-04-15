@@ -4,12 +4,15 @@ Simple::Simple() {
 
 }
 
-void Simple::extraireDonner(char* trame, int nbOctetType){
+void Simple::extraireDonner(char* trame, int nbOctetType, string unite){
     caseFinM = trame[2] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;
     donneeExtraite = "";
     for(int i = caseDebutM+1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
-        if(trame[i] != ' '){
+        if(trame[i] == ' '){
+            donneeExtraite = donneeExtraite + unite + " ";
+        }
+        else{
             donneeExtraite = donneeExtraite + trame[i];
         }
     }

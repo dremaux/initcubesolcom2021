@@ -63,7 +63,7 @@ string Measure::genererTrame(){
             if(type == id){
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
                 if(typeMesure == "simple"){
-                    simple->extraireDonner(trameC,type.length());
+                    simple->extraireDonner(trameC,type.length(),instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"],instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     return reponse;
                 }
