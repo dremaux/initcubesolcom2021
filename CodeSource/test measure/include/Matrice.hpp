@@ -13,7 +13,7 @@ public:
     Matrice();
     ~Matrice();
     void extraireDonnee(char* trame, int nbOctetType);
-    string genereTrame(string nom);
+    string genereTrame(string nom, string type);
 
 private:
     bool security;

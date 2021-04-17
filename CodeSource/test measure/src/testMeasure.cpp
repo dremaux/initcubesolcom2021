@@ -11,6 +11,8 @@ void testSimple();
 int main()
 {
     testSimple();
+    testMatrice();
+    testImage();
 	return 0;
 }
 
