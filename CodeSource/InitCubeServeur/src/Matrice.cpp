@@ -51,10 +51,12 @@ void Matrice::extraireDonnee(char* trame, int nbOctetType){
     }
 }
 
-string Matrice::genereTrame(string nom){
+string Matrice::genereTrame(string nom, string type){
     json trame;
     if(compteur == 1 && security == false){
-        trame["instrument"][nom] = donneeExtraite;
+        trame["instrument"]["name"] = nom;
+        trame["instrument"]["type mesure"] = type;
+        trame["instrument"]["donnée"] = donneeExtraite;
         return trame.dump();
     }
     else{

@@ -64,13 +64,13 @@ string Measure::genererTrame(){
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
                 if(typeMesure == "simple"){
                     simple->extraireDonner(trameC,type.length(),instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
-                    reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"],instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
+                    reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     return reponse;
                 }
                 if(typeMesure == "matrice"){
                     matrice->extraireDonnee(trameC,type.length());
                     if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
-                        reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"]);
+                        reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]);
                         return reponse;
                     }
                     
@@ -86,7 +86,7 @@ string Measure::genererTrame(){
                         string dt = ctime(&now);
                         dt.erase(dt.length()-1,1);//supprime le \n de fin
                         image->genereImage(dt);
-                        reponse = image->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"]);
+                        reponse = image->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]);
                         return reponse;
                     }
                 }

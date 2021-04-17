@@ -12,7 +12,7 @@ class Simple {
 public:
     Simple();
     void extraireDonner(char* trame, int nbOctetType, string unite);
-    string genererTrame(string nom,string unite);
+    string genererTrame(string nom, string type, string unite);
     ~Simple();
 private:
     string donneeExtraite;
