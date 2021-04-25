@@ -10,8 +10,6 @@ void testSimple();
 
 int main()
 {
-    testSimple();
-    testMatrice();
     testImage();
 	return 0;
 }
@@ -129,9 +127,7 @@ void testImage(){
     trameI[68] = '7';
     trameI[69] = 255;
     
-
     string s;
-    int t = 0;
     for(int y = 1; y <= 240; y++){
         for(int x = 1; x <= 20; x++){
             for(int i = 19; i < 67; i++){

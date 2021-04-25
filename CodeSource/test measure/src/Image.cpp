@@ -7,13 +7,14 @@ ofstream myFile;
 Image::Image() {
     
     security = false;
-    compteurT = 1;
+    compteurL = 1;
     compteurS = 1;
     iterateur = 0;
 }
 
 void Image::extraireDonnee(unsigned char* trame, int nbOctetType){
-    if(trame[NUM_LIGNE] == compteurT && trame[NUM_SECTION] == compteurS){
+    cout<<(int)trame[NUM_LIGNE]<<"|"<<compteurL<<"|"<<(int)trame[NUM_SECTION]<<"|"<<compteurS<<endl;
+    if(trame[NUM_LIGNE] == compteurL && trame[NUM_SECTION] == compteurS){
         security = false;
         caseFinM = trame[2] + 3;
         caseDebutM = DEBUT_TRAME_IMAGE + nbOctetType;
@@ -22,11 +23,11 @@ void Image::extraireDonnee(unsigned char* trame, int nbOctetType){
                 donneeExtraite[i] = 0;
             }    
         }
-    
+
         if(trame[NBRE_LIGNES] == trame[NUM_LIGNE] && trame[NBRE_SECTION] == trame[NUM_SECTION]){
-            compteurT = 1;
+            compteurL = 1;
             compteurS = 1;//reset des compteur
-            for(int i = caseDebutM+1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
+            for(int i = caseDebutM + 1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
                 donneeExtraite[iterateur] = trame[i];
                 iterateur ++;
             }
@@ -34,7 +35,7 @@ void Image::extraireDonnee(unsigned char* trame, int nbOctetType){
         }
         else if(trame[NBRE_SECTION] == trame[NUM_SECTION]){
             compteurS = 1;//reset du compteur
-            compteurT ++;
+            compteurL ++;
             for(int i = caseDebutM+1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
                 donneeExtraite[iterateur] = trame[i];
                 iterateur ++;
@@ -50,9 +51,9 @@ void Image::extraireDonnee(unsigned char* trame, int nbOctetType){
     }else{
         cout<<"trame precedente non complete"<<endl;
         security = true;
-        if(trame[NUM_LIGNE] == 1 && trame[NUM_SECTION] == 1){
+        if(trame[NUM_LIGNE] == 1 && trame[NUM_SECTION] == 0){
             cout<<"debut nouvelle trame abandon de la precedente"<<endl;
-            compteurT = 1;
+            compteurL = 1;
             compteurS = 1;
             extraireDonnee(trame,nbOctetType);
         }
@@ -64,13 +65,12 @@ void myOutput(unsigned char byte){
     myFile << byte;
 }
 
-bool Image::genereImage(string nom){
+bool Image::genereImage(string nom, int width, int height){
     nom = "./images/"+nom+".jpg";
     name = nom;
+    this->width = width;
+    this->height = height;
     myFile.open(nom, std::ios_base::out | std::ios_base::binary);
-    // 800x600 image
-    width  = 320;
-    height = 240;
     // RGB: one byte each for red, green, blue
     const auto bytesPerPixel = 3;
     // allocate memory
@@ -104,7 +104,7 @@ bool Image::genereImage(string nom){
 
 string Image::genereTrame(string nom, string type){
     json trame;
-    if(compteurT == 1 && compteurS == 1 && security == false){
+    if(compteurL == 1 && compteurS == 1 && security == false){
         trame["instrument"]["name"] = nom;
         trame["instrument"]["type mesure"] = type;
         trame["instrument"]["donnée"]["chemin"] = name;
