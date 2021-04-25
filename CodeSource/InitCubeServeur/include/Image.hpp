@@ -16,7 +16,7 @@ class Image {
 public:
     Image();
     void extraireDonnee(unsigned char* trame, int nbOctetType);
-    bool genereImage(string nom);
+    bool genereImage(string nom, int width, int height);
     string genereTrame(string nom, string type);
     ~Image();
     
@@ -27,7 +27,7 @@ private:
     unsigned char donneeExtraite[NB_PIXEL_IMAGE];
     int caseFinM;
     int caseDebutM;
-    int compteurT;
+    int compteurL;
     int compteurS;
     int iterateur;
     int height;
