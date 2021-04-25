@@ -8,10 +8,11 @@ using json = nlohmann::json;
 class Commande {
 
 public:
+    Commande();
     Commande(string json,int numeroCommande);
     Commande(string json);
     ~Commande();
-    void extraireDonnees();
+    int extraireDonnees();
     string genererTrame();
     void setTrame(string trame);
 

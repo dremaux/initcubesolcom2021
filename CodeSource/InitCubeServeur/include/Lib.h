@@ -13,6 +13,7 @@
 
 #ifndef LIB_H
 #define LIB_H
+#include <math.h>
 #include "json.hpp"
 #include <chrono>
 #include <arpa/inet.h>

@@ -22,24 +22,23 @@ using namespace std;
 
 class InitCubeServeur {
   public:
-    InitCubeServeur(int port,bool ecoute);
+    InitCubeServeur(int port);
     virtual ~InitCubeServeur();
-    void multiClient();
-    void attendreConnexion();
+    int attendreConnexion();
     void transmettre(char* message,int taille);
     string genFakeInstrumentFrame();
 	  string genFakeStateFrame();
     int attendreCommande(int fd);
     void afficherCommande(string buff);
-    void nouvelleConnexion();
-    thread member1Thread();
+    vector <string> getReçu(){return reçu;}
 
   private:
-    bool ecriture;
     struct sockaddr_in ecoute;  //Structure de la socket
     int canal;  //canal de la socket du serveur
     int sockAccept; //canal de la socket venant de se connecter au serveur
-    vector <int> connexions; //collection des canaux connectés au serveur 
+    vector <int> connexionsV; //collection des canaux connectés au serveur 
+    map <int,int> connexions; //collection des canaux connectés au serveur 
+    int iterateur;
     vector <string> reçu; //collection de commande reçu
     
 };

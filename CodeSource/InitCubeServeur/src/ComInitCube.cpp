@@ -1,42 +1,37 @@
-#include <iostream>
-#include <../include/ComInitCube.h>
+#include "ComInitCube.h"
 
+ComInitCube::ComInitCube(string port, unsigned int baud_rate){
 
-using namespace std;
+    cout << "Mise en place du service d'envoi de trame" << endl;
+    liaisonSerie = new Serial(port,baud_rate);
+
+}
+
+void ComInitCube::transmettreTrame(string s){
+    liaisonSerie->writeString(s);
+    attendreAck();
+}
+
+void ComInitCube::lireTrame(string s){
     
-    ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
-    {
-        cout << "Mise en place du service d'envoi de trame" << endl;
-        liaisonSerie = new Serial(port,baud_rate);
-    }
+    string message; //La variable qui va nous servir pour le message
+    Serial maLiaisonSerie("/dev/ttyS0",9600); //Parametrer le débit et le port d'arrivé du message
+    message = maLiaisonSerie.readLine(); //On stocke le message reçu de la liaison série dans "message"
+    cout << "Message reçu : " << message << endl; // affiche le message reçu
+}
 
-   void ComInitCube::transmettreTrame(std::string s)
-    {
-        liaisonSerie->writeString(s);
-        attendreAck();
-    }
+bool ComInitCube::attendreAck(){
 
-    void ComInitCube::lireTrame(std::string s)
+    string result;
+    liaisonSerie->readLine();
+    if (result.find("ACK"))
     {
-        int a =1; //La constante "a" va nous permettre de faire une boucle infinie
-        string message; //La variable qui va nous servir pour le message
-        Serial maLiaisonSerie("/dev/ttyS0",9600); //Parametrer le débit et le port d'arrivé du message
-        message = maLiaisonSerie.readLine(); //On stocke le message reçu de la liaison série dans "message"
-        cout << "Message reçu : " << message << endl; // affiche le message reçu
+        cout << "commande reçue par le cube" << endl;
+        return true;
     }
-
-    bool ComInitCube::attendreAck()
+    else
     {
-        string result;
-        liaisonSerie->readLine();
-        if (result.find("ACK"))
-        {
-            cout << "commande reçue par le cube" << endl;
-            return true;
-        }
-        else
-        {
-            cout << "le cube n'a pas envoyé de réponse ..." << endl;
-            return false;
-        }
+        cout << "le cube n'a pas envoyé de réponse ..." << endl;
+        return false;
     }
+}

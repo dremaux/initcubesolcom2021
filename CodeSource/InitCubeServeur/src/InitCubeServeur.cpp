@@ -27,8 +27,9 @@ using namespace std;
 port = num port du serveur
 ecriture = true si c'est un serveur qui ecrit sur le cgi ou false si il les ecoutes
  */
-InitCubeServeur::InitCubeServeur(int port,bool ecriture):ecriture(ecriture) {
-	ecoute.sin_port=htons(port);//port d'écoute.
+InitCubeServeur::InitCubeServeur(int port){
+	iterateur = 0;
+    ecoute.sin_port=htons(port);//port d'écoute.
 	ecoute.sin_addr.s_addr=inet_addr(ADRESSE);
 	ecoute.sin_family=AF_INET;
 	canal=socket(AF_INET, SOCK_STREAM,0);//Création de la socket
@@ -44,12 +45,13 @@ InitCubeServeur::InitCubeServeur(int port,bool ecriture):ecriture(ecriture) {
 		exit(0);
 	}
 }
-
-void InitCubeServeur::attendreConnexion(){
+//retourne la position de la socket dans la map
+int InitCubeServeur::attendreConnexion(){
+    
     if(listen(canal, NB_CLIENT_MAX)<0){//Ecoute du canal de la socket
 		close(canal);
 		perror("Erreur d'ecoute de la socket.");
-		exit(0);
+		return -1;
 	}
    	cout << "En Attente De Connexion:"<<endl;
     socklen_t taille_ecoute = sizeof(ecoute);//Taille de la socket
@@ -57,21 +59,21 @@ void InitCubeServeur::attendreConnexion(){
     if(connexions.size()< NB_CLIENT_MAX){
         cout << "Connexion d'un nouveau client."<<endl;
     	if(sockAccept<0){
-                close(canal);
-                perror("Erreur d'acceptation de la socket.");
-             exit(0);
+            close(canal);
+            perror("Erreur d'acceptation de la socket.");
+            return -1;
         }
 	    //Ajout de la socket à la liste des clients
-        connexions.push_back(sockAccept);
-        if(ecriture == false){
-            nouvelleConnexion();
-        }
+        iterateur++;
+        connexions[iterateur] = sockAccept;
+        connexionsV.push_back(sockAccept);
 	    cout << "Nombre de clients connectés : " << connexions.size() << endl;
+        return iterateur;
     }
     else{
         close(sockAccept);
         cout<<"Trop de client connectés"<<endl;
-        
+        return -1;
     }
 }
 
@@ -85,37 +87,23 @@ int InitCubeServeur::attendreCommande(int n){
     for (i=0; i<TAILLEBUFFER; i++){
         buffer[i] = 0;
     }
-
     retour = recv(connexions[n], buffer,TAILLEBUFFER , 0);
     
     
     if(retour==0){
         perror("Client partie");
         
-        close(connexions[n]);
-        connexions.erase( connexions.begin()+n);
+        connexions.erase(n);
         cout << "Nombre de clients connectés : " << connexions.size() << endl;
         cout << "En Attente De Connexion:"<<endl;
         return(-1);
     
     }
     else{
-        cout<<"valeur buffer"<<retour<<endl;
         reçu.push_back(buffer);
-        afficherCommande(reçu.back());
         send(connexions[n],"ACK",3,0);
     }
     return(0);
-}
-
-thread InitCubeServeur::member1Thread(){
-    return thread([=] {int retour = 0; while(retour >= 0){retour = attendreCommande(connexions.size()-1);} });
-}
-
-void InitCubeServeur::nouvelleConnexion(){
-    
-    thread tw1 = member1Thread();
-    tw1.detach();
 }
 
 void InitCubeServeur::afficherCommande(string buff){
@@ -124,15 +112,15 @@ void InitCubeServeur::afficherCommande(string buff){
 
 void InitCubeServeur::transmettre(char* message, int taille) {
     char buf[BUF_SIZE];
-	for(int i=0; i<connexions.size(); i++) {
-        int envoyer = send(connexions[i], message,taille,0);
-        int reception = recv(connexions[i],buf,BUF_SIZE,MSG_DONTWAIT);
+	for(int i=0; i<connexionsV.size(); i++) {
+        int envoyer = send(connexionsV[i], message,taille,0);
+        int reception = recv(connexionsV[i],buf,BUF_SIZE,MSG_DONTWAIT);
 		//Si un client se déconnecte, on le supprime de la liste        
 		if(reception==0) {
-        	close(connexions[i]);
-			connexions.erase(connexions.begin()+i);
+        	close(connexionsV[i]);
+			connexionsV.erase(connexionsV.begin()+i);
 			cout << "Déconnexion d'un client" << endl;
-			cout << "nombre de clients restants : " << connexions.size() << endl;
+			cout << "nombre de clients restants : " << connexionsV.size() << endl;
             i--;
         }
     }

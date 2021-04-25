@@ -1,6 +1,9 @@
 #include "Commande.hpp"
 
 
+Commande::Commande(){
+
+}
 
 Commande::Commande(string tJson,int numeroCommande):trame(tJson){
     trame =R"({ "CMD": {
@@ -14,72 +17,70 @@ Commande::Commande(string tJson,int numeroCommande):trame(tJson){
 }
 
 Commande::Commande(string tJson):trame(tJson){
-    trame =R"({ "CMD": {
-            "ID": "1",
-            "TYPE": "MEASURE",
-            "TYPEMEASURE": "PIX",
-            "PERIODE": "10",
-            "DATE": "2021/03/10 15:55:30"
-            }
-        })"_json;
+
 }
 
 Commande::~Commande() {
     
 }
 
-void Commande::extraireDonnees(){
+int Commande::extraireDonnees(){
+    cout<<trame<<endl;
     if(trame.find("CMD") != trame.end() && trame["CMD"].find("ID") != trame["CMD"].end() && trame["CMD"].find("TYPE") != trame["CMD"].end()){
         id = trame["CMD"]["ID"];
         cmd = trame["CMD"]["TYPE"];
         if(cmd == "MISSION"){
             CMD = MISSION;
             extraireDonneesMis();
+            return(1);
         }
 
         if(cmd == "MEASURE"){
             CMD = MEASURE;
             extraireDonneesMea();
+            return(1);
         }
 
         if(cmd == "STATUS"){
             CMD = STATUS;
             extraireDonneesSta();
+            return(1);
         }
     
         if(cmd == "DEPLOY"){
             CMD = DEPLOY;
-            
+            return(1);
         }
 
         if(cmd == "SURVIVAL"){
             CMD = SURVIVAL;
-           
+            return(1);
         }
 
         if(cmd == "EMPTY"){
             CMD = EMPTY;
-            
+            return(1);
         }
 
         if(cmd == "SAVE"){
             CMD = SAVE;
-           
+            return(1);
         }
 
         if(cmd == "MEETING"){
             CMD = MEETING;
             extraireDonneesMee();
+            return(1);
         }
 
         if(cmd == "DATE"){
             CMD = DATE;
-            
+            return(1);
         }
     }
     else{
         cout<<"trame non conforme"<<endl;
-        
+        return(-1);
     }
 }
 
@@ -223,7 +224,9 @@ string Commande::genererTrame(){
     trameInter = "   " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
     
     unsigned char trameF[trameInter.length()+3];
-    memcpy(trameF,trameInter.c_str(),trameInter.length());
+    for (int i = 0; i < trameInter.length()+3 ; i++) {
+        trameF[i] = trameInter[i];
+    }
     trameF[0] = '~';
     trameF[1] = stoi(id,nullptr);
     trameF[2] = nbOctets;
