@@ -221,25 +221,24 @@ string Commande::genererTrame(){
         break;
     }
     nbOctets = trameInter.length();
-    trameInter = "   " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
-    
-    unsigned char trameF[trameInter.length()+3];
-    for (int i = 0; i < trameInter.length()+3 ; i++) {
-        trameF[i] = trameInter[i];
-    }
-    trameF[0] = '~';
+    trameInter = "~  " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
+
+    char trameF[trameInter.length()+3];
+
+    strcpy(trameF, trameInter.c_str());
     trameF[1] = stoi(id,nullptr);
     trameF[2] = nbOctets;
     trameF[trameInter.length()+2] = 255;
     calculerChecksum(trameF,trameF[trameInter.length()],trameF[trameInter.length()+1]);
-    //testAfficherTrame(trameInter,trameF);
-    string s(reinterpret_cast<char*>(trameF));
+    testAfficherTrame(trameInter,trameF);
+
+    string s(trameF);
     return s;
 
 
 }
 
-void Commande::calculerChecksum(unsigned char* trameF,unsigned char & PF, unsigned char & pf){
+void Commande::calculerChecksum( char* trameF, char & PF,  char & pf){
     short Checksum=0;
     char leChecksum[2];
 
@@ -255,7 +254,7 @@ void Commande::calculerChecksum(unsigned char* trameF,unsigned char & PF, unsign
 
 }
 
-void Commande::testAfficherTrame(string trameInter, char* trameF){
+void Commande::testAfficherTrame(string trameInter,  char* trameF){
     for(int i = 0;i<trameInter.length()+3;i++){
         cout<<trameF[i];
     }
@@ -264,5 +263,5 @@ void Commande::testAfficherTrame(string trameInter, char* trameF){
 }
 
 void Commande::setTrame(string trame){
-    this->trame = trame; 
+    this->trame = json::parse(trame);
 }

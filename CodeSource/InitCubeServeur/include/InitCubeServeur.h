@@ -31,6 +31,7 @@ class InitCubeServeur {
     int attendreCommande(int fd);
     void afficherCommande(string buff);
     vector <string> getReçu(){return reçu;}
+    void effacerPremierRecu();
 
   private:
     struct sockaddr_in ecoute;  //Structure de la socket
@@ -40,6 +41,7 @@ class InitCubeServeur {
     map <int,int> connexions; //collection des canaux connectés au serveur 
     int iterateur;
     vector <string> reçu; //collection de commande reçu
+    mutex mtx;
     
 };
 

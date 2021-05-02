@@ -20,6 +20,9 @@ InitCubeServeur* serveurEcriturePTJ= new InitCubeServeur(9950);//protocol to jso
 Commande* commande = new Commande();
 Measure* measure = new Measure();
 
+mutex mtx;
+condition_variable cv;
+
 int main()
 {
 	thread* monThreadEcoute = new thread(threadConnexionEcoute);
@@ -56,26 +59,30 @@ void threadClient(){
 	int retour = 0;
 	while(retour >= 0){
 		retour = serveurEcouteJTP->attendreCommande(numMapC);
-		
+		if(retour >= 0){
+			cv.notify_all();
+		}
 	}
 }
 
 void threadEnvoie(){
-	while(1){
-		if(serveurEcouteJTP->getReçu().size() != 0){
-			commande->setTrame(serveurEcouteJTP->getReçu().front());
-			serveurEcouteJTP->getReçu().erase(serveurEcouteJTP->getReçu().begin());
-			if(commande->extraireDonnees() > 0){
-				cout<<commande->genererTrame()<<endl;//remplacer cout par la liaison serie
-			}
+	unique_lock<mutex> lck(mtx);
+	while(1) {
+		cv.wait(lck);
+		cout<<serveurEcouteJTP->getReçu().front()<<endl;
+		commande->setTrame(serveurEcouteJTP->getReçu().front());
+		serveurEcouteJTP->effacerPremierRecu();
+		if(commande->extraireDonnees() > 0){
+			cout<<commande->genererTrame()<<endl;//remplacer cout par la liaison serie
 		}
+		
 	}
 }
 
 void threadReception(){
 	string recu;
 	while(1){
-		if("liaison serie" > 0){
+		if(/*liaison serie > */0){
 			recu = "liaison serie";
 			measure->setTrame(recu);
 			measure->identifierType();

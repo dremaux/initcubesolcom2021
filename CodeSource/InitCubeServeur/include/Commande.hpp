@@ -18,13 +18,13 @@ public:
 
 
 private:
-    void calculerChecksum(unsigned char* trameF,unsigned char & PF,unsigned char & pf);
+    void calculerChecksum( char* trameF, char & PF, char & pf);
     void extraireDonneesMis();
     void extraireDonneesMea();
     void extraireDonneesSta();
     void extraireDonneesMee();
     void extraireDonneesDat();
-    void testAfficherTrame(string trameInter, char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
+    void testAfficherTrame(string trameInter,  char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
     char nCommande[1];
     Cmd CMD;
     json trame;

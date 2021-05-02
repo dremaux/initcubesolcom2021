@@ -13,6 +13,8 @@
 
 #ifndef LIB_H
 #define LIB_H
+#include <mutex>
+#include <condition_variable>
 #include <math.h>
 #include "json.hpp"
 #include <chrono>
