@@ -1,4 +1,4 @@
-CXX		  := g++
+CXX		  := arm-linux-gnueabihf-g++
 CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 
 
 
