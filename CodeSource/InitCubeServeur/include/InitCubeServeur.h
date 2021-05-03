@@ -26,8 +26,6 @@ class InitCubeServeur {
     virtual ~InitCubeServeur();
     int attendreConnexion();
     void transmettre(char* message,int taille);
-    string genFakeInstrumentFrame();
-	  string genFakeStateFrame();
     int attendreCommande(int fd);
     void afficherCommande(string buff);
     vector <string> getReçu(){return reçu;}
