@@ -1,11 +1,7 @@
-#include "../include/GestionCommandes.h"
+#include "../include/gCommandes.h"
 
 
-
-int main() {
-
-
-
-
-
+int main(){
+GestionCommandes::dCommandes;
+    cout << "hello" << endl;    
 }
