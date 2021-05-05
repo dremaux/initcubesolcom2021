@@ -4,7 +4,7 @@ GestionCommandes::GestionCommandes(){
   //gestionCommandes = new GestionCommandes;
 }
 
-int GestionCommandes::dCommandes(int getDernieresCommandes){
+int GestionCommandes::getDCommandes(int getDernieresCommandes){
 
 mongocxx::options::find opts;
 opts.sort(make_document(kvp("CMD.DATE", -1), kvp("CMD.DATE", -1))).limit( 3 );

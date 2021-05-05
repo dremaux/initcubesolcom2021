@@ -21,13 +21,15 @@ using bsoncxx::builder::stream::finalize;
 using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 
+using namespace std;
+
 class GestionCommandes {
     public:
 
         GestionCommandes();
         ~GestionCommandes();
         
-        int getDernieresCommandes(int nombreCommandes);  //affiche les Dernieres commandes
+        int getDCommandes(int nombreCommandes);  //affiche les Dernieres commandes
         int tDCommandes(); // transmettre les dernieres commandes
         int rechercheCommandes(int date); //trouve une trame grâce à la date
     
@@ -35,7 +37,7 @@ class GestionCommandes {
 
         GestionCommandes * gCommandes;
 
-        int getDernieresCommandes;
+        int getDCommandes;
 
         mongocxx::instance instance{};
         mongocxx::client client{mongocxx::uri{}};
