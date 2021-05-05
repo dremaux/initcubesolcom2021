@@ -1,7 +1,12 @@
-#include "../include/gCommandes.h"
+#include <iostream>
 
+#include "gCommandes.h"
+
+using namespace std;
 
 int main(){
-GestionCommandes::dCommandes;
-    cout << "hello" << endl;    
+
+
+
+    return (EXIT_SUCCESS);    
 }
