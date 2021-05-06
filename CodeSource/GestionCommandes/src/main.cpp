@@ -3,11 +3,11 @@
 
 using namespace std;
 
-int main(int argc, char** argv){
+int main(){
 
-    GestionCommandes * GCommandes = new GestionCommandes();
+    GestionCommandes * gCommandes = new GestionCommandes();
 
-    GCommandes->getDerniereCommandes(int nombreCommandes);
+    gCommandes->getDerniereCommandes();
 
     return 0;    
 }

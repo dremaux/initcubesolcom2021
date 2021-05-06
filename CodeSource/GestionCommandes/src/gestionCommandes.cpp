@@ -26,36 +26,44 @@ using bsoncxx::builder::basic::make_document;
 using namespace bsoncxx;
 using namespace std;
 
-GestionCommandes::GestionCommandes(){
-  //gestionCommandes = new GestionCommandes;
+GestionCommandes::GestionCommandes()
+{
+  mongocxx::instance instance{};
+  mongocxx::client client{mongocxx::uri{}};
+
+  mongocxx::database db = client["initcube"];
+  mongocxx::collection coll = db["commande"];
 }
 
-void GestionCommandes::getDerniereCommandes(int nombreCommandes){
+int GestionCommandes::getDerniereCommandes()
+{
 
-mongocxx::options::find opts;
-opts.sort(make_document(kvp("CMD.DATE", -1), kvp("CMD.DATE", -1))).limit( 3 );
+  mongocxx::options::find opts;
+  opts.sort(make_document(kvp("CMD.DATE", -1))).limit(3);
 
-auto cursor = db["commande"].find({}, opts);
-for (auto&& doc : cursor) {
-  std::cout << bsoncxx::to_json(doc) << std::endl;
-}
-return nombreCommandes;
-}
-
-
-int GestionCommandes::rechercheCommandes(int date){
-
-bsoncxx::builder::stream::document document{};
-document<<"CMD.DATE"<<nombreDC;  // on précise ce que l'on cherche
-auto cursor = coll.find(document.view());
-
-for (auto&& doc : cursor){
-cout << bsoncxx::to_json(doc) << endl; 
+  auto cursor = db["commande"].find({}, opts);
+  for (auto &&doc : cursor)
+  {
+    cout << to_json(doc) << endl;
+  }
+  return nombreCommandes;
 }
 
+int GestionCommandes::rechercheCommandes()
+{
+
+  bsoncxx::builder::stream::document document{};
+  document << "CMD.DATE" << 3; // on précise ce que l'on cherche
+  auto cursor = coll.find(document.view());
+
+  for (auto &&doc : cursor)
+  {
+    cout << to_json(doc) << endl;
+  }
+  return DerniereCommandes;
 }
 
-
-int GestionCommandes::tDCommandes(){
-return 0;
+int GestionCommandes::tDCommandes()
+{
+  return 0;
 }

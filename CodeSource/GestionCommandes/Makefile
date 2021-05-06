@@ -1,16 +1,13 @@
-CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
-
-BIN		:= bin
-SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp)
-INCLUDE	:= -Iinclude -Ilib \
- -I/usr/local/include/mongocxx/v_noabi \
- -I/usr/local/include/bsoncxx/v_noabi
-LIB		:= lib
-
-LIBRARIES	:= -lboost_system -lpthread -lcrypto \
--lssl -lmongocxx -lbsoncxx
-EXECUTABLE	:= main
+CXX       := c++
+CXX_FLAGS := --std=c++11 $(shell pkg-config --cflags --libs libmongocxx)
+ 
+BIN     := bin
+SRC     := src
+INCLUDE := include
+LIB     := lib
+ 
+LIBRARIES   :=
+EXECUTABLE  := main
 
 
 all: $(BIN)/$(EXECUTABLE)
@@ -19,8 +16,8 @@ run: clean all
 	clear
 	./$(BIN)/$(EXECUTABLE)
 
-$(BIN)/$(EXECUTABLE): $(SRC)
-	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
 	-rm $(BIN)/*
