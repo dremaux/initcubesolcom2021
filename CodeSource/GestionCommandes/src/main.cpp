@@ -1,11 +1,13 @@
-#include "../include/GestionCommandes.h"
+#include <iostream>
+#include "gCommandes.h"
 
+using namespace std;
 
+int main(){
 
-int main() {
+    GestionCommandes * gCommandes = new GestionCommandes();
 
+    gCommandes->getDerniereCommandes();
 
-
-
-
+    return 0;    
 }

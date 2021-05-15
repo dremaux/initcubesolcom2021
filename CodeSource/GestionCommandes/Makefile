@@ -1,13 +1,13 @@
-CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
-
-BIN		:= bin
-SRC		:= src
-INCLUDE	:= include
-LIB		:= lib
-
-LIBRARIES	:=
-EXECUTABLE	:= main
+CXX       := c++
+CXX_FLAGS := --std=c++11 $(shell pkg-config --cflags --libs libmongocxx)
+ 
+BIN     := bin
+SRC     := src
+INCLUDE := include
+LIB     := lib
+ 
+LIBRARIES   :=
+EXECUTABLE  := main
 
 
 all: $(BIN)/$(EXECUTABLE)
