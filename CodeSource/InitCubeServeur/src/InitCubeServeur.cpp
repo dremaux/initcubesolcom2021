@@ -86,9 +86,9 @@ int InitCubeServeur::attendreCommande(int n){
     
     }
     else{
-        mtx.lock();
+        mtx->lock();
         reçu.push_back(buffer);
-        mtx.unlock();
+        mtx->unlock();
         send(connexions[n],"ACK",3,0);
     }
     return(1);

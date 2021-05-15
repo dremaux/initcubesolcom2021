@@ -30,6 +30,7 @@ class InitCubeServeur {
     void afficherCommande(string buff);
     vector <string> getReçu(){return reçu;}
     void effacerPremierRecu();
+    mutex* getMutex(){return mtx;}
 
   private:
     struct sockaddr_in ecoute;  //Structure de la socket
@@ -39,7 +40,7 @@ class InitCubeServeur {
     map <int,int> connexions; //collection des canaux connectés au serveur 
     int iterateur;
     vector <string> reçu; //collection de commande reçu
-    mutex mtx;
+    mutex* mtx = new mutex();
     
 };
 

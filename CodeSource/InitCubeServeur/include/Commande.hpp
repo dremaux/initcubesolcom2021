@@ -14,7 +14,7 @@ public:
     ~Commande();
     int extraireDonnees();
     string genererTrame();
-    void setTrame(string trame);
+    bool setTrame(string trame);
 
 
 private:

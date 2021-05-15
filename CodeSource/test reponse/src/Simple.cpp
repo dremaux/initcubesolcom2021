@@ -20,9 +20,9 @@ void Simple::extraireDonner(char* trame, int nbOctetType, string unite){
 
 string Simple::genererTrame(string nom, string type, string unite){
     json trame;
-    trame["instrument"]["name"] = nom;
-    trame["instrument"]["type mesure"] = type;
-    trame["instrument"]["donnée"] = donneeExtraite + unite;
+    trame["measure"]["name"] = nom;
+    trame["measure"]["type mesure"] = type;
+    trame["measure"]["donnée"] = donneeExtraite + unite;
     return trame.dump();
     
 }

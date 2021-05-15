@@ -1,7 +1,7 @@
 #include "Matrice.hpp"
 
 Matrice::Matrice() {
-    security = false;
+    security = true;
     compteur = 1;
 }
 
@@ -51,12 +51,15 @@ void Matrice::extraireDonnee(char* trame, int nbOctetType){
     }
 }
 
-string Matrice::genereTrame(string nom, string type){
+string Matrice::genereTrame(string nom, string typeMeasure, string type, string dt = ""){
     json trame;
     if(compteur == 1 && security == false){
-        trame["instrument"]["name"] = nom;
-        trame["instrument"]["type mesure"] = type;
-        trame["instrument"]["donnée"] = donneeExtraite;
+        trame[type]["name"] = nom;
+        trame[type]["type mesure"] = typeMeasure;
+        trame[type]["donnée"] = donneeExtraite;
+        if(type == "mission"){
+            trame[type]["date"] = dt;
+        }
         return trame.dump();
     }
     else{

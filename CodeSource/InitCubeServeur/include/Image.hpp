@@ -17,7 +17,7 @@ public:
     Image();
     void extraireDonnee(unsigned char* trame, int nbOctetType);
     bool genereImage(string nom, int width, int height);
-    string genereTrame(string nom, string type);
+    string genereTrame(string nom, string typeMeasure, string type, string dt = "");
     ~Image();
     
     

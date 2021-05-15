@@ -102,14 +102,17 @@ bool Image::genereImage(string nom, int width, int height){
     return ok ? 0 : 1;
 }
 
-string Image::genereTrame(string nom, string type){
+string Image::genereTrame(string nom, string typeMeasure, string type, string dt =""){
     json trame;
     if(compteurL == 1 && compteurS == 1 && security == false){
-        trame["instrument"]["name"] = nom;
-        trame["instrument"]["type mesure"] = type;
-        trame["instrument"]["donnée"]["chemin"] = name;
-        trame["instrument"]["donnée"]["width"]= width;
-        trame["instrument"]["donnée"]["height"]= height;
+        trame[type]["name"] = nom;
+        trame[type]["type mesure"] = typeMeasure;
+        trame[type]["donnée"]["chemin"] = name;
+        trame[type]["donnée"]["width"]= width;
+        trame[type]["donnée"]["height"]= height;
+        if(type == "mission"){
+            trame[type]["date"] = dt;
+        }
         return trame.dump();
     }
     else{

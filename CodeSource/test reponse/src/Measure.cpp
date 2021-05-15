@@ -19,10 +19,10 @@ Measure::Measure(string trame):trame(trame) {
 }
 
 void Measure::identifierType(){
-    if(trame.find("MEASURE") > 0 ){
+    if(trame.find("MEASURE") < trame[2]+3){
         if(trame[11] == '-' || trame[11] == ' '){
             int debut = trame.find('-',12)+1;//+1 pour ignorer le - et 12 pour ignorer la premiere occurene qui est a 11
-            int fin = trame.find(' ',13);
+            int fin = trame.find(' ',12);
             type = trame.substr(debut,(fin - debut));
         }
         else{
@@ -70,7 +70,7 @@ string Measure::genererTrame(){
                 if(typeMesure == "matrice"){
                     matrice->extraireDonnee(trameC,type.length());
                     if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
-                        reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]);
+                        reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"],"measure");
                         return reponse;
                     }
                     
@@ -86,7 +86,7 @@ string Measure::genererTrame(){
                         string dt = ctime(&now);
                         dt.erase(dt.length()-1,1);//supprime le \n de fin
                         image->genereImage(dt,instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["WIDTH"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["HEIGHT"]);
-                        reponse = image->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]);
+                        reponse = image->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"],"measure");
                         return reponse;
                     }
                 }

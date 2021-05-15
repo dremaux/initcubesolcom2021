@@ -1,7 +1,7 @@
 #include "Lib.h"
 #include "InitCubeServeur.h"
 #include "Commande.hpp"
-#include "Measure.hpp"
+#include "Reponse.hpp"
 #include <thread>
 
 
@@ -15,16 +15,19 @@ using namespace std;
 
 
 int numMap;
+bool lecture = true;
+bool ecriture = false;
 InitCubeServeur* serveurEcouteJTP= new InitCubeServeur(9951);//json to protocol
 InitCubeServeur* serveurEcriturePTJ= new InitCubeServeur(9950);//protocol to json
 Commande* commande = new Commande();
-Measure* measure = new Measure();
+Reponse* reponse = new Reponse();
 
-mutex mtx;
+mutex* mtx;
 condition_variable cv;
 
 int main()
 {
+	mtx = serveurEcouteJTP->getMutex();
 	thread* monThreadEcoute = new thread(threadConnexionEcoute);
 	thread* monThreadEcriture = new thread(threadConnexionEcriture);
 	thread* monThreadEnvoie = new thread(threadEnvoie);
@@ -60,20 +63,25 @@ void threadClient(){
 	while(retour >= 0){
 		retour = serveurEcouteJTP->attendreCommande(numMapC);
 		if(retour >= 0){
+			ecriture = true;
 			cv.notify_all();
+			ecriture = false;
 		}
 	}
 }
 
 void threadEnvoie(){
-	unique_lock<mutex> lck(mtx);
+	unique_lock<mutex> lck(*mtx);
 	while(1) {
-		cv.wait(lck);
+		while(!ecriture) cv.wait(lck);
 		cout<<serveurEcouteJTP->getReçu().front()<<endl;
-		commande->setTrame(serveurEcouteJTP->getReçu().front());
+		bool set = commande->setTrame(serveurEcouteJTP->getReçu().front());
 		serveurEcouteJTP->effacerPremierRecu();
-		if(commande->extraireDonnees() > 0){
+		if(set && commande->extraireDonnees() > 0){
+			lecture = false;
 			cout<<commande->genererTrame()<<endl;//remplacer cout par la liaison serie
+			lecture = true;
+			cv.notify_all();
 		}
 		
 	}
@@ -81,14 +89,21 @@ void threadEnvoie(){
 
 void threadReception(){
 	string recu;
+	unique_lock<mutex> lck(*mtx);
 	while(1){
+		while(!lecture) cv.wait(lck);
 		if(/*liaison serie > */0){
 			recu = "liaison serie";
-			measure->setTrame(recu);
-			measure->identifierType();
-			string trameG = measure->genererTrame();
-			char trameGC[trameG.size()+1];
-			serveurEcriturePTJ->transmettre(trameGC,trameG.size());
+			reponse->setTrame(recu);
+			string recuR = reponse->identifierType();
+			if(recuR == "JSON" && recu[10] == recu[11]){
+				string trameG = reponse->genererTrame();
+				char trameGC[trameG.size()+1];
+				for(int i = 0; i < trameG.size()+1;i++){
+					trameGC[i] = trameG[i];
+				}
+				serveurEcriturePTJ->transmettre(trameGC,trameG.size());
+			}
 		}
 	}
 }

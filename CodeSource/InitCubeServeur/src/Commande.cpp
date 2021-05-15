@@ -164,6 +164,10 @@ void Commande::extraireDonneesMee(){
         date =trame["CMD"]["DATE"];
         date = "-DT"+ date;
     }
+
+    if(trame["CMD"].find("SAVE") != trame["CMD"].end()){
+        save = "-SAVE";
+    }
 }
 
 void Commande::extraireDonneesDat(){
@@ -208,7 +212,7 @@ string Commande::genererTrame(){
         break;
     
     case MEETING:
-        trameInter = cmd + date + duree;
+        trameInter = cmd + date + duree + save;
         break;
     
     case DATE:
@@ -262,6 +266,15 @@ void Commande::testAfficherTrame(string trameInter,  char* trameF){
     cout<<trameInter<<endl;
 }
 
-void Commande::setTrame(string trame){
-    this->trame = json::parse(trame);
+bool Commande::setTrame(string trame){
+    try{
+        this->trame = json::parse(trame);
+        return true;
+    }
+    catch(exception e){
+        cout<<"trame reçu non JSON"<<endl;
+        return false;
+    }
+    
+    
 }
