@@ -1,20 +1,16 @@
 #pragma once
 #include "Lib.h"
-#define NBRE_TRAMES 10
-#define NUM_TRAME 11
-#define DEBUT_TRAME 13
+#include "Simple.hpp"
 
-using namespace std;
-using json = nlohmann::json;
-
-class Simple {
+class SimpleMission {
 
 public:
-    Simple();
+    SimpleMission();
     void extraireDonner(char* trame, int nbOctetType);
     string genererTrame(string nom, string type, string unite);
-    ~Simple();
+    ~SimpleMission();
 private:
+    vector<string> dateExtraite;
     vector<string> donneeExtraite;
     int caseFinM;
     int caseDebutM;

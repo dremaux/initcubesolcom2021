@@ -19,7 +19,7 @@ Measure::Measure(string trame):trame(trame) {
 }
 
 void Measure::identifierType(){
-    if(trame.find("MEASURE") < trame[2]+3){
+    if(trame.find("MEASURE") < trame[2]+2){
         if(trame[11] == '-' || trame[11] == ' '){
             int debut = trame.find('-',12)+1;//+1 pour ignorer le - et 12 pour ignorer la premiere occurene qui est a 11
             int fin = trame.find(' ',12);
@@ -63,7 +63,7 @@ string Measure::genererTrame(){
             if(type == id){
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
                 if(typeMesure == "simple"){
-                    simple->extraireDonner(trameC,type.length(),instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
+                    simple->extraireDonner(trameC,type.length());
                     reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     return reponse;
                 }

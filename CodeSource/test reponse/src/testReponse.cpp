@@ -4,14 +4,23 @@
 
 using namespace std;
 Reponse *reponse = new Reponse();
-void testImage();
-void testMatrice();
-void testSimple();
 void testStatus();
+void testSimpleMe();
+void testMatriceMe();
+void testImageMe();
+void testSimpleMi();
+void testMatriceMi();
+void testImageMi();
 
 int main()
 {
     testStatus();
+    testSimpleMe();
+    testMatriceMe();
+    testImageMe();
+    testSimpleMi();
+    testMatriceMi();
+    testImageMi();
     return 0;
 }
 
@@ -20,7 +29,7 @@ void testStatus()
     char trame1[93];
     trame1[0] = '~';
     trame1[1] = 1;
-    trame1[2] = 90;
+    trame1[2] = 87;
     trame1[3] = 'S';
     trame1[4] = 'T';
     trame1[5] = 'A';
@@ -29,11 +38,11 @@ void testStatus()
     trame1[8] = 'S';
     trame1[9] = 2;
     trame1[10] = 1;
-    trame1[11] = 'B';
-    trame1[12] = 'O';
-    trame1[13] = 'R';
-    trame1[14] = 'D';
-    trame1[15] = 'R';
+    trame1[11] = '-';
+    trame1[12] = 'B';
+    trame1[13] = 'O';
+    trame1[14] = 'R';
+    trame1[15] = 'D';
     trame1[16] = '-';
     trame1[17] = 'S';
     trame1[18] = 'M';
@@ -116,7 +125,7 @@ void testStatus()
 
     trame2[0] = '~';
     trame2[1] = 1;
-    trame2[2] = '~';
+    trame2[2] = 39;
     trame2[3] = 'S';
     trame2[4] = 'T';
     trame2[5] = 'A';
@@ -159,27 +168,29 @@ void testStatus()
     trame2[42] = '0';
     trame2[43] = '9';
     trame2[44] = 255;
+    trame2[45] = 0;
 
-    string trame;
+    string trameP;
+    string trameD;
     string s;
-    trame = trame1;
-    reponse->setTrame(trame);
+    trameP = trame1;
+    reponse->setTrame(trameP);
     reponse->identifierType();
-    trame = trame2;
-    reponse->setTrame(trame);
+    trameD = trame2;
+    reponse->setTrame(trameD);
     reponse->identifierType();
     s = reponse->genererTrame();
 
     cout << s << endl;
 }
 
-void testSimple()
+void testSimpleMe()
 {
     string trame;
     char trameI[34];
     trameI[0] = '~';
     trameI[1] = 1;
-    trameI[2] = 27;
+    trameI[2] = 28;
     trameI[3] = 'M';
     trameI[4] = 'E';
     trameI[5] = 'A';
@@ -215,13 +226,13 @@ void testSimple()
     cout << s << endl;
 }
 
-void testMatrice()
+void testMatriceMe()
 {
     string trame;
     char trameI[60];
     trameI[0] = '~';
     trameI[1] = 1;
-    trameI[2] = 53;
+    trameI[2] = 54;
     trameI[3] = 'M';
     trameI[4] = 'E';
     trameI[5] = 'A';
@@ -251,7 +262,7 @@ void testMatrice()
             trameI[y + 3] = '.';
             trameI[y + 4] = (rand() % 10) + 48;
         }
-        trameI[NUM_TRAME] = i;
+        trameI[11] = i;
         trame = trameI;
         reponse->setTrame(trame);
         reponse->identifierType();
@@ -260,13 +271,13 @@ void testMatrice()
     cout << s << endl;
 }
 
-void testImage()
+void testImageMe()
 {
     string trame;
     unsigned char trameI[70];
     trameI[0] = '~';
     trameI[1] = 1;
-    trameI[2] = 63;
+    trameI[2] = 64;
     trameI[3] = 'M';
     trameI[4] = 'E';
     trameI[5] = 'A';
@@ -296,9 +307,177 @@ void testImage()
             {
                 trameI[i] = rand() % 240 + 1;
             }
-            trameI[NUM_LIGNE] = y;
-            trameI[NUM_SECTION] = x;
+            trameI[11] = y;
+            trameI[13] = x;
             trame = reinterpret_cast<char *>(trameI);
+            reponse->setTrame(trame);
+            reponse->identifierType();
+            s = reponse->genererTrame();
+        }
+    }
+    cout << s << endl;
+}
+
+void testSimpleMi()
+{
+    string trame;
+    char trameI[78];
+    trameI[0] = '~';
+    trameI[1] = 1;
+    trameI[2] = 72;
+    trameI[3] = 'M';
+    trameI[4] = 'I';
+    trameI[5] = 'S';
+    trameI[6] = 'S';
+    trameI[7] = 'I';
+    trameI[8] = 'O';
+    trameI[9] = 'N';
+    trameI[10] = 1;
+    trameI[11] = 1;
+    trameI[12] = '-';
+    trameI[13] = 'T';
+    trameI[14] = 'C';
+    trameI[75] = 'C';
+    trameI[76] = '7';
+    trameI[77] = 255;
+
+    string s;
+
+    for (int y = 15; y < 75; y = y + 30)
+    {
+        trameI[y] = ' ';
+        trameI[y + 1] = '-';
+        trameI[y + 2] = 'T';
+        trameI[y + 3] = (rand() % 10) + 48;
+        trameI[y + 4] = (rand() % 10) + 48;
+        trameI[y + 5] = '.';
+        trameI[y + 6] = (rand() % 10) + 48;
+        trameI[y + 7] = ' ';
+        trameI[y + 8] = '-';
+        trameI[y + 9] = 'D';
+        trameI[y + 10] = 'T';
+        trameI[y + 11] = '2';
+        trameI[y + 12] = '0';
+        trameI[y + 13] = '2';
+        trameI[y + 14] = '1';
+        trameI[y + 15] = '/';
+        trameI[y + 16] = '0';
+        trameI[y + 17] = '3';
+        trameI[y + 18] = '/';
+        trameI[y + 19] = '3';
+        trameI[y + 20] = '1';
+        trameI[y + 21] = ' ';
+        trameI[y + 22] = '1';
+        trameI[y + 23] = '5';
+        trameI[y + 24] = ':';
+        trameI[y + 25] = '0';
+        trameI[y + 26] = '0';
+        trameI[y + 27] = ':';
+        trameI[y + 28] = '0';
+        trameI[y + 29] = '7';
+    }
+    trame = trameI;
+    reponse->setTrame(trame);
+    reponse->identifierType();
+    s = reponse->genererTrame();
+
+    cout << s << endl;
+}
+
+void testMatriceMi()
+{
+    string trame;
+    char trameI[60];
+    trameI[0] = '~';
+    trameI[1] = 1;
+    trameI[2] = 54;
+    trameI[3] = 'M';
+    trameI[4] = 'I';
+    trameI[5] = 'S';
+    trameI[6] = 'S';
+    trameI[7] = 'I';
+    trameI[8] = 'O';
+    trameI[9] = 'N';
+    trameI[10] = 8;
+    trameI[11] = 1;
+    trameI[12] = '-';
+    trameI[13] = 'P';
+    trameI[14] = 'I';
+    trameI[15] = 'X';
+    trameI[56] = ' ';
+    trameI[57] = 'C';
+    trameI[58] = '7';
+    trameI[59] = 255;
+
+    string s;
+    for (int i = 1; i <= 8; i++)
+    {
+        for (int y = 16; y <= 55; y = y + 5)
+        {
+            trameI[y] = ' ';
+            trameI[y + 1] = (rand() % 10) + 48;
+            trameI[y + 2] = (rand() % 10) + 48;
+            trameI[y + 3] = '.';
+            trameI[y + 4] = (rand() % 10) + 48;
+        }
+        trameI[11] = i;
+        trame = trameI;
+        if (trameI[11] == trameI[10])
+        {
+            trame.insert(57, "-DT2021/05/15 11:39:52");
+            trame[2] += 22;
+        }
+        reponse->setTrame(trame);
+        reponse->identifierType();
+        s = reponse->genererTrame();
+    }
+    cout << s << endl;
+}
+
+void testImageMi()
+{
+    string trame;
+    unsigned char trameI[70];
+    trameI[0] = '~';
+    trameI[1] = 1;
+    trameI[2] = 64;
+    trameI[3] = 'M';
+    trameI[4] = 'I';
+    trameI[5] = 'S';
+    trameI[6] = 'S';
+    trameI[7] = 'I';
+    trameI[8] = 'O';
+    trameI[9] = 'N';
+    trameI[10] = 240;
+    trameI[11] = 1;
+    trameI[12] = 20;
+    trameI[13] = 1;
+    trameI[14] = '-';
+    trameI[15] = 'I';
+    trameI[16] = 'M';
+    trameI[17] = 'G';
+    trameI[18] = ' ';
+    trameI[67] = 'C';
+    trameI[68] = '7';
+    trameI[69] = 255;
+
+    string s;
+    for (int y = 1; y <= 240; y++)
+    {
+        for (int x = 1; x <= 20; x++)
+        {
+            for (int i = 19; i < 67; i++)
+            {
+                trameI[i] = rand() % 240 + 1;
+            }
+            trameI[11] = y;
+            trameI[13] = x;
+            trame = reinterpret_cast<char *>(trameI);
+            if (trameI[11] == trameI[10] && trameI[12] == trameI[13])
+            {
+                trame.insert(67, "-DT2021/05/15 11:39:52");
+                trame[2] += 22;
+            }
             reponse->setTrame(trame);
             reponse->identifierType();
             s = reponse->genererTrame();

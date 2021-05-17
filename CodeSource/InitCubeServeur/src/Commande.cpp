@@ -7,9 +7,9 @@ Commande::Commande(){
 
 Commande::Commande(string tJson,int numeroCommande):trame(tJson){
     trame =R"({ "CMD": {
-            "ID": "1",
-            "TYPE": "MEASURE",
-            "TYPEMEASURE": "TC"
+            "idSatellite": "1",
+            "typeCommande": "MEASURE",
+            "code": "TC"
             }
         })"_json;
 
