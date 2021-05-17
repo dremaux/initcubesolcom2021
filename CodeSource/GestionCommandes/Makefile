@@ -1,5 +1,5 @@
-CXX       := c++
-CXX_FLAGS := --std=c++11 $(shell pkg-config --cflags --libs libmongocxx)
+CXX       := g++
+CXX_FLAGS := --std=c++11 $(shell pkg-config --cflags --libs libmongocxx) -v
  
 BIN     := bin
 SRC     := src
@@ -17,7 +17,7 @@ run: clean all
 	./$(BIN)/$(EXECUTABLE)
 
 $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	$(CXX)  $^ -o $@ $(LIBRARIES) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB)
 
 clean:
 	-rm $(BIN)/*
