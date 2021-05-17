@@ -2,7 +2,7 @@
 #include "Lib.h"
 #include "Matrice.hpp"
 #include "Image.hpp"
-#include "Simple.hpp"
+#include "SimpleMission.hpp"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ public:
     Mission();
     ~Mission();
     void setTrame(string trame){this->trame = trame;}
-    string identifierType();
+    void identifierType();
     string genererTrame();
 
 private:
@@ -20,7 +20,7 @@ private:
     string trame;
     string type;
     Matrice* matrice;
-    Simple* simple;
+    SimpleMission* simple;
     Image* image;
 
 };
