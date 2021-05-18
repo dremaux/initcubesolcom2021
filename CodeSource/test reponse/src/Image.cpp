@@ -106,9 +106,9 @@ string Image::genereTrame(string nom, string typeMeasure, string type, string dt
     if(compteurL == 1 && compteurS == 1 && security == false){
         trame[type]["name"] = nom;
         trame[type]["type mesure"] = typeMeasure;
-        trame[type]["donnée"]["chemin"] = name;
-        trame[type]["donnée"]["width"]= width;
-        trame[type]["donnée"]["height"]= height;
+        trame[type]["donnee"]["chemin"] = name;
+        trame[type]["donnee"]["width"]= width;
+        trame[type]["donnee"]["height"]= height;
         if(type == "mission"){
             trame[type]["date"] = dt;
         }

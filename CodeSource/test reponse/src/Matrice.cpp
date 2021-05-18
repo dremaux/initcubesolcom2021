@@ -51,7 +51,7 @@ string Matrice::genereTrame(string nom, string typeMeasure, string type, string 
     json trame;
     if(compteur == 1 && security == false){
         trame[type]["name"] = nom;
-        trame[type]["type mesure"] = typeMeasure;
+        trame[type]["typeMesure"] = typeMeasure;
         trame[type]["matrice"] = donneeExtraite;
         if(type == "mission"){
             trame[type]["date"] = dt;

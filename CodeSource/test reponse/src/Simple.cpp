@@ -32,7 +32,7 @@ string Simple::genererTrame(string nom, string type, string unite)
     json trame;
     trame["measure"]["name"] = nom;
     trame["measure"]["code"] = type;
-    trame["measure"]["donnée"] = donneeExtraite;
+    trame["measure"]["donnee"] = donneeExtraite;
     trame["measure"]["unite"] = unite;
     return trame.dump();
 }
