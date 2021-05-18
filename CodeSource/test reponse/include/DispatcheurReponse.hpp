@@ -1,24 +1,24 @@
 #pragma once
 
 #include "Lib.h"
-#include "Measure.hpp"
+#include "DispatcheurMeasure.hpp"
 #include "Status.hpp"
-#include "Mission.hpp"
+#include "DispatcheurMission.hpp"
 
 using namespace std;
 
-class Reponse {
+class DispatcheurReponse {
 
 public:
-    Reponse();
+    DispatcheurReponse();
     void setTrame(string trame){this->trame = trame;}
     string identifierType();
     string genererTrame();
-    ~Reponse();
+    ~DispatcheurReponse();
 
 private:
     string trame;
-    Measure* measure; 
+    DispatcheurMeasure* measure; 
     Status* status;
-    Mission* mission;
+    DispatcheurMission* mission;
 };

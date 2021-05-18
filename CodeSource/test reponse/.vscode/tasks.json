@@ -12,14 +12,30 @@
         },
         {
             "label": "Build & run C++ project",
+            "dependsOn":[
+                "Build C++ project"
+            ],
             "type": "shell",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
-            "command": "make",
+            "command": "sshpass",
             "args": [
-                "run"
+                "-p",
+                "raspberry",
+                "scp",
+                "./bin/*",
+                "pi@initcubesolfinal.local:~/test/",
+                "&&",
+                "echo",
+                "&&",
+                "sshpass",
+                "-p",
+                "raspberry",
+                "ssh",
+                "pi@initcubesolfinal.local",
+                "./test/testReponse",
             ]
         }
     ]

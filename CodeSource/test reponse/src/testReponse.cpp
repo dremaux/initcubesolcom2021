@@ -1,9 +1,9 @@
 #include "Lib.h"
 #include <thread>
-#include "Reponse.hpp"
+#include "DispatcheurReponse.hpp"
 
 using namespace std;
-Reponse *reponse = new Reponse();
+DispatcheurReponse *reponse = new DispatcheurReponse();
 void testStatus();
 void testSimpleMe();
 void testMatriceMe();

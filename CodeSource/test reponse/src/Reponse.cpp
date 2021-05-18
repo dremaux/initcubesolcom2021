@@ -1,13 +1,13 @@
-#include "Reponse.hpp"
+#include "DispatcheurReponse.hpp"
 
-Reponse::Reponse() {
-    measure = new Measure();
+DispatcheurReponse::DispatcheurReponse() {
+    measure = new DispatcheurMeasure();
     status = new Status();
-    mission = new Mission();
+    mission = new DispatcheurMission();
     trame = "";
 }
 
-string Reponse::identifierType(){
+string DispatcheurReponse::identifierType(){
     if(trame.find("MISSION") < trame[2]+2){
         mission->setTrame(trame);
         mission->identifierType();
@@ -49,7 +49,7 @@ string Reponse::identifierType(){
     }
 }
 
-string Reponse::genererTrame(){
+string DispatcheurReponse::genererTrame(){
     string retour;
     if(trame.find("MISSION") < trame[2]+2){
         retour = mission->genererTrame();
@@ -69,6 +69,6 @@ string Reponse::genererTrame(){
     }
 }
 
-Reponse::~Reponse() {
+DispatcheurReponse::~DispatcheurReponse() {
 
 }

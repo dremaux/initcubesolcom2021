@@ -1,6 +1,6 @@
-#include "Measure.hpp"
+#include "DispatcheurMeasure.hpp"
 
-Measure::Measure(){
+DispatcheurMeasure::DispatcheurMeasure(){
     reponse = "";
     trame = "";
     type = "";
@@ -9,7 +9,7 @@ Measure::Measure(){
     image = new Image();
 }
 
-Measure::Measure(string trame):trame(trame) {
+DispatcheurMeasure::DispatcheurMeasure(string trame):trame(trame) {
     reponse = "";
     trame = "";
     type = "";
@@ -18,7 +18,7 @@ Measure::Measure(string trame):trame(trame) {
     image = new Image();
 }
 
-void Measure::identifierType(){
+void DispatcheurMeasure::identifierType(){
     if(trame.find("MEASURE") < trame[2]+2){
         if(trame[11] == '-' || trame[11] == ' '){
             int debut = trame.find('-',12)+1;//+1 pour ignorer le - et 12 pour ignorer la premiere occurene qui est a 11
@@ -36,11 +36,11 @@ void Measure::identifierType(){
     }
 }
 
-void Measure::setTrame(string trame){
+void DispatcheurMeasure::setTrame(string trame){
     this->trame = trame;
 }
 
-string Measure::genererTrame(){
+string DispatcheurMeasure::genererTrame(){
     char* trameC = (char*)trame.c_str();
     json instrument;
     instrument =R"({
@@ -100,7 +100,7 @@ string Measure::genererTrame(){
 
 }
 
-Measure::~Measure() {
+DispatcheurMeasure::~DispatcheurMeasure() {
     delete matrice;
     delete image;
     delete simple;

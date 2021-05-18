@@ -1,26 +1,27 @@
 #pragma once
 #include "Lib.h"
 #include "Matrice.hpp"
+#include "Simple.hpp"
 #include "Image.hpp"
-#include "SimpleMission.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
-class Mission {
+class DispatcheurMeasure {
 
 public:
-    Mission();
-    ~Mission();
-    void setTrame(string trame){this->trame = trame;}
+    DispatcheurMeasure();
+    DispatcheurMeasure(string trame);
     void identifierType();
+    void setTrame(string trame);
     string genererTrame();
+    ~DispatcheurMeasure();
 
 private:
     string reponse;
     string trame;
     string type;
     Matrice* matrice;
-    SimpleMission* simple;
+    Simple* simple;
     Image* image;
-
 };

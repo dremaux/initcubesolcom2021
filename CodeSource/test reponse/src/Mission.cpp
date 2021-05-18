@@ -1,13 +1,13 @@
-#include "Mission.hpp"
+#include "DispatcheurMission.hpp"
 
-Mission::Mission() {
+DispatcheurMission::DispatcheurMission() {
     matrice = new Matrice();
     image = new Image();
     simple = new SimpleMission();
 
 }
 
-void Mission::identifierType(){
+void DispatcheurMission::identifierType(){
     if(trame.find("MISSION") < trame[2]+2){
         if(trame[11] == '-' || trame[11] == ' '){
             int debut = trame.find('-',12)+1;//+1 pour ignorer le - et 12 pour ignorer la premiere occurene qui est a 11
@@ -25,7 +25,7 @@ void Mission::identifierType(){
     }
 }
 
-string Mission::genererTrame(){
+string DispatcheurMission::genererTrame(){
     char* trameC = (char*)trame.c_str();
     json instrument;
     instrument =R"({
@@ -92,7 +92,7 @@ string Mission::genererTrame(){
 
 }
 
-Mission::~Mission() {
+DispatcheurMission::~DispatcheurMission() {
     delete image;
     delete matrice;
     delete simple;
