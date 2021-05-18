@@ -26,9 +26,9 @@ Commande::~Commande() {
 
 int Commande::extraireDonnees(){
     cout<<trame<<endl;
-    if(trame.find("CMD") != trame.end() && trame["CMD"].find("ID") != trame["CMD"].end() && trame["CMD"].find("TYPE") != trame["CMD"].end()){
-        id = trame["CMD"]["ID"];
-        cmd = trame["CMD"]["TYPE"];
+    if(trame.find("CMD") != trame.end() && trame["CMD"].find("idSatellite") != trame["CMD"].end() && trame["CMD"].find("typeCommande") != trame["CMD"].end()){
+        id = trame["CMD"]["idSatellite"];
+        cmd = trame["CMD"]["typeCommande"];
         if(cmd == "MISSION"){
             CMD = MISSION;
             extraireDonneesMis();
@@ -104,15 +104,15 @@ void Commande::extraireDonneesMis(){
         save = "-SAVE";
     }
 
-    if(trame["CMD"].find("TYPEMEASURE") != trame["CMD"].end()){
-        typeMeasure = trame["CMD"]["TYPEMEASURE"];
+    if(trame["CMD"].find("code") != trame["CMD"].end()){
+        typeMeasure = trame["CMD"]["code"];
         typeMeasure = "-" + typeMeasure;
     }
 }
 
 void Commande::extraireDonneesMea(){
-    if(trame["CMD"].find("TYPEMEASURE") != trame["CMD"].end()){
-        typeMeasure = trame["CMD"]["TYPEMEASURE"];
+    if(trame["CMD"].find("code") != trame["CMD"].end()){
+        typeMeasure = trame["CMD"]["code"];
         typeMeasure = "-" + typeMeasure;
     }
 }

@@ -43,11 +43,11 @@ string SimpleMission::genererTrame(string nom, string type, string unite)
 {
     json trame;
     trame["measure"]["name"] = nom;
-    trame["measure"]["typeMesure"] = type;
+    trame["measure"]["code"] = type;
     if(donneeExtraite.size() == dateExtraite.size()){
         for(int i = 0; i < dateExtraite.size();i++){
-            trame["measure"]["donnée"][i]["donnee"] = donneeExtraite[i];
-            trame["measure"]["donnée"][i]["date"] = dateExtraite[i];
+            trame["measure"]["donnee"][i]["donnee"] = donneeExtraite[i];
+            trame["measure"]["donnee"][i]["date"] = dateExtraite[i];
         }
     }else{
         cout<<"erreur trame reponse mission nombre date != nombre donnee"<<endl;

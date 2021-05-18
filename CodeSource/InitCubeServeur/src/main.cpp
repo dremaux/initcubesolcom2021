@@ -15,6 +15,7 @@ using namespace std;
 
 
 int numMap;
+bool securite = true;
 bool lecture = true;
 bool ecriture = false;
 InitCubeServeur* serveurEcouteJTP= new InitCubeServeur(9951);//json to protocol
@@ -79,6 +80,7 @@ void threadEnvoie(){
 		serveurEcouteJTP->effacerPremierRecu();
 		if(set && commande->extraireDonnees() > 0){
 			lecture = false;
+			while(securite);
 			cout<<commande->genererTrame()<<endl;//remplacer cout par la liaison serie
 			lecture = true;
 			cv.notify_all();
@@ -92,6 +94,7 @@ void threadReception(){
 	unique_lock<mutex> lck(*mtx);
 	while(1){
 		while(!lecture) cv.wait(lck);
+		securite = true;
 		if(/*liaison serie > */0){
 			recu = "liaison serie";
 			reponse->setTrame(recu);
@@ -105,5 +108,6 @@ void threadReception(){
 				serveurEcriturePTJ->transmettre(trameGC,trameG.size());
 			}
 		}
+		securite = false;
 	}
 }
