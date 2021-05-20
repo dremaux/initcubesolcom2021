@@ -6,23 +6,24 @@ using namespace std;
 
 int main(){
     
-    //création de l'instance de Mongocxx qui doit être unique pour chaque programme
     mongocxx::instance instance{};
-
     GestionCommandes * gCommandes = new GestionCommandes();
 
-    //Récupération et transmission de toutes les dernières commandes
-    cout << "nombre de commandes reçues : " << gCommandes->getDernieresCommandes() << endl;
-    gCommandes->transmettreCommandes();
+    //cout << "nombre de commandes reçus :" << gCommandes->getDernieresCommandes(3) << endl;
+    //gCommandes->transmettreCommandes();
 
-    //Récupération et transmission des 5 dernières commandes
-    cout << "nombre de commandes reçues : " << gCommandes->getDernieresCommandes(5) << endl;
-    gCommandes->transmettreCommandes();
+    //gCommandes->rechercheCommandesParDate("");
+    //gCommandes->transmettreCommandes();
 
-    //Recherche par date
-    cout << "Recherche par la date :" << endl;
-    gCommandes->rechercherCommandesParDate("2021-05-14");
-    gCommandes->transmettreCommandes();
-
+    //json ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}})"_json;
+    //gCommandes->stockerCommande(ma_trame);
+    
     return 0;    
 }
+
+/*
+
+mongod --dbpath /data/db --repair
+
+sudo mongod --storageEngine=mmapv1
+*/

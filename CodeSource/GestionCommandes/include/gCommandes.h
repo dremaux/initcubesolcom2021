@@ -48,5 +48,6 @@ class GestionCommandes {
         mongocxx::client client{mongocxx::client{mongocxx::uri{}}};
         mongocxx::database db;
         mongocxx::collection coll;
+        
         vector<std::string> commandes;
 };
