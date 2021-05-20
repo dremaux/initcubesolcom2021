@@ -11,11 +11,11 @@ class Simple {
 
 public:
     Simple();
-    void extraireDonner(char* trame, int nbOctetType, string unite);
+    void extraireDonner(char* trame, int nbOctetType);
     string genererTrame(string nom, string type, string unite);
     ~Simple();
 private:
-    string donneeExtraite;
+    vector<string> donneeExtraite;
     int caseFinM;
     int caseDebutM;
 };

@@ -17,7 +17,7 @@ public:
 
 private:
     bool security;
-    string donneeExtraite;
+    vector<string> donneeExtraite;
     int caseFinM;
     int caseDebutM;
     int compteur;

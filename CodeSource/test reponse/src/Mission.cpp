@@ -3,12 +3,12 @@
 Mission::Mission() {
     matrice = new Matrice();
     image = new Image();
+    simple = new SimpleMission();
 
 }
 
-string Mission::identifierType(){
-    string type = "";
-    if(trame.find("MISSION") < trame[2]+3){
+void Mission::identifierType(){
+    if(trame.find("MISSION") < trame[2]+2){
         if(trame[11] == '-' || trame[11] == ' '){
             int debut = trame.find('-',12)+1;//+1 pour ignorer le - et 12 pour ignorer la premiere occurene qui est a 11
             int fin = trame.find(' ',12);
@@ -48,13 +48,13 @@ string Mission::genererTrame(){
             if(type == id){
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
                 if(typeMesure == "simple"){
-                    simple->extraireDonner(trameC,type.length(),instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
+                    simple->extraireDonner(trameC,type.length());
                     reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                     return reponse;
                 }
                 if(typeMesure == "matrice"){
                     if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
-                        string date = trame.substr((trame[2]+3)-19,trame[2]+3);
+                        string date = trame.substr((trame[2]+2)-18,19);
                         trameC[2]-= 22;
                         matrice->extraireDonnee(trameC,type.length());
                         reponse = matrice->genereTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"],"mission",date);
@@ -71,7 +71,8 @@ string Mission::genererTrame(){
                     
                     if(trame[NBRE_LIGNES] == trame[NUM_LIGNE] && trame[NBRE_SECTION] == trame[NUM_SECTION]){
                         image->extraireDonnee(trameUC,type.length());
-                        string date = trame.substr((trame[2]+3)-19,trame[2]+3);
+                        string date = trame.substr((trame[2]+2)-18,19);
+                        trameC[2]-= 22;
                         time_t now = time(0);
                         string dt = ctime(&now);
                         dt.erase(dt.length()-1,1);//supprime le \n de fin
@@ -94,4 +95,5 @@ string Mission::genererTrame(){
 Mission::~Mission() {
     delete image;
     delete matrice;
+    delete simple;
 }

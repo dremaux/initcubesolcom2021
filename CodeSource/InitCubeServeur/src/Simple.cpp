@@ -1,32 +1,42 @@
 #include "Simple.hpp"
 
-Simple::Simple() {
-
+Simple::Simple()
+{
 }
 
-void Simple::extraireDonner(char* trame, int nbOctetType, string unite){
+void Simple::extraireDonner(char *trame, int nbOctetType)
+{
     caseFinM = trame[2] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;
-    donneeExtraite = "";
-    for(int i = caseDebutM+1; i <= caseFinM;i++){ //le +1 est la pour ignorer le premier espace 
-        if(trame[i] == ' '){
-            donneeExtraite = donneeExtraite + unite + " ";
+    string donnee;
+    for (int i = 0; i < donneeExtraite.size(); i++)
+    {
+        donneeExtraite.erase(donneeExtraite.begin());
+    }
+    for (int i = caseDebutM + 1; i <= caseFinM; i++)
+    { //le +1 est la pour ignorer le premier espace
+        if (trame[i] == ' ')
+        {
+            donneeExtraite.push_back(donnee);
+            donnee = "";
         }
-        else{
-            donneeExtraite = donneeExtraite + trame[i];
+        else
+        {
+            donnee = donnee + trame[i];
         }
     }
 }
 
-string Simple::genererTrame(string nom, string type, string unite){
+string Simple::genererTrame(string nom, string type, string unite)
+{
     json trame;
     trame["measure"]["name"] = nom;
-    trame["measure"]["type mesure"] = type;
-    trame["measure"]["donnée"] = donneeExtraite + unite;
+    trame["measure"]["typeMesure"] = type;
+    trame["measure"]["donnée"] = donneeExtraite;
+    trame["measure"]["unite"] = unite;
     return trame.dump();
-    
 }
 
-Simple::~Simple() {
-
+Simple::~Simple()
+{
 }

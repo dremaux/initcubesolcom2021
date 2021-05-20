@@ -13,10 +13,9 @@ Image::Image() {
 }
 
 void Image::extraireDonnee(unsigned char* trame, int nbOctetType){
-    cout<<(int)trame[NUM_LIGNE]<<"|"<<compteurL<<"|"<<(int)trame[NUM_SECTION]<<"|"<<compteurS<<endl;
     if(trame[NUM_LIGNE] == compteurL && trame[NUM_SECTION] == compteurS){
         security = false;
-        caseFinM = trame[2] + 3;
+        caseFinM = trame[2] + 2;
         caseDebutM = DEBUT_TRAME_IMAGE + nbOctetType;
         if(trame[NUM_LIGNE] == 1 && trame[NUM_SECTION] == 1){
             for(int i = 0;i<NB_PIXEL_IMAGE;i++){
@@ -102,7 +101,7 @@ bool Image::genereImage(string nom, int width, int height){
     return ok ? 0 : 1;
 }
 
-string Image::genereTrame(string nom, string typeMeasure, string type, string dt =""){
+string Image::genereTrame(string nom, string typeMeasure, string type, string dt){
     json trame;
     if(compteurL == 1 && compteurS == 1 && security == false){
         trame[type]["name"] = nom;
