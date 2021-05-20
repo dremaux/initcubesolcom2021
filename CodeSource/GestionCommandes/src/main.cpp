@@ -22,7 +22,6 @@ int main(){
 }
 
 /*
-
 mongod --dbpath /data/db --repair
 
 sudo mongod --storageEngine=mmapv1
