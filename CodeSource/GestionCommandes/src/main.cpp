@@ -12,7 +12,7 @@ int main(){
     //cout << "nombre de commandes reçus :" << gCommandes->getDernieresCommandes(3) << endl;
     //gCommandes->transmettreCommandes();
 
-    //gCommandes->rechercheCommandesParDate("");
+    //gCommandes->rechercheCommandesParDate("2021/05/19");
     //gCommandes->transmettreCommandes();
 
     //json ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}})"_json;
