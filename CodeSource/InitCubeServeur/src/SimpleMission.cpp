@@ -4,9 +4,9 @@ SimpleMission::SimpleMission()
 {
 }
 
-void SimpleMission::extraireDonner(char *trame, int nbOctetType)
+void SimpleMission::extraireDonnee(char *trame, int nbOctetType)
 {
-    caseFinM = trame[2] + 2;
+    caseFinM = trame[1] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;
     string donnee = "";
     for (int i = 0; i < donneeExtraite.size(); i++)
@@ -39,15 +39,15 @@ void SimpleMission::extraireDonner(char *trame, int nbOctetType)
     }
 }
 
-string SimpleMission::genererTrame(string nom, string type, string unite)
+string SimpleMission::genererTrame(string nom, string type, string unite, string dt)
 {
     json trame;
     trame["measure"]["name"] = nom;
-    trame["measure"]["typeMesure"] = type;
+    trame["measure"]["code"] = type;
     if(donneeExtraite.size() == dateExtraite.size()){
         for(int i = 0; i < dateExtraite.size();i++){
-            trame["measure"]["donnée"][i]["donnee"] = donneeExtraite[i];
-            trame["measure"]["donnée"][i]["date"] = dateExtraite[i];
+            trame["measure"]["donnee"][i]["donnee"] = donneeExtraite[i];
+            trame["measure"]["donnee"][i]["date"] = dateExtraite[i];
         }
     }else{
         cout<<"erreur trame reponse mission nombre date != nombre donnee"<<endl;
@@ -55,6 +55,10 @@ string SimpleMission::genererTrame(string nom, string type, string unite)
     }
     
     trame["measure"]["unite"] = unite;
+    if(dt != ""){
+        trame["measure"]["date"] = dt;
+    }
+    
     return trame.dump();
 }
 

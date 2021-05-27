@@ -1,6 +1,5 @@
 #pragma once
 #include "Measure.hpp"
-#include "toojpeg.h"
 #define DEBUT_TRAME_IMAGE 14
 #define NB_PIXEL_IMAGE 320*240*3
 #define NBRE_SECTION 11

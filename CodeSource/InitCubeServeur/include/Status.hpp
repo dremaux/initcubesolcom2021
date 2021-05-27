@@ -1,7 +1,7 @@
 #pragma once
 #include "Lib.h"
-#define NBRE_TRAMES 9
-#define NUM_TRAME 10
+#define NBRE_TRAMES 8
+#define NUM_TRAME 9
 
 using namespace std;
 using json = nlohmann::json;
