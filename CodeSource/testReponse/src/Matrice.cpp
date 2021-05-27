@@ -12,7 +12,7 @@ Matrice::~Matrice() {
 void Matrice::extraireDonnee(char* trame, int nbOctetType){
     if(trame[NUM_TRAME] == compteur){
         security = false;
-        caseFinM = trame[2] + 2;
+        caseFinM = trame[1] + 2;
         caseDebutM = DEBUT_TRAME + nbOctetType;
         string donnee;
         if(trame[NUM_TRAME] == 1){
@@ -27,7 +27,7 @@ void Matrice::extraireDonnee(char* trame, int nbOctetType){
                     donnee = "";
                 }
                 else{
-                    donnee = donnee + trame[i];
+                    donnee += trame[i];
                 }
         }
         if(trame[NBRE_TRAMES] == trame[NUM_TRAME]){
@@ -47,7 +47,7 @@ void Matrice::extraireDonnee(char* trame, int nbOctetType){
     }
 }
 
-string Matrice::genereTrame(string nom, string typeMeasure, string type, string dt){
+string Matrice::genererTrame(string nom, string typeMeasure, string type, string dt){
     json trame;
     if(compteur == 1 && security == false){
         trame[type]["name"] = nom;

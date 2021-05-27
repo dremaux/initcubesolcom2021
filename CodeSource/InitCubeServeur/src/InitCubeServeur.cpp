@@ -90,6 +90,7 @@ int InitCubeServeur::attendreCommande(int n){
         reçu.push_back(buffer);
         mtx->unlock();
         send(connexions[n],"ACK",3,0);
+        cout<<buffer;
     }
     return(1);
 }

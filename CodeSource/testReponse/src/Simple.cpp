@@ -4,9 +4,9 @@ Simple::Simple()
 {
 }
 
-void Simple::extraireDonner(char *trame, int nbOctetType)
+void Simple::extraireDonnee(char *trame, int nbOctetType)
 {
-    caseFinM = trame[2] + 2;
+    caseFinM = trame[1] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;
     string donnee;
     for (int i = 0; i < donneeExtraite.size(); i++)
@@ -22,18 +22,22 @@ void Simple::extraireDonner(char *trame, int nbOctetType)
         }
         else
         {
-            donnee = donnee + trame[i];
+            donnee += trame[i];
         }
     }
 }
 
-string Simple::genererTrame(string nom, string type, string unite)
+string Simple::genererTrame(string nom, string type, string unite, string dt)
 {
     json trame;
     trame["measure"]["name"] = nom;
     trame["measure"]["code"] = type;
     trame["measure"]["donnee"] = donneeExtraite;
     trame["measure"]["unite"] = unite;
+    if(dt != ""){
+        trame["measure"]["date"] = dt;
+    }
+    
     return trame.dump();
 }
 

@@ -33,7 +33,7 @@ void Status::extraireDonnee(string trame)
     {
         security = false;
         compteur++;
-        caseFinP = trame[2] + 3;
+        caseFinP = trame[1] + 2;
         if (trame[NUM_TRAME] == 1)
         {
             bord = false;
@@ -273,7 +273,7 @@ string Status::genereTrame()
                 trame["status"]["batterie"]["Charge"] = "NON";
             }
         }
-
+        
         if (inst)
         {
             trame["status"]["instrument"]["Marche"] = marche;
@@ -293,7 +293,7 @@ string Status::genereTrame()
                 trame["status"]["instrument"]["erreur"] = "NON";
             }
         }
-
+        
         if (cube)
         {
             trame["status"]["cube"]["Temperature"] = Tcube;
@@ -304,6 +304,7 @@ string Status::genereTrame()
             trame["status"]["reboot"]["DateDernierReboot"] = DTr;
             trame["status"]["reboot"]["NombreReboot"] = N;
         }
+
         return trame.dump();
     }
     else

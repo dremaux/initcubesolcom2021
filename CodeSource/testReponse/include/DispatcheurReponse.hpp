@@ -11,13 +11,13 @@ class DispatcheurReponse {
 
 public:
     DispatcheurReponse();
-    void setTrame(string trame){this->trame = trame;}
+    void setTrame(char* trame);
     string identifierType();
     string genererTrame();
     ~DispatcheurReponse();
 
 private:
-    string trame;
+    char* trame;
     DispatcheurMeasure* measure; 
     Status* status;
     DispatcheurMission* mission;

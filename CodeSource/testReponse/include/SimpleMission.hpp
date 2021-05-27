@@ -2,16 +2,13 @@
 #include "Lib.h"
 #include "Simple.hpp"
 
-class SimpleMission {
+class SimpleMission : public Simple{
 
 public:
     SimpleMission();
-    void extraireDonner(char* trame, int nbOctetType);
-    string genererTrame(string nom, string type, string unite);
+    void extraireDonnee(char* trame, int nbOctetType);
+    string genererTrame(string nom, string type, string unite, string dt = "");
     ~SimpleMission();
 private:
     vector<string> dateExtraite;
-    vector<string> donneeExtraite;
-    int caseFinM;
-    int caseDebutM;
 };
