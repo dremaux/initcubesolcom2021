@@ -2,7 +2,7 @@
 #include <string>
 #include "gCommandes.h"
 
-using json=nlohmann::json;
+
 using namespace std;
 
 int main(){
