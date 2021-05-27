@@ -44,7 +44,7 @@ class GestionCommandes {
     
     private:
 
-        mongocxx::client client{mongocxx::client{mongocxx::uri{}}};
+       /* mongocxx::client client{mongocxx::client{mongocxx::uri{}}};*/
         mongocxx::database db;
         mongocxx::collection coll;
         
