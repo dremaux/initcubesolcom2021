@@ -11,6 +11,9 @@
 #include <bsoncxx/builder/stream/helpers.hpp>
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/builder/stream/array.hpp>
+
+#include "json.hpp"
+
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
 using bsoncxx::builder::stream::document;
@@ -23,7 +26,7 @@ using bsoncxx::builder::basic::make_document;
 
 using namespace bsoncxx;
 using namespace std;
-
+using json=nlohmann::json;
 
 
 
@@ -33,10 +36,11 @@ class GestionCommandes {
         GestionCommandes();
         ~GestionCommandes();
         
+
         int getDernieresCommandes(int nombre=0);  
         int transmettreCommandes();
         int rechercherCommandesParDate(std::string date); 
-        int stockerCommande(json laCommande);
+	    int stockerCommande(json commande);
     
     private:
 
