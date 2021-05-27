@@ -3,7 +3,7 @@
 #include "Cmd.h"
 
 using namespace std;
-using json = nlohmann::json;
+
 
 class Commande {
 
@@ -27,7 +27,7 @@ private:
     void testAfficherTrame(string trameInter,  char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
     char nCommande[1];
     Cmd CMD;
-    json trame;
+    nlohmann::json trame;
     string id;
     string cmd;
     string periode;

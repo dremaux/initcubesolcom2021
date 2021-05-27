@@ -4,7 +4,7 @@
 #define NUM_TRAME 10
 
 using namespace std;
-
+using json = nlohmann::json;
 
 class Measure {
 

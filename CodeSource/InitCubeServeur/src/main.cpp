@@ -1,9 +1,8 @@
 #include "Lib.h"
 #include "InitCubeServeur.h"
 #include "Commande.hpp"
-#include "Reponse.hpp"
+#include "DispatcheurReponse.hpp"
 #include <thread>
-
 
 void threadConnexionEcoute();
 void threadConnexionEcriture();
@@ -13,26 +12,25 @@ void threadReception();
 
 using namespace std;
 
-
 int numMap;
 bool securite = true;
-bool lecture = true;
+bool lecture = false;
 bool ecriture = false;
-InitCubeServeur* serveurEcouteJTP= new InitCubeServeur(9951);//json to protocol
-InitCubeServeur* serveurEcriturePTJ= new InitCubeServeur(9950);//protocol to json
-Commande* commande = new Commande();
-Reponse* reponse = new Reponse();
+InitCubeServeur *serveurEcouteJTP = new InitCubeServeur(9951);	 //json to protocol
+InitCubeServeur *serveurEcriturePTJ = new InitCubeServeur(9950); //protocol to json
+Commande *commande = new Commande();
+DispatcheurReponse *reponse = new DispatcheurReponse();
 
-mutex* mtx;
+mutex *mtx;
 condition_variable cv;
 
 int main()
 {
 	mtx = serveurEcouteJTP->getMutex();
-	thread* monThreadEcoute = new thread(threadConnexionEcoute);
-	thread* monThreadEcriture = new thread(threadConnexionEcriture);
-	thread* monThreadEnvoie = new thread(threadEnvoie);
-	thread* monThreadReception = new thread(threadReception);
+	thread *monThreadEcoute = new thread(threadConnexionEcoute);
+	thread *monThreadEcriture = new thread(threadConnexionEcriture);
+	thread *monThreadEnvoie = new thread(threadEnvoie);
+	thread *monThreadReception = new thread(threadReception);
 
 	monThreadReception->join();
 	monThreadEnvoie->join();
@@ -41,29 +39,35 @@ int main()
 	return 0;
 }
 
-
-void threadConnexionEcoute(){
-	while(1){
-		numMap = serveurEcouteJTP -> attendreConnexion();
-		if(numMap >= 0){			
-			thread* monThreadClient = new thread(threadClient);
+void threadConnexionEcoute()
+{
+	while (1)
+	{
+		numMap = serveurEcouteJTP->attendreConnexion();
+		if (numMap >= 0)
+		{
+			thread *monThreadClient = new thread(threadClient);
 		}
 	}
-
 }
 
-void threadConnexionEcriture(){
-	while(1){
-		serveurEcriturePTJ -> attendreConnexion();
+void threadConnexionEcriture()
+{
+	while (1)
+	{
+		serveurEcriturePTJ->attendreConnexion();
 	}
 }
 
-void threadClient(){
+void threadClient()
+{
 	int numMapC = numMap;
 	int retour = 0;
-	while(retour >= 0){
+	while (retour >= 0)
+	{
 		retour = serveurEcouteJTP->attendreCommande(numMapC);
-		if(retour >= 0){
+		if (retour >= 0)
+		{
 			ecriture = true;
 			cv.notify_all();
 			ecriture = false;
@@ -71,41 +75,54 @@ void threadClient(){
 	}
 }
 
-void threadEnvoie(){
+void threadEnvoie()
+{
 	unique_lock<mutex> lck(*mtx);
-	while(1) {
-		while(!ecriture) cv.wait(lck);
-		cout<<serveurEcouteJTP->getReçu().front()<<endl;
-		bool set = commande->setTrame(serveurEcouteJTP->getReçu().front());
+	while (1)
+	{
+		while (!ecriture)
+			cv.wait(lck);
+		cout << serveurEcouteJTP->getRecu().front() << endl;
+		bool set = commande->setTrame(serveurEcouteJTP->getRecu().front());
 		serveurEcouteJTP->effacerPremierRecu();
-		if(set && commande->extraireDonnees() > 0){
+		if (set && commande->extraireDonnees() > 0)
+		{
 			lecture = false;
-			while(securite);
-			cout<<commande->genererTrame()<<endl;//remplacer cout par la liaison serie
+			while (securite)
+				;
+			cout << commande->genererTrame() << endl; //remplacer cout par la liaison serie
 			lecture = true;
 			cv.notify_all();
 		}
-		
 	}
 }
 
-void threadReception(){
-	string recu;
+void threadReception()
+{
+	char recu[1];
 	unique_lock<mutex> lck(*mtx);
-	while(1){
-		while(!lecture) cv.wait(lck);
+	while (1)
+	{
+		while (!lecture)
+			cv.wait(lck);
 		securite = true;
-		if(/*liaison serie > */0){
-			recu = "liaison serie";
+		if (/*liaison serie > */ 0)
+		{
+			recu[0] = 'l';//liaison serie
 			reponse->setTrame(recu);
 			string recuR = reponse->identifierType();
-			if(recuR == "JSON" && recu[10] == recu[11]){
+			if (recuR == "JSON")
+			{
 				string trameG = reponse->genererTrame();
-				char trameGC[trameG.size()+1];
-				for(int i = 0; i < trameG.size()+1;i++){
-					trameGC[i] = trameG[i];
+				if (recu[10] == recu[11])
+				{
+					char trameGC[trameG.size() + 1];
+					for (int i = 0; i < trameG.size() + 1; i++)
+					{
+						trameGC[i] = trameG[i];
+					}
+					serveurEcriturePTJ->transmettre(trameGC, trameG.size());
 				}
-				serveurEcriturePTJ->transmettre(trameGC,trameG.size());
 			}
 		}
 		securite = false;

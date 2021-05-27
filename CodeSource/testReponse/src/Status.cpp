@@ -1,7 +1,5 @@
 #include "Status.hpp"
 
-using json = nlohmann::json;
-
 Status::Status()
 {
     compteur = 1;

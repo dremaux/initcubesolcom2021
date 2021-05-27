@@ -5,16 +5,12 @@
 #define ADRESSE "127.0.0.1"
 #define BUF_SIZE 500
 
-
-using json = nlohmann::json;
-
-using namespace std;
-
 /*
 port = num port du serveur
  */
 InitCubeServeur::InitCubeServeur(int port){
 	iterateur = 0;
+    mtx = new mutex();
     ecoute.sin_port=htons(port);//port d'écoute.
 	ecoute.sin_addr.s_addr=inet_addr(ADRESSE);
 	ecoute.sin_family=AF_INET;
@@ -87,15 +83,16 @@ int InitCubeServeur::attendreCommande(int n){
     }
     else{
         mtx->lock();
-        reçu.push_back(buffer);
+        recu.push_back(buffer);
         mtx->unlock();
         send(connexions[n],"ACK",3,0);
+        cout<<buffer;
     }
     return(1);
 }
 
 void InitCubeServeur::effacerPremierRecu(){
-    reçu.erase(reçu.begin());
+    recu.erase(recu.begin());
 }
 
 void InitCubeServeur::afficherCommande(string buff){
@@ -118,6 +115,13 @@ void InitCubeServeur::transmettre(char* message, int taille) {
     }
 }
 
+vector <string> InitCubeServeur::getRecu(){
+    return recu;
+}
+
+mutex* InitCubeServeur::getMutex(){
+    return mtx;
+}
 InitCubeServeur::~InitCubeServeur() {
     close(canal);
 }
