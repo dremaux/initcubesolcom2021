@@ -1,5 +1,7 @@
 #include "DispatcheurMeasure.hpp"
 
+using json = nlohmann::json;
+
 DispatcheurMeasure::DispatcheurMeasure()
 {
     reponse = "";

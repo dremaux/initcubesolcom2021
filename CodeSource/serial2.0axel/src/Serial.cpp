@@ -68,7 +68,7 @@ std::string Serial::readLine()
         //retour de la chaîne de caractère complète en cas de réception de "255"
         if (retour != 0)
         {
-            if (c == 255)
+            if (c == 255)//passage en paramettre
             {
                 result = resultat;
                 resultat = "";
