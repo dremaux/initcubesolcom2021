@@ -1,5 +1,7 @@
 #include "Simple.hpp"
 
+using json = nlohmann::json;
+
 Simple::Simple()
 {
 }

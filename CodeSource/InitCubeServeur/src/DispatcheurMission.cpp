@@ -1,5 +1,7 @@
 #include "DispatcheurMission.hpp"
 
+using json = nlohmann::json;
+
 DispatcheurMission::DispatcheurMission()
 {
     simple = new SimpleMission();

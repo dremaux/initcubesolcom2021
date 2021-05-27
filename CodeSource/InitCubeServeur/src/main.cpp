@@ -19,7 +19,7 @@ bool ecriture = false;
 InitCubeServeur *serveurEcouteJTP = new InitCubeServeur(9951);	 //json to protocol
 InitCubeServeur *serveurEcriturePTJ = new InitCubeServeur(9950); //protocol to json
 Commande *commande = new Commande();
-Reponse *reponse = new Reponse();
+DispatcheurReponse *reponse = new DispatcheurReponse();
 
 mutex *mtx;
 condition_variable cv;
@@ -82,8 +82,8 @@ void threadEnvoie()
 	{
 		while (!ecriture)
 			cv.wait(lck);
-		cout << serveurEcouteJTP->getReçu().front() << endl;
-		bool set = commande->setTrame(serveurEcouteJTP->getReçu().front());
+		cout << serveurEcouteJTP->getRecu().front() << endl;
+		bool set = commande->setTrame(serveurEcouteJTP->getRecu().front());
 		serveurEcouteJTP->effacerPremierRecu();
 		if (set && commande->extraireDonnees() > 0)
 		{
@@ -99,7 +99,7 @@ void threadEnvoie()
 
 void threadReception()
 {
-	string recu;
+	char recu[1];
 	unique_lock<mutex> lck(*mtx);
 	while (1)
 	{
@@ -108,7 +108,7 @@ void threadReception()
 		securite = true;
 		if (/*liaison serie > */ 0)
 		{
-			recu = "liaison serie";
+			recu[0] = 'l';//liaison serie
 			reponse->setTrame(recu);
 			string recuR = reponse->identifierType();
 			if (recuR == "JSON")

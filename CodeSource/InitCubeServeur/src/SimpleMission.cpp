@@ -1,5 +1,7 @@
 #include "SimpleMission.hpp"
 
+using json = nlohmann::json;
+
 SimpleMission::SimpleMission()
 {
 }

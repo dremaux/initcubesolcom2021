@@ -92,7 +92,7 @@ string DispatcheurReponse::genererTrame()
 
 DispatcheurReponse::~DispatcheurReponse()
 {
-    delete mission;
-    delete status;
     delete measure;
+    delete status;
+    delete mission;
 }

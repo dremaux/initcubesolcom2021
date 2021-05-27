@@ -1,5 +1,7 @@
 #include "Matrice.hpp"
 
+using json = nlohmann::json;
+
 Matrice::Matrice() {
     security = true;
     compteur = 1;

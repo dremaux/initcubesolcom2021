@@ -1,5 +1,7 @@
 #include "Image.hpp"
 
+using json = nlohmann::json;
+
 ofstream myFile;
 
 Image::Image()
