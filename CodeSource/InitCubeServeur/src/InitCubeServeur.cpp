@@ -87,7 +87,7 @@ int InitCubeServeur::attendreCommande(int n){
     }
     else{
         mtx->lock();
-        reçu.push_back(buffer);
+        recu.push_back(buffer);
         mtx->unlock();
         send(connexions[n],"ACK",3,0);
     }
@@ -95,7 +95,7 @@ int InitCubeServeur::attendreCommande(int n){
 }
 
 void InitCubeServeur::effacerPremierRecu(){
-    reçu.erase(reçu.begin());
+    recu.erase(recu.begin());
 }
 
 void InitCubeServeur::afficherCommande(string buff){

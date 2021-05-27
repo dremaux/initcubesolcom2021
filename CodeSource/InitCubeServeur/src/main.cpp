@@ -75,8 +75,8 @@ void threadEnvoie(){
 	unique_lock<mutex> lck(*mtx);
 	while(1) {
 		while(!ecriture) cv.wait(lck);
-		cout<<serveurEcouteJTP->getReçu().front()<<endl;
-		bool set = commande->setTrame(serveurEcouteJTP->getReçu().front());
+		cout<<serveurEcouteJTP->getRecu().front()<<endl;
+		bool set = commande->setTrame(serveurEcouteJTP->getRecu().front());
 		serveurEcouteJTP->effacerPremierRecu();
 		if(set && commande->extraireDonnees() > 0){
 			lecture = false;

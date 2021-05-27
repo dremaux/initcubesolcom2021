@@ -24,10 +24,10 @@ int GestionCommandes::getDernieresCommandes(int nombre)
   return nombreCommandes;
 }
 
-int GestionCommandes::rechercheCommandesParDate(std::string date)
+int GestionCommandes::rechercherCommandesParDate(std::string date)
 {
   bsoncxx::builder::stream::document document{};
-  document << "DATE" << bsoncxx::types::b_regex{"^" + date};
+  document << "CMD.DATE" << bsoncxx::types::b_regex{"^" + date};
   auto cursor = coll.find(document.view());
 
   for (auto &&doc : cursor)
@@ -61,7 +61,7 @@ int GestionCommandes::stockerCommande(json laCommande)
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
   puts (buffer);
 
-  laCommande["DATE"] = buffer;
+  laCommande["CMD"]["DATE"] = buffer;
 
       coll.insert_one(std::move(from_json(laCommande.dump())));
 }

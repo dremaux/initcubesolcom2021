@@ -1,13 +1,13 @@
 CXX		  := g++
-CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
+CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++17
 
 BIN		:= bin
 SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
 
-LIBRARIES	:=
-EXECUTABLE	:= testCubeEventServer.cgi
+LIBRARIES	:= -lboost_system -lpthread
+EXECUTABLE	:= main
 
 
 all: $(BIN)/$(EXECUTABLE)

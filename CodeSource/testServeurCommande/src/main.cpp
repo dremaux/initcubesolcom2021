@@ -6,5 +6,6 @@ int main()
 	cgi -> transmettreEntete();
 	
 	cgi->transmettreJSON(ETAT,"test");
+	delete cgi;
 	return 0;
 }
