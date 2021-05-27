@@ -1,4 +1,5 @@
 #include "gCommandes.h"
+using json=nlohmann::json;
 
 GestionCommandes::GestionCommandes()
 {
@@ -30,7 +31,7 @@ int GestionCommandes::rechercherCommandesParDate(std::string date)
   document << "CMD.DATE" << bsoncxx::types::b_regex{"^" + date};
   auto cursor = coll.find(document.view());
 
-  for (auto &&doc : cursor)
+  for (auto doc : cursor)
   {
     cout << to_json(doc) << endl;
   }
