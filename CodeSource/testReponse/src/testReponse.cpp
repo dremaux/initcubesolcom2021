@@ -14,13 +14,13 @@ void testImageMi();
 
 int main()
 {
-    //testStatus();
-    //testSimpleMe();
-    //testMatriceMe();
+    testStatus();
+    testSimpleMe();
+    testMatriceMe();
     testImageMe();
-    //testSimpleMi();
-    //testMatriceMi();
-    //testImageMi();
+    testSimpleMi();
+    testMatriceMi();
+    testImageMi();
     return 0;
 }
 
