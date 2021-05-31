@@ -1,7 +1,5 @@
 #include "Status.hpp"
 
-using json = nlohmann::json;
-
 Status::Status()
 {
     compteur = 1;
@@ -92,25 +90,21 @@ void Status::extraireDonnee(string trame)
         if (trame.find("-BATT") < caseFinP)
         {
             batt = true;
-
             if (trame.find("-C") < caseFinP)
             {
                 (trame.find("-", trame.find("-C") + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-C") + 1) : finChamp = caseFinP;
                 C = trame.substr(trame.find("-C") + 2, finChamp - (trame.find("-C") + 2));
             }
-
             if (trame.find("-V") < caseFinP)
             {
                 (trame.find("-", trame.find("-V") + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-V") + 1) : finChamp = caseFinP;
                 V = trame.substr(trame.find("-V") + 2, finChamp - (trame.find("-V") + 2));
             }
-
             if (trame.find("-A") < caseFinP)
             {
                 (trame.find("-", trame.find("-A") + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-A") + 1) : finChamp = caseFinP;
                 A = trame.substr(trame.find("-A") + 2, finChamp - (trame.find("-A") + 2));
             }
-
             if (trame.find("-LOAD") < caseFinP)
             {
                 load = true;

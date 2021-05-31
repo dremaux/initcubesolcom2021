@@ -13,9 +13,6 @@
 
 #ifndef LIB_H
 #define LIB_H
-#include <mutex>
-#include <condition_variable>
-#include <math.h>
 #include "json.hpp"
 #include <chrono>
 #include <arpa/inet.h>
@@ -42,7 +39,6 @@
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros
 # include <sys/select.h>
 # include <sys/sysmacros.h>
-
 
 #endif /* LIB_H */
 

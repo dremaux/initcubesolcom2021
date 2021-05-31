@@ -4,6 +4,7 @@
 #define NUM_TRAME 9
 
 using namespace std;
+using json = nlohmann::json;
 
 class Status {
 
