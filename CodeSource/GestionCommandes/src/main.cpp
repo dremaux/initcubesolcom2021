@@ -2,28 +2,30 @@
 #include <string>
 #include "gCommandes.h"
 
+
 using namespace std;
 
 int main(){
     
     mongocxx::instance instance{};
     GestionCommandes * gCommandes = new GestionCommandes();
+    cout << "Affichage des 50 dernières commandes" << endl;
+    cout << "nombre de commandes reçus :" << gCommandes->getDernieresCommandes(50) << endl;
+    gCommandes->transmettreCommandes();
 
-    //cout << "nombre de commandes reçus :" << gCommandes->getDernieresCommandes(3) << endl;
+    
+    cout  << "Affichage des commandes transmises à une date et une herue précises" << endl;
+    gCommandes->rechercherCommandesParDate("2021/05/23 23:40");
     //gCommandes->transmettreCommandes();
 
-    //gCommandes->rechercheCommandesParDate("2021/05/19");
-    //gCommandes->transmettreCommandes();
-
-    //json ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}})"_json;
-    //gCommandes->stockerCommande(ma_trame);
+    json ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}})"_json;
+    gCommandes->stockerCommande(ma_trame);
     
     return 0;    
 }
 
 /*
+./mongod --storageEngine=mmapv1 --journal
 
-mongod --dbpath /data/db --repair
-
-sudo mongod --storageEngine=mmapv1
+./mongod
 */
