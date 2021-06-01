@@ -20,7 +20,7 @@ int main()
     //testImageMe();
     //testSimpleMi();
     //testMatriceMi();
-    //testImageMi();
+    testImageMi();
     return 0;
 }
 
