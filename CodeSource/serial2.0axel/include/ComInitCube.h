@@ -28,9 +28,7 @@ class ComInitCube
     **/
     void transmettreTrame(unsigned char* s);
 
-    void lireTrame(std::string s);
-
-    unsigned char* lireTrame2();
+    void lireTrame(unsigned char* trame, int taille);
 
 };
 

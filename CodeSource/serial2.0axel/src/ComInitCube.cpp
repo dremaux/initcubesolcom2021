@@ -31,27 +31,17 @@ void ComInitCube::transmettreTrame(unsigned char* s)
     }*/
 }
 
-unsigned char* ComInitCube::lireTrame2(){
-    unsigned char trame[110]; // le protocole Xbee nous permet des trames de 104 octets
-    for(int i = 0; i < 110; i++){
+void ComInitCube::lireTrame(unsigned char* trame, int taille){
+    for(int i = 0; i < taille; i++){
         trame[i] = 0;
     }
     unsigned char buf;
     int i = 0;
-    while(1){
+    while(buf != 255){
         buf = maLiaisonSerie->readChar();
-        if(buf == 255){
-            return (unsigned char*)trame;
-        }
         trame[i] = buf;
         i++;
     }
-}
-
-void ComInitCube::lireTrame(std::string message)
-{
-    message = maLiaisonSerie->readLine();         //On stocke le message reçu de la liaison série dans "message"
-    cout << "Message reçu : " << message << endl; // affiche le message reçu
 }
 
 string ComInitCube::attendreAck()
