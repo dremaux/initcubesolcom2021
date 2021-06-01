@@ -19,7 +19,7 @@ Serial::Serial(std::string port, unsigned int baud_rate)
      * paramètre "s" : chaîne de caractères à transmettre
      * Génère une exception boost::system::system_error en cas d'erreur
      */
-void Serial::writeString(char* s, int taille)
+void Serial::writeString(unsigned char* s, int taille)
 {
     write(serial, boost::asio::buffer(s, taille));
 }
@@ -72,9 +72,9 @@ int Serial::wait(int s)
     return 0;
 }
 
-char Serial::readChar(){
+unsigned char Serial::readChar(){
     
-    char c;
+    unsigned char c;
     read(serial, buffer(&c, 1));
     return c;
 }

@@ -8,9 +8,9 @@ ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
     maLiaisonSerie = new Serial(port, baud_rate);
 }
 
-void ComInitCube::transmettreTrame(char* s)
+void ComInitCube::transmettreTrame(unsigned char* s)
 {
-    string retour = "";
+    //string retour = "";
     int taille = 0;
     for(int i = 0; i< 130;i++){//le protocole Xbee nous permet des trames de 104 octets 
         if(s[i] == 255){
@@ -31,15 +31,17 @@ void ComInitCube::transmettreTrame(char* s)
     }*/
 }
 
-char* ComInitCube::lireTrame2(){
-    char trame[130]; // le protocole Xbee nous permet des trames de 104 octets
-    char buf;
+unsigned char* ComInitCube::lireTrame2(){
+    unsigned char trame[110]; // le protocole Xbee nous permet des trames de 104 octets
+    for(int i = 0; i < 110; i++){
+        trame[i] = 0;
+    }
+    unsigned char buf;
     int i = 0;
     while(1){
         buf = maLiaisonSerie->readChar();
-        cout<<buf;
         if(buf == 255){
-            return trame;
+            return (unsigned char*)trame;
         }
         trame[i] = buf;
         i++;

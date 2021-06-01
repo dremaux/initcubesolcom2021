@@ -25,7 +25,7 @@ class Serial
      * paramètre "s": chaine de caractères que l'on veut transmettre
      * génère une exception "boost::system::system_error" si erreur
     **/
-   void writeString(char* s, int taille);
+   void writeString(unsigned char* s, int taille);
 
     /**
      * Méthode blocante jusqu'à ce qu'on reçoive une ligne(trame) sur le port série
@@ -34,7 +34,7 @@ class Serial
     **/
    std::string readLine();
 
-   char readChar();
+   unsigned char readChar();
 
 };
 #endif /* SERIAL_H */ 

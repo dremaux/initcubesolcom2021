@@ -99,7 +99,7 @@ void threadEnvoie()
 
 void threadReception()
 {
-	char recu[1];
+	unsigned char recu[1];
 	unique_lock<mutex> lck(*mtx);
 	while (1)
 	{

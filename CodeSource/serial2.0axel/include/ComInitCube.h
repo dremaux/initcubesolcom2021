@@ -26,11 +26,11 @@ class ComInitCube
      * paramètre "s": chaine de caractères que l'on veut transmettre
      * génère une exception "boost::system::system_error" si erreur
     **/
-    void transmettreTrame(char* s);
+    void transmettreTrame(unsigned char* s);
 
     void lireTrame(std::string s);
 
-    char* lireTrame2();
+    unsigned char* lireTrame2();
 
 };
 

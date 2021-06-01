@@ -13,8 +13,8 @@ void threadEcriture();
 
 int main()
 {
-	thread *monThreadEcoute = new thread(threadLecture);
-	thread *monThreadEcriture = new thread(threadEcriture);
+    thread *monThreadEcoute = new thread(threadLecture);
+    thread *monThreadEcriture = new thread(threadEcriture);
 
     monThreadEcoute->join();
     monThreadEcriture->join();
@@ -25,14 +25,27 @@ void threadLecture()
 {
     while (1)
     {
-        char *trame = comInitCube->lireTrame2();
-        cout<<trame<<endl;
+        unsigned char *trame = comInitCube->lireTrame2();
+        for (int i = 0; i < 110; i++)
+        {
+            if (trame[i] == 255)
+            {
+                i = 110;
+            }
+            else
+            {
+                cout << trame[i];
+            }
+        }
     }
 }
 
-void threadEcriture(){
-    while(1){
-        char message[4];
+void threadEcriture()
+{
+    while (1)
+    {
+        cout << "ecriture" << endl;
+        unsigned char message[4];
         message[0] = 't';
         message[1] = '\r';
         message[2] = '\n';
