@@ -11,15 +11,15 @@ class DispatcheurMeasure {
 
 public:
     DispatcheurMeasure();
-    DispatcheurMeasure(char* trame);
+    DispatcheurMeasure(unsigned char* trame);
     virtual void identifierType();
-    void setTrame(char* trame);
+    void setTrame(unsigned char* trame);
     virtual string genererTrame();
     virtual ~DispatcheurMeasure();
 
 protected:
     string reponse;
-    char* trame;
+    unsigned char* trame;
     string type;
     Measure *matrice , *simple, *image;
 };

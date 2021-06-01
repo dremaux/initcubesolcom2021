@@ -11,7 +11,7 @@ class Measure {
 public:
     Measure();
     virtual ~Measure();
-    virtual void extraireDonnee(char* trame, int nbOctetType) = 0;
+    virtual void extraireDonnee(unsigned char* trame, int nbOctetType) = 0;
     virtual string genererTrame(string nom, string type, string unite, string dt = "") = 0;
 
 protected:

@@ -6,7 +6,7 @@ class Simple : public Measure {
 
 public:
     Simple();
-    void extraireDonnee(char* trame, int nbOctetType);
+    void extraireDonnee(unsigned char* trame, int nbOctetType);
     string genererTrame(string nom, string type, string unite, string dt = "");
     ~Simple();
 };

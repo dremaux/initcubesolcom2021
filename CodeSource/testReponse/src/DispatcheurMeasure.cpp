@@ -9,7 +9,7 @@ DispatcheurMeasure::DispatcheurMeasure()
     image = new Image();
 }
 
-DispatcheurMeasure::DispatcheurMeasure(char *trame) : trame(trame)
+DispatcheurMeasure::DispatcheurMeasure(unsigned char *trame) : trame(trame)
 {
     reponse = "";
     type = "";
@@ -36,7 +36,7 @@ void DispatcheurMeasure::identifierType()
     }
 }
 
-void DispatcheurMeasure::setTrame(char *trame)
+void DispatcheurMeasure::setTrame(unsigned char *trame)
 {
     this->trame = trame;
 }

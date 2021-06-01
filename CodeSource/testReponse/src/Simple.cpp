@@ -4,7 +4,7 @@ Simple::Simple()
 {
 }
 
-void Simple::extraireDonnee(char *trame, int nbOctetType)
+void Simple::extraireDonnee(unsigned char *trame, int nbOctetType)
 {
     caseFinM = trame[1] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;

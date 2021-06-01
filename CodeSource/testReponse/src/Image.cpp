@@ -6,7 +6,7 @@ Image::Image()
 {
 }
 
-void Image::extraireDonnee(char *trame, int nbOctetType)
+void Image::extraireDonnee(unsigned char *trame, int nbOctetType)
 {
     for (int i = 0; i < NB_PIXEL_IMAGE; i++)
     {

@@ -4,7 +4,7 @@ SimpleMission::SimpleMission()
 {
 }
 
-void SimpleMission::extraireDonnee(char *trame, int nbOctetType)
+void SimpleMission::extraireDonnee(unsigned char *trame, int nbOctetType)
 {
     caseFinM = trame[1] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;

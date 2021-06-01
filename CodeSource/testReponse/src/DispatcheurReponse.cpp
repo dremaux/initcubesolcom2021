@@ -6,7 +6,7 @@ DispatcheurReponse::DispatcheurReponse()
     status = new Status();
     mission = new DispatcheurMission();
 }
-void DispatcheurReponse::setTrame(char *trame)
+void DispatcheurReponse::setTrame(unsigned char *trame)
 {
     this->trame = trame;
 }
@@ -29,7 +29,7 @@ string DispatcheurReponse::identifierType()
         }
         else if (trame[i] == 'S' && trame[i + 1] == 'T' && trame[i + 2] == 'A') //STATUS
         {
-            status->extraireDonnee(trame);
+            status->extraireDonnee(reinterpret_cast< char const* >(trame));
             return "JSON";
         }
         else if (trame[i] == 'H' && trame[i + 1] == 'E' && trame[i + 2] == 'L') //HELLO
