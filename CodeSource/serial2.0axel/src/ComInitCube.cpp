@@ -60,15 +60,9 @@ string ComInitCube::attendreAck()
     int compteur = 0;
     while (1)
     {
-<<<<<<< HEAD
-        string result;
-        result = maLiaisonSerie->readLine();
-        if (result.find("ACK"))
-=======
         retour = maLiaisonSerie->readLine();
         compteur++;
         if (retour.find("ACK") < retour.size())
->>>>>>> 88320fe8d01c7a511f8bf4313f0555ea21f13dcf
         {
             compteur2 = 0;
             return "RECU";
@@ -78,9 +72,6 @@ string ComInitCube::attendreAck()
             compteur2++;
             return "ERREUR_CKS";
         }
-<<<<<<< HEAD
-    }
-=======
         else if (compteur == 5)
         {
             compteur2++;
@@ -89,4 +80,3 @@ string ComInitCube::attendreAck()
         compteur2 ++;
     }
 }
->>>>>>> 88320fe8d01c7a511f8bf4313f0555ea21f13dcf

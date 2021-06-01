@@ -28,11 +28,7 @@ class InitCubeServeur {
     void transmettre(char* message,int taille);
     int attendreCommande(int fd);
     void afficherCommande(string buff);
-<<<<<<< HEAD
-    vector <string> getRecu(){return recu;}
-=======
     vector <string> getRecu();
->>>>>>> 88320fe8d01c7a511f8bf4313f0555ea21f13dcf
     void effacerPremierRecu();
     mutex* getMutex();
 
@@ -41,14 +37,10 @@ class InitCubeServeur {
     int canal;  //canal de la socket du serveur
     int sockAccept; //canal de la socket venant de se connecter au serveur
     vector <int> connexionsV; //collection des canaux connectés au serveur 
-    map <int,int> connexions; //collection des canaux connectés au serveur 
+    map <int,int> connexionsM; //collection des canaux connectés au serveur 
     int iterateur;
     vector <string> recu; //collection de commande reçu
-<<<<<<< HEAD
-    mutex* mtx = new mutex();
-=======
     mutex* mtx;
->>>>>>> 88320fe8d01c7a511f8bf4313f0555ea21f13dcf
     
 };
 

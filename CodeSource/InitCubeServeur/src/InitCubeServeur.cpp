@@ -38,7 +38,7 @@ int InitCubeServeur::attendreConnexion(){
    	cout << "En Attente De Connexion:"<<endl;
     socklen_t taille_ecoute = sizeof(ecoute);//Taille de la socket
     sockAccept=accept(canal,(struct sockaddr*)&ecoute, &taille_ecoute);//bloque l'attente de connexion.
-    if(connexions.size()< NB_CLIENT_MAX){
+    if(connexionsM.size()< NB_CLIENT_MAX){
         cout << "Connexion d'un nouveau client."<<endl;
     	if(sockAccept<0){
             close(canal);
@@ -47,9 +47,9 @@ int InitCubeServeur::attendreConnexion(){
         }
 	    //Ajout de la socket à la liste des clients
         iterateur++;
-        connexions[iterateur] = sockAccept;
+        connexionsM[iterateur] = sockAccept;
         connexionsV.push_back(sockAccept);
-	    cout << "Nombre de clients connectés : " << connexions.size() << endl;
+	    cout << "Nombre de clients connectés : " << connexionsM.size() << endl;
         return iterateur;
     }
     else{
@@ -69,14 +69,14 @@ int InitCubeServeur::attendreCommande(int n){
     for (i=0; i<TAILLEBUFFER; i++){
         buffer[i] = 0;
     }
-    retour = recv(connexions[n], buffer,TAILLEBUFFER , 0);
+    retour = recv(connexionsM[n], buffer,TAILLEBUFFER , 0);
     
     
     if(retour==0){
         perror("Client partie");
         
-        connexions.erase(n);
-        cout << "Nombre de clients connectés : " << connexions.size() << endl;
+        connexionsM.erase(n);
+        cout << "Nombre de clients connectés : " << connexionsM.size() << endl;
         cout << "En Attente De Connexion:"<<endl;
         return(-1);
     
@@ -85,7 +85,7 @@ int InitCubeServeur::attendreCommande(int n){
         mtx->lock();
         recu.push_back(buffer);
         mtx->unlock();
-        send(connexions[n],"ACK",3,0);
+        send(connexionsM[n],"ACK",3,0);
         cout<<buffer;
     }
     return(1);

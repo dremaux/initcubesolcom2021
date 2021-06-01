@@ -1,4 +1,4 @@
-CXX		  := g++
+CXX		  := aarch64-linux-gnu-g++
 CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
 
 BIN		:= bin
