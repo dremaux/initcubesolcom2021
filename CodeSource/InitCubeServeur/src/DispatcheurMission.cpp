@@ -83,4 +83,7 @@ string DispatcheurMission::genererTrame()
 
 DispatcheurMission::~DispatcheurMission()
 {
+    delete image;
+    delete matrice;
+    delete simple;
 }
