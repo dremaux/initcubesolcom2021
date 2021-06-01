@@ -7,7 +7,7 @@ class Matrice : public Measure{
 public:
     Matrice();
     ~Matrice();
-    void extraireDonnee(char* trame, int nbOctetType);
+    void extraireDonnee(unsigned char* trame, int nbOctetType);
     string genererTrame(string nom, string typeMeasure, string type, string dt = "");
 
 private:

@@ -1,6 +1,5 @@
 #pragma once
 #include "Measure.hpp"
-#include "toojpeg.h"
 #define DEBUT_TRAME_IMAGE 14
 #define NB_PIXEL_IMAGE 320*240*3
 #define NBRE_SECTION 11
@@ -10,7 +9,7 @@ class Image : public Measure{
 
 public:
     Image();
-    void extraireDonnee(char* trame, int nbOctetType);
+    void extraireDonnee(unsigned char* trame, int nbOctetType);
     bool genererImage(string nom, int width, int height);
     string genererTrame(string nom, string typeMeasure, string type, string dt = "");
     ~Image();

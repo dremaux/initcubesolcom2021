@@ -1,4 +1,6 @@
-#include "../include/Serial.h"
+#include "Serial.h"
+
+using namespace boost::asio;
 
 /**
      * Constructeur.
@@ -9,7 +11,7 @@
 Serial::Serial(std::string port, unsigned int baud_rate)
     : io(), serial(io, port)
 {
-    serial.set_option(boost::asio::serial_port_base::baud_rate(baud_rate));
+    serial.set_option(serial_port_base::baud_rate(baud_rate));
 }
 
 /**
@@ -17,36 +19,11 @@ Serial::Serial(std::string port, unsigned int baud_rate)
      * paramètre "s" : chaîne de caractères à transmettre
      * Génère une exception boost::system::system_error en cas d'erreur
      */
-void Serial::writeString(std::string s)
+void Serial::writeString(unsigned char* s, int taille)
 {
-    boost::asio::write(serial, boost::asio::buffer(s.c_str(), s.size()));
-    bool b = attendreACK();
-    if(!b){
-        writeString(s);
-    }
+    write(serial, boost::asio::buffer(s, taille));
 }
 
-bool Serial::attendreACK(){
-    std::string retour;
-    int compteur = 0;
-    while(1){
-        retour = readLine();
-        compteur ++;
-        if(retour.find("ACK") < retour.size()){
-            compteur2 = 0;
-            return true;
-        }else if(retour.find("NACK") < retour.size()){
-            compteur2++;
-            return false;
-        }else if(compteur == 10){
-            compteur2++;
-            return false;
-        }else if(compteur2 == 10){
-            compteur2 = 0;
-            return false;//voir plus tard changer bool par string pour echec
-        }
-    }
-}
 /**
      * Méthode blocante jusqu'à réception d'une ligne (ou trame) sur le port série
      * la méthode rends la main quand elle reçois un caractère "255"
@@ -56,7 +33,7 @@ bool Serial::attendreACK(){
 std::string Serial::readLine()
 {
 
-    using namespace boost::asio;
+    
     char c;
     std::string result;
     int retour;
@@ -64,11 +41,11 @@ std::string Serial::readLine()
     for (;;)
     {
         //lecture caractère par caractère
-        retour = read(serial, buffer(&c, 1), wait(3));
+        retour = read(serial, buffer(&c, 1));
         //retour de la chaîne de caractère complète en cas de réception de "255"
         if (retour != 0)
         {
-            if (c == 255)
+            if (c == 255)//passage en paramettre
             {
                 result = resultat;
                 resultat = "";
@@ -93,4 +70,11 @@ int Serial::wait(int s)
     t.expires_from_now(boost::posix_time::seconds(s));
     t.wait();
     return 0;
+}
+
+unsigned char Serial::readChar(){
+    
+    unsigned char c;
+    read(serial, buffer(&c, 1));
+    return c;
 }

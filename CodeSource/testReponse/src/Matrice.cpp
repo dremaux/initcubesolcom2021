@@ -9,7 +9,7 @@ Matrice::~Matrice() {
 
 }
 
-void Matrice::extraireDonnee(char* trame, int nbOctetType){
+void Matrice::extraireDonnee(unsigned char* trame, int nbOctetType){
     if(trame[NUM_TRAME] == compteur){
         security = false;
         caseFinM = trame[1] + 2;

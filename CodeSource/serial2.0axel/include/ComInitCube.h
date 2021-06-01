@@ -1,14 +1,15 @@
 #ifndef COMINITCUBE_H
 #define COMINITCUBE_H
 #include <Serial.h>
-#include <timercpp.h>
 
+using namespace std;
 
 class ComInitCube
 {
     private:
-    bool attendreAck();
+    string attendreAck();
     Serial* maLiaisonSerie;
+    int compteur2;
 
     public:
 
@@ -25,9 +26,11 @@ class ComInitCube
      * paramètre "s": chaine de caractères que l'on veut transmettre
      * génère une exception "boost::system::system_error" si erreur
     **/
-    void transmettreTrame(std::string s);
+    void transmettreTrame(unsigned char* s);
 
     void lireTrame(std::string s);
+
+    unsigned char* lireTrame2();
 
 };
 

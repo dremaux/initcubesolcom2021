@@ -11,8 +11,6 @@ class Serial
     boost::asio::serial_port serial;
     std::string resultat;
     int wait(int s);
-    bool attendreACK();
-    int compteur2;
     public:
     /**
      * ///Constructeur
@@ -27,7 +25,7 @@ class Serial
      * paramètre "s": chaine de caractères que l'on veut transmettre
      * génère une exception "boost::system::system_error" si erreur
     **/
-   void writeString(std::string s);
+   void writeString(unsigned char* s, int taille);
 
     /**
      * Méthode blocante jusqu'à ce qu'on reçoive une ligne(trame) sur le port série
@@ -35,6 +33,8 @@ class Serial
      * génère une exception boost::system::system_error en cas d'erreur
     **/
    std::string readLine();
+
+   unsigned char readChar();
 
 };
 #endif /* SERIAL_H */ 

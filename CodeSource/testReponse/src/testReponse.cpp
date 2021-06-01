@@ -17,16 +17,16 @@ int main()
     //testStatus();
     //testSimpleMe();
     //testMatriceMe();
-    testImageMe();
+    //testImageMe();
     //testSimpleMi();
     //testMatriceMi();
-    //testImageMi();
+    testImageMi();
     return 0;
 }
 
 void testStatus()
 {
-    char trame1[92];
+    unsigned char trame1[92];
     trame1[0] = 1;
     trame1[1] = 87;
     trame1[2] = 'S';
@@ -120,7 +120,7 @@ void testStatus()
     trame1[90] = '4';
     trame1[91] = 255;
 
-    char trame2[44];
+    unsigned char trame2[44];
 
     trame2[0] = 1;
     trame2[1] = 39;
@@ -179,7 +179,7 @@ void testStatus()
 
 void testSimpleMe()
 {
-    char trame[33];
+    unsigned char trame[33];
     trame[0] = 1;
     trame[1] = 28;
     trame[2] = 'M';
@@ -218,7 +218,7 @@ void testSimpleMe()
 
 void testMatriceMe()
 {
-    char trame[59];
+    unsigned char trame[59];
     trame[0] = 1;
     trame[1] = 54;
     trame[2] = 'M';
@@ -260,7 +260,7 @@ void testMatriceMe()
 
 void testImageMe()
 {
-    char trame[NB_PIXEL_IMAGE];
+    unsigned char trame[NB_PIXEL_IMAGE];
     trame[0] = 1;
     trame[1] = 21;
     trame[2] = 'M';
@@ -314,7 +314,7 @@ void testImageMe()
 
 void testSimpleMi()
 {
-    char trame[77];
+    unsigned char trame[77];
     trame[0] = 1;
     trame[1] = 72;
     trame[2] = 'M';
@@ -377,7 +377,7 @@ void testSimpleMi()
 
 void testMatriceMi()
 {
-    char trame[81];
+    unsigned char trame[81];
     trame[0] = 1;
     trame[1] = 54;
     trame[2] = 'M';
@@ -448,7 +448,7 @@ void testMatriceMi()
 
 void testImageMi()
 {
-    char trame[NB_PIXEL_IMAGE];
+    unsigned char trame[NB_PIXEL_IMAGE];
     trame[0] = 1;
     trame[1] = 43;
     trame[2] = 'M';

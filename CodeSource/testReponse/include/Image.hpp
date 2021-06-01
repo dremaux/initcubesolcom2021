@@ -9,7 +9,7 @@ class Image : public Measure{
 
 public:
     Image();
-    void extraireDonnee(char* trame, int nbOctetType);
+    void extraireDonnee(unsigned char* trame, int nbOctetType);
     bool genererImage(string nom, int width, int height);
     string genererTrame(string nom, string typeMeasure, string type, string dt = "");
     ~Image();

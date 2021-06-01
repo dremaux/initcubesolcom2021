@@ -1,5 +1,6 @@
 #include "Commande.hpp"
 
+using json = nlohmann::json;
 
 Commande::Commande(){
 
