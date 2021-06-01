@@ -36,7 +36,6 @@ class GestionCommandes {
         GestionCommandes();
         ~GestionCommandes();
         
-
         int getDernieresCommandes(int nombre=0);  
         int transmettreCommandes();
         int rechercherCommandesParDate(std::string date); 

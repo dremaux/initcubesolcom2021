@@ -1,35 +1,24 @@
 #pragma once
-#include "Lib.h"
+#include "Measure.hpp"
 #include "toojpeg.h"
-#define NBRE_LIGNES 10
-#define NUM_LIGNE 11
-#define DEBUT_TRAME_IMAGE 15
+#define DEBUT_TRAME_IMAGE 14
 #define NB_PIXEL_IMAGE 320*240*3
-#define NBRE_SECTION 12
-#define NUM_SECTION 13
+#define NBRE_SECTION 11
+#define NUM_SECTION 12
 
-using namespace std;
-using json = nlohmann::json;
-
-class Image {
+class Image : public Measure{
 
 public:
     Image();
-    void extraireDonnee(unsigned char* trame, int nbOctetType);
-    bool genereImage(string nom, int width, int height);
-    string genereTrame(string nom, string typeMeasure, string type, string dt = "");
+    void extraireDonnee(char* trame, int nbOctetType);
+    bool genererImage(string nom, int width, int height);
+    string genererTrame(string nom, string typeMeasure, string type, string dt = "");
     ~Image();
     
     
 
 private:
-    bool security;
-    unsigned char donneeExtraite[NB_PIXEL_IMAGE];
-    int caseFinM;
-    int caseDebutM;
-    int compteurL;
-    int compteurS;
-    int iterateur;
+    char donneeExtraite[NB_PIXEL_IMAGE];
     int height;
     int width;
     string name;

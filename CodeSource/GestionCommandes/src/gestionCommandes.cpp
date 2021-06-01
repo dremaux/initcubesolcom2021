@@ -40,11 +40,13 @@ int GestionCommandes::rechercherCommandesParDate(std::string date)
 int GestionCommandes::transmettreCommandes()
 {
   int nbreCommandesTransmises = 0;
-  for (int i = 0; i < commandes.size(); i++)
+  for (int i = 0; i < commandes.size()-1; i++)
   {
     cout << commandes[i] << endl;
     nbreCommandesTransmises++;
   }
+  cout << commandes[commandes.size()-1];
+  nbreCommandesTransmises++;
   return nbreCommandesTransmises;
 }
 
