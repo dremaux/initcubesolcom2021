@@ -28,7 +28,6 @@ void threadLecture()
     {
         unsigned char trame[110];//le protocole Xbee nous permet des trames de 104 octets 
         comInitCube->lireTrame(trame, 110);
-        //transmettreAck();
         cout<<"lecture"<<endl;
         for (int i = 0; i < 110; i++)
         {
@@ -65,46 +64,3 @@ void threadEcriture()
         usleep(100000);
     }
 }
-
-void transmettreAck(){
-    unsigned char ack[8];
-    ack[0] = '1';
-    ack[1] = '3';
-    ack[2] = 'A';
-    ack[3] = 'C';
-    ack[4] = 'K';
-    ack[5] = '7';
-    ack[6] = 'C';
-    ack[7] = 255;
-    comInitCube->transmettreTrame(ack);
-}
-/*/// Les Inclusions
-#include <iostream>
-#include "ComInitCube.h"
-#include <thread>
-#include <unistd.h>
-
-using namespace std;
-
-int main()
-{
-    unsigned char ack[3];
-    ack[0] = 'A';
-    ack[1] = 'C';
-    ack[2] = 'K';
-    ComInitCube *comInitCube = new ComInitCube("/dev/ttyUSB0", 9600);
-    while(1){
-        unsigned char trame[110];
-        comInitCube->lireTrame(trame, 110);
-        comInitCube->transmettreTrame(ack);
-        for(int i = 0; i<110; i++){
-            cout<<trame[i];
-        }
-        cout<<endl;
-
-    }
-    
-    
-
-    return 0;
-}*/
