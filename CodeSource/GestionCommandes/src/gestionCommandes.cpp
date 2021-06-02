@@ -66,5 +66,5 @@ int GestionCommandes::stockerCommande(json laCommande)
 
   laCommande["CMD"]["DATE"] = buffer;
 
-      coll.insert_one(std::move(from_json(laCommande.dump())));
+      coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
 }

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include <bsoncxx/json.hpp>
 #include <mongocxx/client.hpp>
@@ -38,7 +39,7 @@ class GestionInstrument {
 
         int getListeInstruments(int nombre=0);
         int transmettreInstruments();
-        int stockerInstrument(json instrument);
+        int stockerInstrument(std::string instrument);
 
     private:
 
