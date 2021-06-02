@@ -37,10 +37,9 @@ int GestionInstrument::transmettreInstruments()
   return nbreInstrumentsTransmises;
 }
 
-int GestionInstrument::stockerInstrument(json instrument)
+int GestionInstrument::stockerInstrument(std::string instrument)
 {
-  
-  coll.insert_one(std::move(from_json(instrument.dump())));
-  //coll.insert_one(from_json(instrument));
-    
+  //coll.insert_one(bsoncxx::from_json(instrument.dump).view());
+  //coll.insert_one(std::move(from_json(instrument.dump())));
+  coll.insert_one(std::move(bsoncxx::from_json(instrument)));
 }
