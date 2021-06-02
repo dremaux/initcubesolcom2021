@@ -1,7 +1,7 @@
 #ifndef COMINITCUBE_H
 #define COMINITCUBE_H
 #include <Serial.h>
-
+#include <mutex>
 using namespace std;
 
 class ComInitCube
@@ -9,7 +9,9 @@ class ComInitCube
     private:
     string attendreAck();
     Serial* maLiaisonSerie;
-    int compteur2;
+	mutex* mtx;
+    bool verifierChecksum(unsigned char* trame, int taille);
+    void calculerChecksum( unsigned char* trame, unsigned char & PF, unsigned char & pf, int taille);
 
     public:
 

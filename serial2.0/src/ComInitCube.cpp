@@ -33,8 +33,10 @@ void ComInitCube::transmettreTrame(unsigned char *s)
     }
 }
 
-void ComInitCube::lireTrame(unsigned char *trame, int taille)
+bool ComInitCube::lireTrame(unsigned char *trame, int taille)
 {
+    bool checksum;
+
 	mtx->lock();
     for (int i = 0; i < taille; i++)
     {
@@ -48,10 +50,25 @@ void ComInitCube::lireTrame(unsigned char *trame, int taille)
         trame[i] = buf;
         i++;
     }
+
+    checksum = verifierChecksum(trame, taille);
+    if (!checksum)
+    {
+        for (int i = 0; i < taille; i++)
+        {
+            trame[i] = 0;
+        }
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+    
 	mtx->unlock();
 }
 
-string ComInitCube::attendreAck() // attention methode non complette manque cas de non recu
+string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
 {
     string retour;
     unsigned char trame[110];

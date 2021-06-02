@@ -34,15 +34,16 @@
 
         using namespace boost;
         char c;
+        char komtuveu = 255;
         std::string result;
         for(;;)
         {
-			//lecture caractère par caractère            
+			//lecture caractère par charactère            
 			asio::read(serial,asio::buffer(&c,1));
-			//retour de la chaîne de caractère complète en cas de réception de "255"		
-			if (c==255)
+			//retour de la chaîne de charactère complète en cas de réception de "255"		
+			if (c==komtuveu)
 				return result;
-			//sinon ajout du carctère reçu à la chaîne de caractères			
+			//sinon ajout du charactère reçu à la chaîne de charactères			
 			else
 				result+=c;	
         }

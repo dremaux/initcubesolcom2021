@@ -9,6 +9,7 @@ class ComInitCube
     private:
     bool attendreAck();
     Serial* maLiaisonSerie;
+    void verifierChecksum();
 
     public:
 
