@@ -1,100 +1,110 @@
 /// Les Inclusions
 #include <iostream>
-#include "../include/ComInitCube.h"
-
+#include "ComInitCube.h"
+#include <thread>
+#include <unistd.h>
 
 using namespace std;
 
+ComInitCube *comInitCube = new ComInitCube("/dev/ttyAMA0", 9600);
+
+void threadLecture();
+void threadEcriture();
+void transmettreAck();
 
 int main()
 {
-    ComInitCube* maLiaisonSerie;
-    maLiaisonSerie = new ComInitCube("dev/ttyS0",9600);
-    string message = "Bonjour!"; //La variable qui va nous servir pour le message
-    maLiaisonSerie->transmettreTrame(message); //On stocke le message pour l'envoyer dans "message"
-    cout << "Message envoyé : " << message << endl;
-}
+    thread *monThreadEcoute = new thread(threadLecture);
+    thread *monThreadEcriture = new thread(threadEcriture);
 
-
-/*
-///Code principal("main")
-int main()
-{
-    ///Initialisation des variables
-    int a =1; //La constante "a" va nous permettre de faire une boucle infinie
-    string message; //La variable qui va nous servir pour le message
-    Serial maLiaisonSerie("/dev/ttyS0",9600); //Parametrer le débit et le port d'arrivé du message
-
-    while ( a==1 ) //La boucle infinie vu que "a" est une constante
-    {
-        message = maLiaisonSerie.readLine(); //On stocke le message reçu de la liaison série dans "message"
-        cout << "Message reçu : " << message << endl; // affiche le message reçu
-    }
+    monThreadEcoute->join();
+    monThreadEcriture->join();
     return 0;
 }
-*/
 
-
-/*
-int serveurEcoute()
+void threadLecture()
 {
-    char tableau[100];
-
-    while (true) {
-
-        serialib * monObjSerial = new serialib; //Déclaration de l'instance
-
-        monObjSerial->Open("/dev/serial0", 9600); //Ouverture
-
-        char varID = leSegment->getIdentifiant();
-
-        int typeRetourTrame = monObjSerial->ReadString(tableau, '\n', 128, 3000);
-        cout << "Valeur de Retour : " << typeRetourTrame << endl;
-
-        if (typeRetourTrame == 0) {
-            cout << "Pas de commande reçu." << endl;
-            monObjSerial->Close();
-
-        } else if (typeRetourTrame == -1) {
-            cout << "Erreur TimeOut mal définie" << endl;
-            monObjSerial->Close();
-
-        } else if (typeRetourTrame == -2) {
-            cout << "Erreur impossible d'accéder à la ressource." << endl;
-            monObjSerial->Close();
-
-        } else if (typeRetourTrame == -3) {
-            cout << "Erreur, trop d'octects lus." << endl;
-            this->envoieACK("BUSY");
-            monObjSerial->Close();
-
-        } else if (typeRetourTrame > 1) {
-            cout << "Reception de la Commande OK " << endl;
-
-            cout << "Trame Lue : ";
-            for (int i(0); i < typeRetourTrame; i++) {
-                cout << tableau[i];
+    while(1)
+    {
+        unsigned char trame[110];//le protocole Xbee nous permet des trames de 104 octets 
+        comInitCube->lireTrame(trame, 110);
+        //transmettreAck();
+        cout<<"lecture"<<endl;
+        for (int i = 0; i < 110; i++)
+        {
+            if (trame[i] == 255)
+            {
+                i = 110;
             }
-            if (tableau[1] == varID) {
-                cout << "La commande est pour notre Cube" << endl;
-
-                bool boolChecksum = this->verifierChecksum();
-                if (boolChecksum == true) {
-                    this->envoieACK("ACK");
-                    this->traiterCommande(); //Mettre à Traiter la commande
-                }
-                if (boolChecksum == false) {
-                    this->envoieACK("NACK");
-                }
-
-            } else {
-                cout << "La commande n'est pas pour notre Cube" << endl;
+            else
+            {
+                cout << trame[i];
+                
             }
-            monObjSerial->Close();
-
-        } else {
-            monObjSerial->Close();
-
         }
     }
-*/
+}
+
+void threadEcriture()
+{
+    while(1)
+    {
+        cout << "ecriture" << endl;
+        unsigned char message[10];
+        message[0] = 't';
+        message[1] = 'e';
+        message[2] = 's';
+        message[3] = 't';
+        message[4] = 'o';
+        message[5] = 'u';
+        message[6] = 'i';
+        message[7] = '\r';
+        message[8] = '\n';
+        message[9] = 255;
+        comInitCube->transmettreTrame(message);
+        usleep(100000);
+    }
+}
+
+void transmettreAck(){
+    unsigned char ack[8];
+    ack[0] = '1';
+    ack[1] = '3';
+    ack[2] = 'A';
+    ack[3] = 'C';
+    ack[4] = 'K';
+    ack[5] = '7';
+    ack[6] = 'C';
+    ack[7] = 255;
+    comInitCube->transmettreTrame(ack);
+}
+/*/// Les Inclusions
+#include <iostream>
+#include "ComInitCube.h"
+#include <thread>
+#include <unistd.h>
+
+using namespace std;
+
+int main()
+{
+    unsigned char ack[3];
+    ack[0] = 'A';
+    ack[1] = 'C';
+    ack[2] = 'K';
+    ComInitCube *comInitCube = new ComInitCube("/dev/ttyUSB0", 9600);
+    while(1){
+        unsigned char trame[110];
+        comInitCube->lireTrame(trame, 110);
+        comInitCube->transmettreTrame(ack);
+        for(int i = 0; i<110; i++){
+            cout<<trame[i];
+        }
+        cout<<endl;
+
+    }
+    
+    
+
+    return 0;
+}*/
