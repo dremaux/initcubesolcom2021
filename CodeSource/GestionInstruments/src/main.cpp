@@ -15,11 +15,11 @@ int main(){
 /*
     gInstrument->getListeInstruments();
     gInstrument->transmettreInstruments();
-*/    
+*/
     std::string toto;
     std::getline(std::cin,toto);
     //cout << toto << endl;
-
+    
     gInstrument->stockerInstrument(toto);
 
     return 0;    
