@@ -7,12 +7,12 @@ GestionConfiguration::GestionConfiguration()
   coll = db["segmentVol"];
 }
 
-int GestionConfiguration::retituerDerniereConfiguration()
+int GestionConfiguration::restituerDerniereConfiguration()
 {
   this->configurations.clear();
 
   mongocxx::options::find opts;
-  opts.sort(make_document(kvp("DATE", -1))).limit(1);
+  opts.sort(make_document(kvp("dateEnvoi", -1))).limit(1);
   auto cursor = coll.find({}, opts);
 
   for (auto doc : cursor)
@@ -47,7 +47,7 @@ int GestionConfiguration::stockerConfiguration(json laConfig)
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
   puts (buffer);
 
-  laConfig["CMD"]["DATE"] = buffer;
+  laConfig["CMD"]["dateEnvoi"] = buffer;
 
     coll.insert_one(std::move(bsoncxx::from_json(laConfig)));
 }

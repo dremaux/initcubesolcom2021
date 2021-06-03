@@ -13,15 +13,14 @@ int main(){
     cout << "Content-Type: text/html\r\n";
 	cout << "Cache-Control: no-cache\r\n";
 
-    gConfiguration->retituerDerniereConfiguration();
-    gConfiguration->transmettreConfiguration();
-
-
- //   std::string ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}})";
-/*
     std::string toto;
     std::getline(std::cin,toto);
     gConfiguration->stockerConfiguration(toto);
-*/  
+
+    gConfiguration->restituerDerniereConfiguration();
+    gConfiguration->transmettreConfiguration();
+ 
     return 0;    
 }
+
+//{ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}}

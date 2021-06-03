@@ -12,7 +12,7 @@ int GestionCommandes::getDernieresCommandes(int nombre)
   this->commandes.clear();
 
   mongocxx::options::find opts;
-  opts.sort(make_document(kvp("DATE", -1))).limit(nombre);
+  opts.sort(make_document(kvp("CMD.dateEnvoi", -1))).limit(nombre);
   auto cursor = coll.find({}, opts);
 
   int nombreCommandes = 0;
@@ -28,7 +28,7 @@ int GestionCommandes::getDernieresCommandes(int nombre)
 int GestionCommandes::rechercherCommandesParDate(std::string date)
 {
   bsoncxx::builder::stream::document document{};
-  document << "CMD.DATE" << bsoncxx::types::b_regex{"^" + date};
+  document << "CMD.dateEnvoi" << bsoncxx::types::b_regex{"^" + date};
   auto cursor = coll.find(document.view());
 
   for (auto doc : cursor)
@@ -46,7 +46,7 @@ int GestionCommandes::transmettreCommandes()
     cout << commandes[i] << endl;
     nbreCommandesTransmises++;
   }
-  cout << commandes[commandes.size()-1];
+  cout << commandes[commandes.size()-1] << endl; // le endl n'y est pas normalement, c'est juste pour la démo, car ça pose problème à l'ihm sinon
   nbreCommandesTransmises++;
   return nbreCommandesTransmises;
 }

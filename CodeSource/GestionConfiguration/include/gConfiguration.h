@@ -35,7 +35,7 @@ class GestionConfiguration {
         GestionConfiguration();
         ~GestionConfiguration();
         
-        int retituerDerniereConfiguration();  
+        int restituerDerniereConfiguration();  
         int transmettreConfiguration(); 
 	    int stockerConfiguration(json commande);
     
