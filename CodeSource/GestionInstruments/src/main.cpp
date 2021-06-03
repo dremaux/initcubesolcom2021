@@ -15,14 +15,14 @@ int main(){
 /*
     gInstrument->getListeInstruments();
     gInstrument->transmettreInstruments();
-*/
-
+*/    
     std::string toto;
     std::getline(std::cin,toto);
+    //cout << toto << endl;
+
     gInstrument->stockerInstrument(toto);
 
     return 0;    
 }
-
 // {"ID" : "1" , "nom" : "tempe rature"}
 // {"ID":"1","nom":"temper\u0020ature"}

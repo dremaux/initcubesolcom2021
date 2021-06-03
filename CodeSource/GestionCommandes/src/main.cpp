@@ -23,7 +23,7 @@ int main(){
     //cout  << "Affichage des commandes transmises à une date et une herue précises" << endl;
     //gCommandes->rechercherCommandesParDate("2021/05/23 23:40");
     //gCommandes->transmettreCommandes();
-
+    
     std::string ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC", "dateEnvoi": "0000/00/00 00:00:00"}})";
     gCommandes->stockerCommande(json::parse(ma_trame));
     

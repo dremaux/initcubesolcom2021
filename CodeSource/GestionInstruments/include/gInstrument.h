@@ -38,7 +38,7 @@ class GestionInstrument {
 
         int getListeInstruments(int nombre=0);
         int transmettreInstruments();
-        int stockerInstrument(json instrument);
+        int stockerInstrument(std::string instrument);
 
     private:
 
