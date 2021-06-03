@@ -24,11 +24,9 @@ using bsoncxx::builder::stream::open_document;
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_document;
 
-using json=nlohmann::json;
 using namespace bsoncxx;
 using namespace std;
 using json=nlohmann::json;
-
 
 
 class GestionCommandes {

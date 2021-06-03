@@ -64,7 +64,7 @@ int GestionCommandes::stockerCommande(json laCommande)
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
   puts (buffer);
 
-  laCommande["CMD"]["DATE"] = buffer;
+  laCommande["CMD"]["dateEnvoi"] = buffer;
 
       coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
 }

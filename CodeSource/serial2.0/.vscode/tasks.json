@@ -26,7 +26,7 @@
                 "raspberry",
                 "scp",
                 "./bin/*",
-                "pi@initcubecom.local:~/CodeSource/serial2.0/",
+                "pi@initcubesol.local:~/serial2.0/",
                 "&&",
                 "echo",
                 "&&",
@@ -34,8 +34,8 @@
                 "-p",
                 "raspberry",
                 "ssh",
-                "pi@initcubecom.local",
-                "./home/pi/CodeSource/serial2.0/main",
+                "pi@initcubesol.local",
+                "./home/pi/serial2.0/serial",
             ]
         }
     ]

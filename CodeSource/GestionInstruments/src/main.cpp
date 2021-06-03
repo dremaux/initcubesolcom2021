@@ -10,26 +10,19 @@ int main(){
     GestionInstrument * gInstrument = new GestionInstrument();
 
     cout << "Content-Type: text/html\r\n\r\n";
-	//cout << "Cache-Control: no-cache\r\n";
+	cout << "Cache-Control: no-cache\r\n";
+
 /*
     gInstrument->getListeInstruments();
     gInstrument->transmettreInstruments();
-*/    
+*/
+
     std::string toto;
     std::getline(std::cin,toto);
-    //cout << toto << endl;
     gInstrument->stockerInstrument(toto);
 
-    cout << "OK";
     return 0;    
 }
-
-
-/*
-./mongod --storageEngine=mmapv1 --journal
-
-./mongod
-*/
 
 // {"ID" : "1" , "nom" : "tempe rature"}
 // {"ID":"1","nom":"temper\u0020ature"}

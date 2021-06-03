@@ -9,7 +9,6 @@ class Serial
     private:
     boost::asio::io_service io;
     boost::asio::serial_port serial;
-
     public:
     /**
      * ///Constructeur
@@ -24,14 +23,9 @@ class Serial
      * paramètre "s": chaine de caractères que l'on veut transmettre
      * génère une exception "boost::system::system_error" si erreur
     **/
-   void writeString(std::string s);
+   void writeChar(unsigned char* message, int taille);
 
-    /**
-     * Méthode blocante jusqu'à ce qu'on reçoive une ligne(trame) sur le port série
-     * la méthode rend la main dès qu'elle reçoit un retour chariot("\n")
-     * génère une exception boost::system::system_error en cas d'erreur
-    **/
-   std::string readLine();
+   unsigned char readChar();
 
 };
 #endif /* SERIAL_H */ 
