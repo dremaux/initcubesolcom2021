@@ -39,6 +39,7 @@ class GestionCommandes {
         int transmettreCommandes();
         int rechercherCommandesParDate(std::string date); 
 	    int stockerCommande(json commande);
+        int ajouterReponse(json reponse);
     
     private:
 

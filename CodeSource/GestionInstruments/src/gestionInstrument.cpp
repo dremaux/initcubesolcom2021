@@ -1,17 +1,19 @@
 #include "gInstrument.h"
 
+//connection à la BDD "initcube" et à la collection "instrument"
 GestionInstrument::GestionInstrument()
 {
   db = client["initcube"];
   coll = db["instrument"];
 }
 
+//recherche tout les trames enregistrer dans la BDD
 int GestionInstrument::getListeInstruments(int nombre)
 {
   this->instruments.clear();
 
   mongocxx::options::find opts;
-  opts.limit(nombre);
+  opts.limit(nombre);                 // si nombre = 0 alors affiche toutes les trames
   auto cursor = coll.find({}, opts);
 
   int nombreInstruments = 0;
@@ -24,6 +26,7 @@ int GestionInstrument::getListeInstruments(int nombre)
   return nombreInstruments;
 }
 
+//affiche les trames touvée grâce à getListeInstruments
 int GestionInstrument::transmettreInstruments()
 {
   int nbreInstrumentsTransmises = 0;
@@ -37,9 +40,8 @@ int GestionInstrument::transmettreInstruments()
   return nbreInstrumentsTransmises;
 }
 
+//stocke les trames reçu
 int GestionInstrument::stockerInstrument(std::string instrument)
 {
-  //coll.insert_one(bsoncxx::from_json(instrument.dump).view());
-  //coll.insert_one(std::move(from_json(instrument.dump())));
   coll.insert_one(std::move(bsoncxx::from_json(instrument)));
 }
