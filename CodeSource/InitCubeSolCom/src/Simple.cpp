@@ -30,12 +30,12 @@ void Simple::extraireDonnee(unsigned char *trame, int nbOctetType)
 string Simple::genererTrame(string nom, string type, string unite, string dt)
 {
     json trame;
-    trame["measure"]["name"] = nom;
-    trame["measure"]["code"] = type;
-    trame["measure"]["donnee"] = donneeExtraite;
-    trame["measure"]["unite"] = unite;
+    trame["mesure"]["nom"] = nom;
+    trame["mesure"]["code"] = type;
+    trame["mesure"]["donnees"] = donneeExtraite;
+    trame["mesure"]["unite"] = unite;
     if(dt != ""){
-        trame["measure"]["date"] = dt;
+        trame["mesure"]["date"] = dt;
     }
     
     return trame.dump();
