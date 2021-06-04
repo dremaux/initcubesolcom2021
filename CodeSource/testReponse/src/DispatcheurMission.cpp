@@ -58,11 +58,10 @@ string DispatcheurMission::genererTrame()
                 if (typeMesure == "image")
                 {
                     string date = "";
-                    for (int h = (trame[1] + 2) - 18; h < ((trame[1] + 2) - 18) + 19; h++)
+                    for (int h = (trame[1] + 2) - 19; h < ((trame[1] + 2) - 19) + 19; h++)
                     {
                         date += trame[h];
                     }
-                    trame[1] -= 22;
                     time_t now = time(0);
                     string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1); //supprime le \n de fin
