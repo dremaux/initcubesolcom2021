@@ -11,6 +11,9 @@
 #include <bsoncxx/builder/stream/helpers.hpp>
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/builder/stream/array.hpp>
+
+#include "json.hpp"
+
 using bsoncxx::builder::stream::close_array;
 using bsoncxx::builder::stream::close_document;
 using bsoncxx::builder::stream::document;
@@ -23,17 +26,18 @@ using bsoncxx::builder::basic::make_document;
 
 using namespace bsoncxx;
 using namespace std;
+using json=nlohmann::json;
 
 
-
-
-class GestionCommandes {
+class GestionConfiguration {
     public:
 
-        GestionCommandes();
-        ~GestionCommandes();
-
-
+        GestionConfiguration();
+        ~GestionConfiguration();
+        
+        int restituerDerniereConfiguration();  
+        int transmettreConfiguration(); 
+	    int stockerConfiguration(json commande);
     
     private:
 
@@ -41,5 +45,5 @@ class GestionCommandes {
         mongocxx::database db;
         mongocxx::collection coll;
         
-        vector<std::string> commandes;
+        vector<std::string> configurations;
 };

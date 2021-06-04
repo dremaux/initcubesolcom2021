@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include <bsoncxx/json.hpp>
 #include <mongocxx/client.hpp>
@@ -27,7 +28,6 @@ using bsoncxx::builder::basic::make_document;
 using namespace bsoncxx;
 using namespace std;
 using json=nlohmann::json;
-
 
 
 class GestionInstrument {

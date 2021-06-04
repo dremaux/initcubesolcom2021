@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := stocke.cgi
+EXECUTABLE  := main
 
 
 all: $(BIN)/$(EXECUTABLE)
