@@ -9,7 +9,7 @@ int main(){
     mongocxx::instance instance{};
     GestionInstrument * gInstrument = new GestionInstrument();
 
-    cout << "Content-Type: text/html\r\n\r\n";
+    cout << "Content-Type: text/html\r\n";
 	cout << "Cache-Control: no-cache\r\n";
 
     std::string toto;
