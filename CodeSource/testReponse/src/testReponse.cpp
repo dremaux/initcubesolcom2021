@@ -14,13 +14,19 @@ void testImageMi();
 
 int main()
 {
-    //testStatus();
-    //testSimpleMe();
-    //testMatriceMe();
-    //testImageMe();
-    //testSimpleMi();
-    //testMatriceMi();
-    testImageMi();
+    /*testStatus();
+    cout<<endl;
+    testSimpleMe();
+    cout<<endl;
+    testMatriceMe();
+    cout<<endl;*/
+    testImageMe();
+    /*cout<<endl;
+    testSimpleMi();
+    cout<<endl;
+    testMatriceMi();
+    cout<<endl;
+    testImageMi();*/
     return 0;
 }
 

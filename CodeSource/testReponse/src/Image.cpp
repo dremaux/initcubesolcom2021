@@ -44,11 +44,11 @@ string Image::genererTrame(string nom, string typeMeasure, string type, string d
 {
     json trame;
 
-    trame[type]["name"] = nom;
-    trame[type]["type mesure"] = typeMeasure;
-    trame[type]["donnee"]["chemin"] = name;
-    trame[type]["donnee"]["width"] = width;
-    trame[type]["donnee"]["height"] = height;
+    trame[type]["nom"] = nom;
+    trame[type]["code"] = typeMeasure;
+    trame[type]["donnees"]["chemin"] = name;
+    trame[type]["donnees"]["largeur"] = width;
+    trame[type]["donnees"]["hauteur"] = height;
     if (type == "mission")
     {
         trame[type]["date"] = dt;
