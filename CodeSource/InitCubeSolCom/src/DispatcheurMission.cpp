@@ -1,47 +1,11 @@
-#include "DispatcheurMeasure.hpp"
+#include "DispatcheurMission.hpp"
 
-DispatcheurMeasure::DispatcheurMeasure()
+DispatcheurMission::DispatcheurMission()
 {
-    reponse = "";
-    type = "";
-    matrice = new Matrice();
-    simple = new Simple();
-    image = new Image();
+    simple = new SimpleMission();
 }
 
-DispatcheurMeasure::DispatcheurMeasure(char *trame) : trame(trame)
-{
-    reponse = "";
-    type = "";
-    matrice = new Matrice();
-    simple = new Simple();
-    image = new Image();
-}
-
-void DispatcheurMeasure::identifierType()
-{
-    type = "";
-    for (int y = 3; y < 100; y++)
-    {
-        if (trame[y] == '-')
-        {
-            y++;
-            while (trame[y] != ' ')
-            {
-                type += trame[y];
-                y++;
-            }
-            return;
-        }
-    }
-}
-
-void DispatcheurMeasure::setTrame(char *trame)
-{
-    this->trame = trame;
-}
-
-string DispatcheurMeasure::genererTrame()
+string DispatcheurMission::genererTrame()
 {
     json instrument;
     instrument = R"({
@@ -77,21 +41,34 @@ string DispatcheurMeasure::genererTrame()
                 }
                 if (typeMesure == "matrice")
                 {
-                    matrice->extraireDonnee(trame, type.length());
                     if (trame[NBRE_TRAMES] == trame[NUM_TRAME])
                     {
-                        reponse = matrice->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "measure");
+                        string date = "";
+                        for (int h = (trame[1] + 2) - 18; h < ((trame[1] + 2) - 18) + 19; h++)
+                        {
+                            date += trame[h];
+                        }
+                        trame[1] -= 22;
+                        matrice->extraireDonnee(trame, type.length());
+                        reponse = matrice->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "mission", date);
                         return reponse;
                     }
+                    matrice->extraireDonnee(trame, type.length());
                 }
                 if (typeMesure == "image")
                 {
-                    image->extraireDonnee(trame, type.length());
+                    string date = "";
+                    for (int h = (trame[1] + 2) - 18; h < ((trame[1] + 2) - 18) + 19; h++)
+                    {
+                        date += trame[h];
+                    }
+                    trame[1] -= 22;
                     time_t now = time(0);
                     string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1); //supprime le \n de fin
+                    image->extraireDonnee(trame, type.length());
                     ((Image *)image)->genererImage(dt, instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["WIDTH"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["HEIGHT"]);
-                    reponse = image->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "measure");
+                    reponse = image->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "mission", date);
                     return reponse;
                 }
             }
@@ -104,9 +81,6 @@ string DispatcheurMeasure::genererTrame()
     return "";
 }
 
-DispatcheurMeasure::~DispatcheurMeasure()
+DispatcheurMission::~DispatcheurMission()
 {
-    delete matrice;
-    delete image;
-    delete simple;
 }

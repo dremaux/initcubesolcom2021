@@ -178,7 +178,7 @@ void Commande::extraireDonneesDat(){
     }
 }
 
-string Commande::genererTrame(){
+bool Commande::genererTrame(unsigned char* trameF){
     string trameInter;
     switch (CMD)
     {
@@ -222,28 +222,22 @@ string Commande::genererTrame(){
     
     default:
         cout<<"problème de trame"<<endl;
-        return 0;
+        return false;
         break;
     }
     nbOctets = trameInter.length();
-    trameInter = "~  " + trameInter ; //les trois espace sont pour 255(caractere de debut), l'id et pour le nombre d'octets dans le payload 
+    trameInter = "  " + trameInter ; //les deux espace sont pour l'id et pour le nombre d'octets dans le payload 
 
-    char trameF[trameInter.length()+3];
 
-    strcpy(trameF, trameInter.c_str());
-    trameF[1] = stoi(id,nullptr);
-    trameF[2] = nbOctets;
+    strcpy((char *)trameF, trameInter.c_str());
+    trameF[0] = stoi(id,nullptr);
+    trameF[1] = nbOctets;
     trameF[trameInter.length()+2] = 255;
     calculerChecksum(trameF,trameF[trameInter.length()],trameF[trameInter.length()+1]);
-    testAfficherTrame(trameInter,trameF);
-
-    string s(trameF);
-    return s;
-
-
+    return true;
 }
 
-void Commande::calculerChecksum( char* trameF, char & PF,  char & pf){
+void Commande::calculerChecksum( unsigned char* trameF, unsigned char & PF,  unsigned char & pf){
     short Checksum=0;
     char leChecksum[2];
 
@@ -259,20 +253,12 @@ void Commande::calculerChecksum( char* trameF, char & PF,  char & pf){
 
 }
 
-void Commande::testAfficherTrame(string trameInter,  char* trameF){
-    for(int i = 0;i<trameInter.length()+3;i++){
-        cout<<trameF[i];
-    }
-    cout<<(int)trameF[1]<<" "<<(int)trameF[2]<<endl;
-    cout<<trameInter<<endl;
-}
-
 bool Commande::setTrame(string trame){
     try{
         this->trame = json::parse(trame);
         return true;
     }
-    catch(exception e){
+    catch(json::parse_error& ex){
         cout<<"trame reçu non JSON"<<endl;
         return false;
     }

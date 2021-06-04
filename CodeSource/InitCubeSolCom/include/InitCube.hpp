@@ -3,6 +3,7 @@
 #include "ServeurTransmitionCommande.hpp"
 #include "Commande.hpp"
 #include "DispatcheurReponse.hpp"
+#include "ComInitCube.h"
 #include <thread>
 #include "Lib.h"
 
@@ -13,23 +14,23 @@ class InitCube
 
 public:
     InitCube();
-    void reseptionTelemesure();
+    void attenteAbonnement();
     void transmitionCommande();
     void envoieVol();
     void receptionVol();
+    void envoieTelemesure();
     ~InitCube();
 
 private:
+    thread member1Thread();
     void nouveauClient();
     int numMap;
-    bool securite;
-    bool lecture;
-    bool ecriture;
+    queue<vector<unsigned char>> telemesure;
     mutex *mtxCommande;
-    mutex *mtxSerie;
-    condition_variable cv;
+    mutex *mtxTelemesure;
     ServeurTransmitionCommande *serveurEcouteJTP;
     ServeurReceptionTelemesure *serveurEcriturePTJ;
     Commande *commande;
     DispatcheurReponse *reponse;
+    ComInitCube *comInitCube;
 };

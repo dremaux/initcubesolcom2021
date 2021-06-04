@@ -42,21 +42,21 @@ void SimpleMission::extraireDonnee(unsigned char *trame, int nbOctetType)
 string SimpleMission::genererTrame(string nom, string type, string unite, string dt)
 {
     json trame;
-    trame["measure"]["name"] = nom;
-    trame["measure"]["code"] = type;
+    trame["mission"]["name"] = nom;
+    trame["mission"]["code"] = type;
     if(donneeExtraite.size() == dateExtraite.size()){
         for(int i = 0; i < dateExtraite.size();i++){
-            trame["measure"]["donnee"][i]["donnee"] = donneeExtraite[i];
-            trame["measure"]["donnee"][i]["date"] = dateExtraite[i];
+            trame["mission"]["donnee"][i]["donnee"] = donneeExtraite[i];
+            trame["mission"]["donnee"][i]["date"] = dateExtraite[i];
         }
     }else{
         cout<<"erreur trame reponse mission nombre date != nombre donnee"<<endl;
         return 0;
     }
     
-    trame["measure"]["unite"] = unite;
+    trame["mission"]["unite"] = unite;
     if(dt != ""){
-        trame["measure"]["date"] = dt;
+        trame["mission"]["date"] = dt;
     }
     
     return trame.dump();

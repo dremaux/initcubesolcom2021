@@ -7,7 +7,7 @@ SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
 
-LIBRARIES	:= -lpthread
+LIBRARIES	:= -lpthread -lboost_system
 EXECUTABLE	:= InitCubeServeurCommande
 
 
