@@ -12,16 +12,22 @@ int main(){
     cout << "Content-Type: text/html\r\n";
 	cout << "Cache-Control: no-cache\r\n";
 
-    cout << "trame enregistrer, et ajout de la date : ";
-    std::string ma_trame=R"({ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC", "dateEnvoi": "0000/00/00 00:00:00"}})";
+    std::string ma_trame=R"({ "CMD" : {"idSatellite":"1", "typeCommande":"MEASURE", "refInstrument":"CamInfra", "code":"TC", "dateEnvoi":"0000/00/00 00:00:00", "reponse": "non" }})";
     gCommandes->stockerCommande(json::parse(ma_trame));
+    cout << "ok" << endl;
 
     cout << "Affichage des 5 dernieres commandes" << endl;
     gCommandes->getDernieresCommandes(5); 
     gCommandes->transmettreCommandes();
-    
-    cout  << "Affichage des commandes transmises à une date et une herue précises" << endl;
-    gCommandes->rechercherCommandesParDate("2021/06/03 12:40");
- 
+  
+    std::string date; 
+    std::getline(std::cin,date);
+    gCommandes->rechercherCommandesParDate(date);
+
+    std::string ma_reponse;
+    ma_reponse = R"({"measure":{"code":"TC","donnee":["36.7","35.4"],"nom":"temperature","unite":"°C"}})";
+    gCommandes->ajouterReponse(json::parse(ma_reponse));
+    cout << "ok" << endl;
+
     return 0;    
 }

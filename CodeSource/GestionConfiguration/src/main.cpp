@@ -13,13 +13,14 @@ int main(){
     cout << "Content-Type: text/html\r\n";
 	cout << "Cache-Control: no-cache\r\n";
 
-    std::string toto;
+    std::string toto; 
     std::getline(std::cin,toto);
     gConfiguration->stockerConfiguration(toto);
+    cout << "OK" << endl; 
 
     gConfiguration->restituerDerniereConfiguration();
     gConfiguration->transmettreConfiguration();
- 
+
     return 0;    
 }
 
