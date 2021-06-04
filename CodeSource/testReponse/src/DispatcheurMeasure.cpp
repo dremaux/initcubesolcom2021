@@ -50,9 +50,9 @@ string DispatcheurMeasure::genererTrame()
             "TRAME": {},
             "ETAT": {},
             "INSTRUMENT": [
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"temperature","ID":"TC","TYPE":"simple","UNITE": "°C"}},
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"matrice","ID":"PIX","TYPE":"matrice"}},
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"image","ID":"IMG","TYPE":"image", "WIDTH": 320, "HEIGHT": 240}}
+                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"temperature","code":"TC","TYPE":"simple","UNITE": "°C"}},
+                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"matrice","code":"PIX","TYPE":"matrice"}},
+                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"image","code":"IMG","TYPE":"image", "WIDTH": 320, "HEIGHT": 240}}
 
 
             ]
@@ -62,7 +62,7 @@ string DispatcheurMeasure::genererTrame()
     {
         for (int i = 0; i < instrument["INITCUBE"]["INSTRUMENT"].size(); i++)
         {
-            string id = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
+            string id = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
             if (type == id)
             {
                 string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
@@ -71,7 +71,7 @@ string DispatcheurMeasure::genererTrame()
                     simple->extraireDonnee(trame, type.length());
                     if (trame[NBRE_TRAMES] == trame[NUM_TRAME])
                     {
-                        reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
+                        reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["code"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
                         return reponse;
                     }
                 }
@@ -80,7 +80,7 @@ string DispatcheurMeasure::genererTrame()
                     matrice->extraireDonnee(trame, type.length());
                     if (trame[NBRE_TRAMES] == trame[NUM_TRAME])
                     {
-                        reponse = matrice->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "measure");
+                        reponse = matrice->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["code"], "measure");
                         return reponse;
                     }
                 }
@@ -91,7 +91,7 @@ string DispatcheurMeasure::genererTrame()
                     string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1); //supprime le \n de fin
                     ((Image *)image)->genererImage(dt, instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["WIDTH"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["HEIGHT"]);
-                    reponse = image->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "measure");
+                    reponse = image->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["code"], "measure");
                     return reponse;
                 }
             }

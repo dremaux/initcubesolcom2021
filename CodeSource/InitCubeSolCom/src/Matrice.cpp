@@ -9,7 +9,7 @@ Matrice::~Matrice() {
 
 }
 
-void Matrice::extraireDonnee(char* trame, int nbOctetType){
+void Matrice::extraireDonnee(unsigned char* trame, int nbOctetType){
     if(trame[NUM_TRAME] == compteur){
         security = false;
         caseFinM = trame[1] + 2;
@@ -50,8 +50,8 @@ void Matrice::extraireDonnee(char* trame, int nbOctetType){
 string Matrice::genererTrame(string nom, string typeMeasure, string type, string dt){
     json trame;
     if(compteur == 1 && security == false){
-        trame[type]["name"] = nom;
-        trame[type]["typeMesure"] = typeMeasure;
+        trame[type]["nom"] = nom;
+        trame[type]["code"] = typeMeasure;
         trame[type]["matrice"] = donneeExtraite;
         if(type == "mission"){
             trame[type]["date"] = dt;

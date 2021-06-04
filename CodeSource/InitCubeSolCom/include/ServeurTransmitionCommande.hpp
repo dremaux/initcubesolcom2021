@@ -7,11 +7,11 @@ public:
     ServeurTransmitionCommande(int port);
     ~ServeurTransmitionCommande();
     int attendreCommande(int fd);
-    vector <string> getRecu();
+    queue <string> getRecu();
     void effacerPremierRecu();
     mutex* getMutex();
 
 private:
-    vector <string> recu; //collection de commande reçu
+    queue <string> recu; //collection de commande reçu
     mutex* mtx;
 };

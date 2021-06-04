@@ -13,18 +13,17 @@ public:
     Commande(string json);
     ~Commande();
     int extraireDonnees();
-    string genererTrame();
+    bool genererTrame(unsigned char* trameF);
     bool setTrame(string trame);
 
 
 private:
-    void calculerChecksum( char* trameF, char & PF, char & pf);
+    void calculerChecksum( unsigned char* trameF, unsigned char & PF, unsigned char & pf);
     void extraireDonneesMis();
     void extraireDonneesMea();
     void extraireDonneesSta();
     void extraireDonneesMee();
     void extraireDonneesDat();
-    void testAfficherTrame(string trameInter,  char* trameF); //affiche la trame pour tester si elle est juste (a mettre avant le return de genererTrame)
     char nCommande[1];
     Cmd CMD;
     nlohmann::json trame;

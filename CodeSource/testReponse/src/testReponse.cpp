@@ -452,12 +452,12 @@ void testImageMi()
     trame[0] = 1;
     trame[1] = 43;
     trame[2] = 'M';
-    trame[3] = 'E';
-    trame[4] = 'A';
+    trame[3] = 'I';
+    trame[4] = 'S';
     trame[5] = 'S';
-    trame[6] = 'U';
-    trame[7] = 'R';
-    trame[8] = 'E';
+    trame[6] = 'I';
+    trame[7] = 'O';
+    trame[8] = 'N.';
     trame[9] = '-';
     trame[10] = 'I';
     trame[11] = 'M';

@@ -32,7 +32,7 @@ int ServeurTransmitionCommande::attendreCommande(int n){
     }
     else{
         mtx->lock();
-        recu.push_back(buffer);
+        recu.push(buffer);
         mtx->unlock();
         send(connexionsM[n],"ACK",3,0);
         cout<<buffer;
@@ -41,10 +41,10 @@ int ServeurTransmitionCommande::attendreCommande(int n){
 }
 
 void ServeurTransmitionCommande::effacerPremierRecu(){
-    recu.erase(recu.begin());
+    recu.pop();
 }
 
-vector <string> ServeurTransmitionCommande::getRecu(){
+queue <string> ServeurTransmitionCommande::getRecu(){
     return recu;
 }
 

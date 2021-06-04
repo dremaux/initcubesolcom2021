@@ -12,22 +12,16 @@ using namespace std;
 
 int main()
 {
-	pthread_t threadConnexion;
-	pthread_t threadEnvoyerTrame;
-	int err_threadConnexion;
-	int err_threadEnvoyerTrame;
-	err_threadConnexion = pthread_create(&threadConnexion,NULL,ThreadConnexion,NULL);
-	err_threadEnvoyerTrame = pthread_create(&threadEnvoyerTrame,NULL,ThreadEnvoyerTrame,NULL);
-	pthread_join(threadConnexion, NULL);
-   	pthread_join(threadEnvoyerTrame, NULL);
+	cout<<serveur->genFakeStateFrame()<<endl<<endl;
+
+	cout<<serveur->genFakeInstrumentFrame()<<endl<<endl;
+
+	
 	return 0;
 }
 
 /*Thread d'attente de connexion*/
-void* ThreadConnexion(void *){
-	while(1)//Appel la methode d'écoute du serveur en boucle
-		serveur -> attendreConnexion();
-}
+
 
 
 /*Thread de mise en forme des trames*/
