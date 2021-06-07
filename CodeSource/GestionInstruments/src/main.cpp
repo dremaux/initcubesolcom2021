@@ -16,10 +16,10 @@ int main(){
     std::getline(std::cin,toto);
     gInstrument->stockerInstrument(toto);
     cout << "ok" << endl;
-
+/*
     gInstrument->getListeInstruments();
     gInstrument->transmettreInstruments();
-
+*/
     return 0;    
 }
 

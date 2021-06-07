@@ -50,7 +50,7 @@ int GestionCommandes::transmettreCommandes()
     cout << commandes[i] << endl;
     nbreCommandesTransmises++;
   }
-  cout << commandes[commandes.size()-1] << endl; // le endl n'y est pas normalement, c'est juste pour la démo, car ça pose problème à l'ihm sinon
+  cout << commandes[commandes.size()-1];
   nbreCommandesTransmises++;
   return nbreCommandesTransmises;
 }
