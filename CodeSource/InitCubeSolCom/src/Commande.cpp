@@ -10,7 +10,10 @@ Commande::Commande(string tJson,int numeroCommande):trame(tJson){
     trame =R"({ "CMD": {
             "idSatellite": "1",
             "typeCommande": "MEASURE",
+            "refInstrument":"CamInfra",
             "code": "TC"
+            "dateEnvoi":"0000/00/00 00:00:00",
+            "reponse:"non"
             }
         })"_json;
 
@@ -86,22 +89,22 @@ int Commande::extraireDonnees(){
 }
 
 void Commande::extraireDonneesMis(){
-    if(trame["CMD"].find("PERIODE") != trame["CMD"].end()){
-        periode = trame["CMD"]["PERIODE"];
+    if(trame["CMD"]["option"].find("periodicite") != trame["CMD"].end()){
+        periode = trame["CMD"]["option"]["periodicite"];
         periode = "-P"+ periode;
     }
 
-    if(trame["CMD"].find("DUREE") != trame["CMD"].end()){
-        duree =trame["CMD"]["DUREE"];
+    if(trame["CMD"]["option"].find("duree") != trame["CMD"].end()){
+        duree =trame["CMD"]["option"]["duree"];
         duree = "-D"+ duree;
     }
 
-    if(trame["CMD"].find("DATE") != trame["CMD"].end()){
-        date =trame["CMD"]["DATE"];
+    if(trame["CMD"]["option"].find("deteExec") != trame["CMD"].end()){
+        date =trame["CMD"]["option"]["dateExec"];
         date = "-DT"+ date;
     }
 
-    if(trame["CMD"].find("SAVE") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("save") != trame["CMD"].end()){
         save = "-SAVE";
     }
 
@@ -119,36 +122,36 @@ void Commande::extraireDonneesMea(){
 }
 
 void Commande::extraireDonneesSta(){
-    if(trame["CMD"].find("PERIODE") != trame["CMD"].end()){
-        periode = trame["CMD"]["PERIODE"];
+    if(trame["CMD"]["option"].find("periodicite") != trame["CMD"].end()){
+        periode = trame["CMD"]["option"]["periodicite"];
         periode = "-P"+ periode;
     }
 
-    if(trame["CMD"].find("DUREE") != trame["CMD"].end()){
-        duree =trame["CMD"]["DUREE"];
+    if(trame["CMD"]["option"].find("duree") != trame["CMD"].end()){
+        duree =trame["CMD"]["option"]["duree"];
         duree = "-D"+ duree;
     }
 
-    if(trame["CMD"].find("BORD") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("BORD") != trame["CMD"].end()){
         bord = "-BORD";
     }
     
 
-    if(trame["CMD"].find("INST") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("INST") != trame["CMD"].end()){
         inst = "-INST";
     }
     
 
-    if(trame["CMD"].find("BATT") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("BATT") != trame["CMD"].end()){
         batt = "-BATT";
     }
     
 
-    if(trame["CMD"].find("REBOOT") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("REBOOT") != trame["CMD"].end()){
         reboot = "-REBOOT";
     }
     
-    if(trame["CMD"].find("CUBE") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("CUBE") != trame["CMD"].end()){
         cube = "-CUBE";
     }
     
@@ -156,24 +159,24 @@ void Commande::extraireDonneesSta(){
 }
 
 void Commande::extraireDonneesMee(){
-    if(trame["CMD"].find("DUREE") != trame["CMD"].end()){
-        duree =trame["CMD"]["DUREE"];
+    if(trame["CMD"]["option"].find("duree") != trame["CMD"].end()){
+        duree =trame["CMD"]["option"]["duree"];
         duree = "-D"+ duree;
     }
 
-    if(trame["CMD"].find("DATE") != trame["CMD"].end()){
-        date =trame["CMD"]["DATE"];
+    if(trame["CMD"]["option"].find("dateExec") != trame["CMD"].end()){
+        date =trame["CMD"]["option"]["dateExec"];
         date = "-DT"+ date;
     }
 
-    if(trame["CMD"].find("SAVE") != trame["CMD"].end()){
+    if(trame["CMD"]["option"].find("save") != trame["CMD"].end()){
         save = "-SAVE";
     }
 }
 
 void Commande::extraireDonneesDat(){
-    if(trame["CMD"].find("DATE") != trame["CMD"].end()){
-        date =trame["CMD"]["DATE"];
+    if(trame["CMD"]["option"].find("dateExec") != trame["CMD"].end()){
+        date =trame["CMD"]["option"]["dateExec"];
         date = "-DT"+ date;
     }
 }

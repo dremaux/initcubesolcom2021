@@ -8,34 +8,104 @@ DispatcheurMission::DispatcheurMission()
 string DispatcheurMission::genererTrame()
 {
     json instrument;
-    instrument = R"({
-        "INITCUBE": {
-            "DESCRIPTION": {},
-            "TRAME": {},
-            "ETAT": {},
-            "INSTRUMENT": [
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"temperature","ID":"TC","TYPE":"simple","UNITE": "°C"}},
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"matrice","ID":"PIX","TYPE":"matrice"}},
-                {"DESCRIPTION":{},"ETAT":{},"TYPEMEASURE":{"NOM":"image","ID":"IMG","TYPE":"image", "WIDTH": 320, "HEIGHT": 240}}
-
-
-            ]
-        }
-    })"_json;
-    if (instrument.find("INITCUBE") != instrument.end() && instrument["INITCUBE"].find("INSTRUMENT") != instrument["INITCUBE"].end())
+    instrument = R"({"ConfInstru":[
+	{
+		"nom":"Camera infrarouge",
+		"identifiant":"123BCD",
+		"ref":"Matrice",
+		"adresse":"",
+		"role":"mesurer une temperature",
+		"listeTypesMesure":[
+			{
+				"nom":"temperature",
+				"type":"normal",
+				"code":"TC",
+				"description":"Température de l'objet mesuré",
+				"unite":"°C",
+				"valMax":"+90",
+				"valMin":"-40"
+			},
+			{
+				"nom":"matrice",
+				"type":"matrice",
+				"code":"PIX",
+				"description":"Matrice d'une température de l'objet mesuré",
+				"unite":"°C",
+				"valMax":"+90",
+				"valMin":"-40"
+			}
+		]
+	},
     {
-        for (int i = 0; i < instrument["INITCUBE"]["INSTRUMENT"].size(); i++)
+        "nom":"Camera photo",
+        "identifiant":"",
+        "ref":"",
+        "adresse":"",
+        "role":"prendre des photos",
+        "listeTypesMesure":[
+            {
+                "nom":"photo",
+                "type":"image",
+                "code":"IMG",
+                "description":"",
+                "unite":"",
+                "hauteur":240,
+                "largeur":320
+
+            }
+        ]
+    },
+	{
+		"nom":"Magnétomètre",
+		"identifiant":"124BCD",
+		"ref":"Magnetometre",
+		"adresse":"",
+		"role":"Mesurer un champ magnétique",
+		"listeTypesMesure":[
+			{
+				"nom":"BX",
+				"type":"normal",
+				"code":"BX",
+				"description":"Champ magnetique suivant X ",
+				"unite":"μT",
+				"valMax":"+100",
+				"valMin":"0"
+			},
+			{
+				"nom":"BY",
+				"type":"normal",
+				"code":"BY",
+				"description":"Champ magnetique suivant Y ",
+				"unite":"μT",
+				"valMax":"+100",
+				"valMin":"0"
+			},
+			{
+				"nom":"BZ",
+                "type":"normal",
+				"code":"BZ",
+				"description":"Champ magnetique suivant Z ",
+				"unite":"μT",
+				"valMax":"+100",
+				"valMin":"0"
+			}
+		]
+	}
+    ]})"_json;
+    for (int p = 0; p < instrument["ConfInstru"].size(); p++)
+    {
+        for (int i = 0; i < instrument["ConfInstru"][p]["listeTypesMesure"].size(); i++)
         {
-            string id = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
+            string id = instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
             if (type == id)
             {
-                string typeMesure = instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["TYPE"];
-                if (typeMesure == "simple")
+                string typeMesure = instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"];
+                if (typeMesure == "normal")
                 {
                     simple->extraireDonnee(trame, type.length());
                     if (trame[NBRE_TRAMES] == trame[NUM_TRAME])
                     {
-                        reponse = simple->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["UNITE"]);
+                        reponse = simple->genererTrame(instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["unite"]);
                         return reponse;
                     }
                 }
@@ -50,7 +120,7 @@ string DispatcheurMission::genererTrame()
                         }
                         trame[1] -= 22;
                         matrice->extraireDonnee(trame, type.length());
-                        reponse = matrice->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "mission", date);
+                        reponse = matrice->genererTrame(instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"], "mission", date);
                         return reponse;
                     }
                     matrice->extraireDonnee(trame, type.length());
@@ -58,25 +128,20 @@ string DispatcheurMission::genererTrame()
                 if (typeMesure == "image")
                 {
                     string date = "";
-                    for (int h = (trame[1] + 2) - 18; h < ((trame[1] + 2) - 18) + 19; h++)
+                    for (int h = (trame[1] + 2) - 19; h < ((trame[1] + 2) - 19) + 19; h++)
                     {
                         date += trame[h];
                     }
-                    trame[1] -= 22;
                     time_t now = time(0);
                     string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1); //supprime le \n de fin
                     image->extraireDonnee(trame, type.length());
-                    ((Image *)image)->genererImage(dt, instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["WIDTH"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["HEIGHT"]);
-                    reponse = image->genererTrame(instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["NOM"], instrument["INITCUBE"]["INSTRUMENT"][i]["TYPEMEASURE"]["ID"], "mission", date);
+                    ((Image *)image)->genererImage(dt, instrument["ConfInstru"][p]["listeTypesMesure"][i]["largeur"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["hauteur"]); // attention si hauteur et largeur sont en string dans le json ça ne marche pas
+                    reponse = image->genererTrame(instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"], "mission", date);
                     return reponse;
                 }
             }
         }
-    }
-    else
-    {
-        cout << "trame non conforme" << endl;
     }
     return "";
 }
