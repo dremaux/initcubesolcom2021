@@ -22,7 +22,6 @@ Serial::Serial(std::string port, unsigned int baud_rate)
      */
 void Serial::writeChar(unsigned char* message, int taille)
 {
-    std::cout<<taille<<std::endl;
     for(int i = 0; i < taille; i++){
         std::cout<<message[i];
     }

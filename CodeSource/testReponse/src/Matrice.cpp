@@ -50,7 +50,7 @@ void Matrice::extraireDonnee(unsigned char* trame, int nbOctetType){
 string Matrice::genererTrame(string nom, string typeMeasure, string type, string dt){
     json trame;
     if(compteur == 1 && security == false){
-        trame[type]["nom"] = nom;
+        trame[type]["type"] = nom;
         trame[type]["code"] = typeMeasure;
         trame[type]["matrice"] = donneeExtraite;
         if(type == "mission"){

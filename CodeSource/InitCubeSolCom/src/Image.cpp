@@ -44,7 +44,7 @@ string Image::genererTrame(string nom, string typeMeasure, string type, string d
 {
     json trame;
 
-    trame[type]["nom"] = nom;
+    trame[type]["type"] = nom;
     trame[type]["code"] = typeMeasure;
     trame[type]["donnees"]["chemin"] = name;
     trame[type]["donnees"]["largeur"] = width;

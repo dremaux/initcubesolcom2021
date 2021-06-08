@@ -8,7 +8,7 @@ InitCube::InitCube()
     commande = new Commande();
     reponse = new DispatcheurReponse();
     mtxCommande = serveurEcouteJTP->getMutex();
-    comInitCube = new ComInitCube("/dev/ttyAMA0", 9600);
+    comInitCube = new ComInitCube("/dev/ttyUSB0", 9600);
     mtxTelemesure = new mutex();
 }
 
@@ -60,7 +60,7 @@ void InitCube::envoieVol()
             mtxCommande->unlock();
             if (set && commande->extraireDonnees() > 0)
             {
-                bool com = commande->genererTrame(trameF); //remplacer cout par la liaison serie
+                bool com = commande->genererTrame(trameF);
 
                 if (com)
                 {
@@ -74,23 +74,22 @@ void InitCube::envoieVol()
 void InitCube::receptionVol()
 {
     unsigned char recu[110];
+    bool lire = false;
     vector<unsigned char> v;
     while (1)
     {
-        if (!v.empty())
+
+        while (!v.empty())
         {
-            for (int i = 0; i < v.size(); i++)
-            {
-                v.erase(v.begin());
-            }
+            v.erase(v.begin());
         }
-        bool lire = comInitCube->lireTrame(recu, 110);
+
+        lire = comInitCube->lireTrame(recu, 110);
         if (lire)
         {
             mtxTelemesure->lock();
             for (int i = 0; i < 110; i++)
             {
-
                 v.push_back(recu[i]);
             }
             telemesure.push(v);
@@ -105,35 +104,36 @@ void InitCube::receptionVol()
 
 void InitCube::envoieTelemesure()
 {
-    while (!telemesure.empty())
+    while (1)
     {
-        unsigned char trame[110];
-        for (int i = 0; i < 110; i++)
+        while (!telemesure.empty())
         {
-            trame[i] = 0;
-        }
-        mtxTelemesure->lock();
-        for (int i = 0; i < telemesure.front().size(); i++)
-        {
-            trame[i] = telemesure.front()[i];
-        }
-        telemesure.pop();
-        mtxTelemesure->unlock();
-
-        reponse->setTrame(trame);
-
-        string recuR = reponse->identifierType();
-        if (recuR == "JSON")
-        {
-            string trameG = reponse->genererTrame();
-            if (trameG != "")
+            unsigned char trame[110];
+            for (int i = 0; i < 110; i++)
             {
-                char trameGC[trameG.size() + 1];
-                for (int i = 0; i < trameG.size() + 1; i++)
+                trame[i] = 0;
+            }
+            mtxTelemesure->lock();
+            for (int i = 0; i < 110; i++)
+            {
+                trame[i] = telemesure.front()[i];
+            }
+            telemesure.pop();
+            mtxTelemesure->unlock();
+            reponse->setTrame(trame);
+            string recuR = reponse->identifierType();
+            if (recuR == "JSON")
+            {
+                string trameG = reponse->genererTrame();
+                if (trameG != "")
                 {
-                    trameGC[i] = trameG[i];
+                    char trameGC[trameG.size() + 1];
+                    for (int i = 0; i < trameG.size() + 1; i++)
+                    {
+                        trameGC[i] = trameG[i];
+                    }
+                    serveurEcriturePTJ->transmettre(trameGC, trameG.size());
                 }
-                serveurEcriturePTJ->transmettre(trameGC, trameG.size());
             }
         }
     }

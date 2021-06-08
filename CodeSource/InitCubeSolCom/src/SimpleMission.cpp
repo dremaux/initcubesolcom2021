@@ -42,7 +42,7 @@ void SimpleMission::extraireDonnee(unsigned char *trame, int nbOctetType)
 string SimpleMission::genererTrame(string nom, string type, string unite, string dt)
 {
     json trame;
-    trame["mission"]["nom"] = nom;
+    trame["mission"]["type"] = nom;
     trame["mission"]["code"] = type;
     if(donneeExtraite.size() == dateExtraite.size()){
         for(int i = 0; i < dateExtraite.size();i++){

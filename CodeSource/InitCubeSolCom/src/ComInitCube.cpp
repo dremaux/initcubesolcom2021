@@ -21,7 +21,7 @@ void ComInitCube::transmettreTrame(unsigned char *s)
         }
     }
     maLiaisonSerie->writeChar(s, taille);
-    retour = attendreAck();
+    /*retour = attendreAck();
     if (retour == "RECU")
     {
         cout << "ack recu" << endl;
@@ -30,13 +30,13 @@ void ComInitCube::transmettreTrame(unsigned char *s)
     {
         cout << "erreur checksum" << endl;
         transmettreTrame(s);
-    }
+    }*/
 }
 
 bool ComInitCube::lireTrame(unsigned char *trame, int taille)
 {
     bool checksum;
-
+    cout<<"debut lecture serie"<<endl;
 	mtx->lock();
     for (int i = 0; i < taille; i++)
     {
@@ -51,20 +51,19 @@ bool ComInitCube::lireTrame(unsigned char *trame, int taille)
         y++;
     }
     checksum = verifierChecksum(trame, y);
+    cout<<"fin verifier cks"<<endl;
     if (!checksum)
     {
-        for (int i = 0; i < taille; i++)
-        {
-            trame[i] = 0;
-        }
+        mtx->unlock();
         return false;
     }
     else
     {
+        mtx->unlock();
         return true;
     }
     
-	mtx->unlock();
+	
 }
 
 string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
@@ -89,6 +88,7 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
 {
     unsigned char checkSum1;
     unsigned char checkSum2;
+    int h = 0;
 
     for(int i = 0; i < taille; i++){
 
@@ -96,17 +96,11 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
         {
             checkSum1 = trame[i - 2];
             checkSum2 = trame[i - 1];
+            h = i;
         }
     }
-    for(int i = 0; i < taille; i++){
-        cout<<trame[i]<<' ';
-    }
-    cout<<endl;
-    
-    calculerChecksum(trame, trame[taille-2], trame[taille-1], taille);
-    
-    cout<<checkSum1<<"| |"<<trame[taille-2]<<"|"<<checkSum2<<"| |"<<trame[taille-1]<<endl;
-    if (checkSum1 == trame[taille-2] && checkSum2 == trame[taille-1])
+    calculerChecksum(trame, trame[h-2], trame[h-1], taille-3);
+    if (checkSum1 == trame[h-2] && checkSum2 == trame[h-1])
     {
         return true;
     }
@@ -119,8 +113,8 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
 void ComInitCube::calculerChecksum( unsigned char* trame, unsigned char & PF, unsigned char & pf, int taille){
     short Checksum=0;
     char leChecksum[2];
-
-    for (int i=1;i<taille;i++)
+    cout<<"calcul cks"<<endl;
+    for (int i=0;i<taille;i++)
     {
         Checksum=Checksum^trame[i];
     }
@@ -131,3 +125,23 @@ void ComInitCube::calculerChecksum( unsigned char* trame, unsigned char & PF, un
     pf = leChecksum[1];
 
 }
+
+/*void ComInitCube::calculerChecksum( unsigned char* trame, unsigned char & PF, unsigned char & pf, int taille){
+    short Checksum=0;
+    char leChecksum[2];
+    cout<<"calcul cks"<<endl;
+    for(int i = 0;i < taille;i++){
+        cout<<trame[i];
+    }
+    cout<<endl;
+    for (int i=1;i<taille;i++)
+    {
+        Checksum=Checksum^trame[i];
+    }
+    sprintf(leChecksum, "%2X",Checksum);
+    if (leChecksum[0]==32) leChecksum[0]='0';
+    if (leChecksum[1]==32) leChecksum[1]='0';
+    PF = leChecksum[0];
+    pf = leChecksum[1];
+
+}*/

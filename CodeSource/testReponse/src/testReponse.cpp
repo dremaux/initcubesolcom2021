@@ -15,13 +15,13 @@ void testImageMi();
 int main()
 {
     /*testStatus();
-    cout<<endl;
-    testSimpleMe();
-    cout<<endl;
-    testMatriceMe();
     cout<<endl;*/
-    testImageMe();
+    testSimpleMe();
     /*cout<<endl;
+    testMatriceMe();
+    cout<<endl;
+    testImageMe();
+    cout<<endl;
     testSimpleMi();
     cout<<endl;
     testMatriceMi();
@@ -185,9 +185,9 @@ void testStatus()
 
 void testSimpleMe()
 {
-    unsigned char trame[33];
+    unsigned char trame[23];
     trame[0] = 1;
-    trame[1] = 28;
+    trame[1] = 18;
     trame[2] = 'M';
     trame[3] = 'E';
     trame[4] = 'A';
@@ -200,14 +200,14 @@ void testSimpleMe()
     trame[11] = '-';
     trame[12] = 'T';
     trame[13] = 'C';
-    trame[29] = ' ';
-    trame[30] = 'C';
-    trame[31] = '7';
-    trame[32] = 255;
+    trame[19] = ' ';
+    trame[20] = '6';
+    trame[21] = '8';
+    trame[22] = 255;
 
     string s;
 
-    for (int y = 14; y <= 28; y = y + 5)
+    for (int y = 14; y < 19; y = y + 5)
     {
         trame[y] = ' ';
         trame[y + 1] = (rand() % 10) + 48;
