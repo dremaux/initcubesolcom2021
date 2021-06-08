@@ -1,19 +1,17 @@
 #include "gConfiguration.h"
 
-// connection à la BDD "initcube" et à la collection "segmentVol"
 GestionConfiguration::GestionConfiguration()
 {
   db = client["initcube"];
   coll = db["segmentVol"];
 }
 
-//recherche la dernière trame enregistrer dans la BDD
 int GestionConfiguration::restituerDerniereConfiguration()
 {
   this->configurations.clear();
 
   mongocxx::options::find opts;
-  opts.sort(make_document(kvp("dateEnvoi", -1))).limit(1); // trie les trames par ordre décroissant en fonction des dateEnvoi, et en affiche qu'une 
+  opts.sort(make_document(kvp("dateEnvoi", -1))).limit(1); 
   auto cursor = coll.find({}, opts);
 
   for (auto doc : cursor)
@@ -23,7 +21,6 @@ int GestionConfiguration::restituerDerniereConfiguration()
   
 }
 
-//comte et affiche les trames reçu, fonctionne avec "restituerDernièreConfiguration"
 int GestionConfiguration::transmettreConfiguration()
 {
   int nbreConfigurationTransmises = 0;
@@ -37,7 +34,7 @@ int GestionConfiguration::transmettreConfiguration()
   return nbreConfigurationTransmises;
 }
 
-//ajout la date et stocke la trame reçu dans la BDD
+
 int GestionConfiguration::stockerConfiguration(json laConfig)
 {
   time_t rawtime;
