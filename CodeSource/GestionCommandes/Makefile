@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := cgiHistoriqueCMD.cgi
+EXECUTABLE  := main
 
 
 all: $(BIN)/$(EXECUTABLE)

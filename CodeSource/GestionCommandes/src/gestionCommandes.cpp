@@ -7,6 +7,10 @@ GestionCommandes::GestionCommandes()
   coll = db["commande"];
 }
 
+GestionCommandes::~GestionCommandes()
+{
+}
+
 //renvoie les dernières commandes enregister dans la base de données
 //en fonction du chiffre qui est attribué à "nombre"
 int GestionCommandes::getDernieresCommandes(int nombre)
