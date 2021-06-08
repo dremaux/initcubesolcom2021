@@ -1,4 +1,4 @@
-#include "gCommandes.h"
+#include "GCommandes.h"
 
 GestionCommandes::GestionCommandes()
 {
