@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := cgiRecupererConf.cgi
+EXECUTABLE  := cgiConfigurerSV.cgi
 
 
 all: $(BIN)/$(EXECUTABLE)

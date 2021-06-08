@@ -9,20 +9,20 @@ int main(){
     mongocxx::instance instance{};
     GestionInstrument * gInstrument = new GestionInstrument();
 
-    cout << "Content-Type: text/html\r\n";
+    cout << "Content-Type: text/html\r\n\r\n";
 	//cout << "Cache-Control: no-cache\r\n";
-/*
-    std::string toto;
-    std::getline(std::cin,toto);
-    gInstrument->stockerInstrument(toto);
-    cout << "ok" << endl;
-*/
-/*
-    gInstrument->getListeInstruments();
-    gInstrument->transmettreInstruments();
-*/
-    gInstrument->nettoyerInstruments();
-    cout<<"ok"<<endl;
+
+
+    //std::string toto;
+    //std::getline(std::cin,toto);
+    //gInstrument->stockerInstrument(toto);
+    //cout << "ok" << endl;
+
+    //gInstrument->getListeInstruments();
+    //gInstrument->transmettreInstruments();
+
+    //gInstrument->nettoyerInstruments();
+    //cout<<"ok"<<endl;
 
     return 0;    
 }
