@@ -12,17 +12,16 @@ int main(){
 
     cout << "Content-Type: text/html\r\n\r\n";
 	
+/*
+    std::string toto; 
+    std::getline(std::cin,toto);
+    gConfiguration->stockerConfiguration(toto);
+    cout << "OK" << endl; 
+*/
 
-    //std::string toto; 
-    //std::getline(std::cin,toto);
-    //gConfiguration->stockerConfiguration(toto);
-    //cout << "OK" << endl; 
-
-
-    //gConfiguration->restituerDerniereConfiguration();
-    //gConfiguration->transmettreConfiguration();
-
+/*
+    gConfiguration->restituerDerniereConfiguration();
+    gConfiguration->transmettreConfiguration();
+*/
     return 0;    
 }
-
-//{ "CMD": {"ID": "1","TYPE": "MEASURE","TYPEMEASURE": "TC"}}
