@@ -1,5 +1,5 @@
 CXX		  := g++
-CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 
+CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 $(shell pkg-config --cflags --libs libmongocxx) -v
 
 
 BIN		:= bin
