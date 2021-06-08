@@ -10,7 +10,7 @@ int main(){
     mongocxx::instance instance{};
     GestionConfiguration * gConfiguration = new GestionConfiguration();
 
-    cout << "Content-Type: text/html\r\n\r\n";
+    //cout << "Content-Type: text/html\r\n\r\n";
 	
 /*
     std::string toto; 
@@ -19,9 +19,9 @@ int main(){
     cout << "OK" << endl; 
 */
 
-/*
+
     gConfiguration->restituerDerniereConfiguration();
     gConfiguration->transmettreConfiguration();
-*/
+
     return 0;    
 }

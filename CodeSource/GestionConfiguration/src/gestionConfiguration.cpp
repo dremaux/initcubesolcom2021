@@ -8,7 +8,7 @@ GestionConfiguration::GestionConfiguration()
 
 int GestionConfiguration::restituerDerniereConfiguration()
 {
-  this->configurations.clear();
+  //this->configuration.clear();
 
   mongocxx::options::find opts;
   opts.sort(make_document(kvp("dateEnvoi", -1))).limit(1); 
@@ -16,22 +16,14 @@ int GestionConfiguration::restituerDerniereConfiguration()
 
   for (auto doc : cursor)
   {
-    this->configurations.push_back(to_json(doc));
+    this->configuration=to_json(doc);
   }
-  
 }
 
 int GestionConfiguration::transmettreConfiguration()
 {
-  int nbreConfigurationTransmises = 0;
-  for (int i = 0; i < configurations.size()-1; i++)
-  {
-    cout << configurations[i] << endl;
-    nbreConfigurationTransmises++;
-  }
-  cout << configurations[configurations.size()-1];
-  nbreConfigurationTransmises++;
-  return nbreConfigurationTransmises;
+  cout << this->configuration << endl;
+  return 1;
 }
 
 
