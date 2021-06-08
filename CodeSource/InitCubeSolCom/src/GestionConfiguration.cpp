@@ -1,4 +1,4 @@
-#include "GConfiguration.h"
+#include "GestionConfiguration.h"
 
 GestionConfiguration::GestionConfiguration()
 {
