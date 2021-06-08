@@ -12,12 +12,12 @@ void ComInitCube::transmettreTrame(unsigned char *s)
 {
     string retour = "";
     int taille = 0;
-    for (int i = 0; i < 130; i++)
+    for (int i = 0; i < 110; i++)
     { //le protocole Xbee nous permet des trames de 104 octets
         if (s[i] == 255)
         {
             taille = i + 1;
-            i = 130;
+            i = 110;
         }
     }
     maLiaisonSerie->writeChar(s, taille);

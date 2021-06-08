@@ -76,14 +76,14 @@ void Status::extraireDonnee(string trame)
 
             if (trame.find("-T") < caseFinP)
             {
-                (trame.find("-", trame.find("-T",trame.find("-BORD")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-BORD")) + 1) : finChamp = caseFinP;
-                Tbord = trame.substr(trame.find("-T") + 2, finChamp - (trame.find("-T",trame.find("-BORD")) + 2));
+                (trame.find("-", trame.find("-T", trame.find("-BORD")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-BORD")) + 1) : finChamp = caseFinP;
+                Tbord = trame.substr(trame.find("-T") + 2, finChamp - (trame.find("-T", trame.find("-BORD")) + 2));
             }
 
             if (trame.find("-DT") < caseFinP)
             {
-                (trame.find("-", trame.find("-DT",trame.find("-BORD")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-DT",trame.find("-BORD")) + 1) : finChamp = caseFinP;
-                DTb = trame.substr(trame.find("-DT") + 3, finChamp - (trame.find("-DT",trame.find("-BORD")) + 3));
+                (trame.find("-", trame.find("-DT", trame.find("-BORD")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-DT", trame.find("-BORD")) + 1) : finChamp = caseFinP;
+                DTb = trame.substr(trame.find("-DT") + 3, finChamp - (trame.find("-DT", trame.find("-BORD")) + 3));
             }
         }
 
@@ -110,16 +110,16 @@ void Status::extraireDonnee(string trame)
                 load = true;
                 if (trame.find("-T") < caseFinP)
                 {
-                    (trame.find("-", trame.find("-T",trame.find("-BATT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-BATT")) + 1) : finChamp = caseFinP;
-                    Tbatt = trame.substr(trame.find("-T",trame.find("-BATT")) + 2, finChamp - (trame.find("-T",trame.find("-BATT")) + 2));
+                    (trame.find("-", trame.find("-T", trame.find("-BATT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-BATT")) + 1) : finChamp = caseFinP;
+                    Tbatt = trame.substr(trame.find("-T", trame.find("-BATT")) + 2, finChamp - (trame.find("-T", trame.find("-BATT")) + 2));
                 }
             }
             else
             {
                 if (trame.find("-T") < caseFinP)
                 {
-                    (trame.find("-", trame.find("-T",trame.find("-BATT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-BATT")) + 1) : finChamp = caseFinP;
-                    Tbatt = trame.substr(trame.find("-T",trame.find("-BATT")) + 2, finChamp - (trame.find("-T",trame.find("-BATT")) + 2));
+                    (trame.find("-", trame.find("-T", trame.find("-BATT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-BATT")) + 1) : finChamp = caseFinP;
+                    Tbatt = trame.substr(trame.find("-T", trame.find("-BATT")) + 2, finChamp - (trame.find("-T", trame.find("-BATT")) + 2));
                 }
             }
         }
@@ -138,8 +138,8 @@ void Status::extraireDonnee(string trame)
                     dureeSTBY = trame.substr(trame.find("-STBY") + 5, finChamp - (trame.find("-STBY") + 5));
                     if (trame.find("-T") < caseFinP)
                     {
-                        (trame.find("-", trame.find("-T",trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-INST")) + 1) : finChamp = caseFinP;
-                        Tinst = trame.substr(trame.find("-T",trame.find("-INST")) + 2, finChamp - (trame.find("-T",trame.find("-INST")) + 2));
+                        (trame.find("-", trame.find("-T", trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-INST")) + 1) : finChamp = caseFinP;
+                        Tinst = trame.substr(trame.find("-T", trame.find("-INST")) + 2, finChamp - (trame.find("-T", trame.find("-INST")) + 2));
                     }
                 }
             }
@@ -153,8 +153,8 @@ void Status::extraireDonnee(string trame)
                     dureeSTBY = trame.substr(trame.find("-STBY") + 5, finChamp - (trame.find("-STBY") + 5));
                     if (trame.find("-T") < caseFinP)
                     {
-                        (trame.find("-", trame.find("-T",trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-INST")) + 1) : finChamp = caseFinP;
-                        Tinst = trame.substr(trame.find("-T",trame.find("-INST")) + 2, finChamp - (trame.find("-T",trame.find("-INST")) + 2));
+                        (trame.find("-", trame.find("-T", trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-INST")) + 1) : finChamp = caseFinP;
+                        Tinst = trame.substr(trame.find("-T", trame.find("-INST")) + 2, finChamp - (trame.find("-T", trame.find("-INST")) + 2));
                     }
                 }
             }
@@ -169,8 +169,8 @@ void Status::extraireDonnee(string trame)
                     dureeSTBY = trame.substr(trame.find("-STBY") + 5, finChamp - (trame.find("-STBY") + 5));
                     if (trame.find("-T") < caseFinP)
                     {
-                        (trame.find("-", trame.find("-T",trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-INST")) + 1) : finChamp = caseFinP;
-                        Tinst = trame.substr(trame.find("-T",trame.find("-INST")) + 2, finChamp - (trame.find("-T",trame.find("-INST")) + 2));
+                        (trame.find("-", trame.find("-T", trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-INST")) + 1) : finChamp = caseFinP;
+                        Tinst = trame.substr(trame.find("-T", trame.find("-INST")) + 2, finChamp - (trame.find("-T", trame.find("-INST")) + 2));
                     }
                 }
             }
@@ -180,8 +180,8 @@ void Status::extraireDonnee(string trame)
                 modeExp = "NORMAL";
                 if (trame.find("-T") < caseFinP)
                 {
-                    (trame.find("-", trame.find("-T",trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-INST")) + 1) : finChamp = caseFinP;
-                    Tinst = trame.substr(trame.find("-T",trame.find("-INST")) + 2, finChamp - (trame.find("-T",trame.find("-INST")) + 2));
+                    (trame.find("-", trame.find("-T", trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-INST")) + 1) : finChamp = caseFinP;
+                    Tinst = trame.substr(trame.find("-T", trame.find("-INST")) + 2, finChamp - (trame.find("-T", trame.find("-INST")) + 2));
                 }
             }
             if (trame.find("-SLEEP") < caseFinP)
@@ -189,8 +189,8 @@ void Status::extraireDonnee(string trame)
                 modeExp = "SLEEP";
                 if (trame.find("-T") < caseFinP)
                 {
-                    (trame.find("-", trame.find("-T",trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-INST")) + 1) : finChamp = caseFinP;
-                    Tinst = trame.substr(trame.find("-T",trame.find("-INST")) + 2, finChamp - (trame.find("-T",trame.find("-INST")) + 2));
+                    (trame.find("-", trame.find("-T", trame.find("-INST")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-INST")) + 1) : finChamp = caseFinP;
+                    Tinst = trame.substr(trame.find("-T", trame.find("-INST")) + 2, finChamp - (trame.find("-T", trame.find("-INST")) + 2));
                 }
             }
         }
@@ -201,8 +201,8 @@ void Status::extraireDonnee(string trame)
 
             if (trame.find("-T") < caseFinP)
             {
-                (trame.find("-", trame.find("-T",trame.find("-CUBE")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T",trame.find("-CUBE")) + 1) : finChamp = caseFinP;
-                Tcube = trame.substr(trame.find("-T",trame.find("-CUBE")) + 2, finChamp - (trame.find("-T",trame.find("-CUBE")) + 2));
+                (trame.find("-", trame.find("-T", trame.find("-CUBE")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-T", trame.find("-CUBE")) + 1) : finChamp = caseFinP;
+                Tcube = trame.substr(trame.find("-T", trame.find("-CUBE")) + 2, finChamp - (trame.find("-T", trame.find("-CUBE")) + 2));
             }
         }
 
@@ -212,8 +212,8 @@ void Status::extraireDonnee(string trame)
 
             if (trame.find("-DT") < caseFinP)
             {
-                (trame.find("-", trame.find("-DT",trame.find("-REBOOT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-DT",trame.find("-REBOOT")) + 1) : finChamp = caseFinP;
-                DTr = trame.substr(trame.find("-DT",trame.find("-REBOOT")) + 3, finChamp - (trame.find("-DT",trame.find("-REBOOT")) + 3));
+                (trame.find("-", trame.find("-DT", trame.find("-REBOOT")) + 1) < caseFinP) ? finChamp = trame.find("-", trame.find("-DT", trame.find("-REBOOT")) + 1) : finChamp = caseFinP;
+                DTr = trame.substr(trame.find("-DT", trame.find("-REBOOT")) + 3, finChamp - (trame.find("-DT", trame.find("-REBOOT")) + 3));
             }
 
             if (trame.find("-N") < caseFinP)
@@ -269,7 +269,7 @@ string Status::genereTrame()
                 trame["status"]["batterie"]["Charge"] = "NON";
             }
         }
-        
+
         if (inst)
         {
             trame["status"]["instrument"]["Marche"] = marche;
@@ -289,7 +289,7 @@ string Status::genereTrame()
                 trame["status"]["instrument"]["erreur"] = "NON";
             }
         }
-        
+
         if (cube)
         {
             trame["status"]["cube"]["Temperature"] = Tcube;
@@ -303,11 +303,8 @@ string Status::genereTrame()
 
         return trame.dump();
     }
-    else
-    {
-        cout << "trame precedente pas fini" << endl;
-        return "";
-    }
+
+    return "";
 }
 
 Status::~Status()
