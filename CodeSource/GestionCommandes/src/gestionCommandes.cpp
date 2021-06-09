@@ -58,9 +58,6 @@ int GestionCommandes::transmettreCommandes()
 //stocke les trames reçu et ajoute une date à la trames
 int GestionCommandes::stockerCommande(std::string laCommande)
 {
-  json commande;
-  std::string laCommande = json::parse(commande);
-  
   time_t rawtime;
   struct tm * timeinfo;
   char buffer [80];
@@ -78,10 +75,22 @@ int GestionCommandes::stockerCommande(std::string laCommande)
 //ajoute la reponse à la trame qui lui correspond
 int GestionCommandes::ajouterReponse(std::string laReponse)
 {
-  json::parse(laReponse);
-  coll.update_one(make_document ( kvp("CMD.reponse","non")), // on cherche une trame avec comme clée = reponse et valeur de la clée = "non"
-                                                             // comme la commande c'est update_one il modifie une seul trames et il prend 
-                                                             // la première trames qu'il voie, soit celle qui à la date la plus ancienne        
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse)))))); // modifie dans le champ réponse de la trame la valeur 
-                                                                                                // et on ajoute la valeur attribué à "laReponse"
+  std::string typeCommande, codeCommande;
+  json reponseParse = json::parse(laReponse);
+
+if(reponseParse["CMD"]["typeCommande"]=="status"){
+  typeCommande = "STATUS";
+  codeCommande = "non";
+
+}else if(reponseParse["CMD"]["typeCommande"]=="mesure"){
+    typeCommande = "MEASURE";
+    codeCommande = reponseParse["CMD"]["code"];
+
+  }else if(reponseParse["CMD"]["typeCommande"]=="mission"){
+    typeCommande = "MISSION";
+    codeCommande = reponseParse["CMD"]["code"];
+  }else return -1;
+
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("code",codeCommande)),
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", reponseParse))))); 
 }

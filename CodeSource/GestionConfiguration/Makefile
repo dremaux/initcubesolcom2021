@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := stockerConfiguration
+EXECUTABLE  := cgiConfigurerSV.cgi
 
 
 all: $(BIN)/$(EXECUTABLE)
