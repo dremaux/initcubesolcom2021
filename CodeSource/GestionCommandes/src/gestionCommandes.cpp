@@ -52,7 +52,11 @@ int GestionCommandes::transmettreCommandes()
 
 int GestionCommandes::stockerCommande(std::string laCommande)
 {
+  
+  //std::string::laCommande = json::parse(commande);
+  
   json::parse(laCommande);
+
   time_t rawtime;
   struct tm * timeinfo;
   char buffer [80];
@@ -63,13 +67,13 @@ int GestionCommandes::stockerCommande(std::string laCommande)
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
   puts (buffer);                                          
 
-  laCommande["CMD"]["dateEnvoi"] = buffer;                
-    coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
+  commande["CMD"]["dateEnvoi"] = buffer;                
+    coll.insert_one(std::move(bsoncxx::from_json(commande)));
 }
 
-int GestionCommandes::ajouterReponse(std:string laReponse)
+int GestionCommandes::ajouterReponse(std::string laReponse)
 {
   json::parse(laReponse);
   coll.update_one(make_document ( kvp("CMD.reponse","non")),        
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse.dump()))))));
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse))))));
 }

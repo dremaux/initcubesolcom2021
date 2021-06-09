@@ -12,11 +12,11 @@ int main()
 
     cout << "Content-Type: text/html\r\n\r\n";
     
-/*   
+  
     std::string ma_trame=R"({ "CMD" : {"idSatellite":"1", "typeCommande":"MEASURE", "refInstrument":"CamInfra", "code":"TC", "dateEnvoi":"0000/00/00 00:00:00", "reponse": "non" }})";
     gCommandes->stockerCommande(json::parse(ma_trame));
     cout << "ok" << endl;
-*/
+
 
 /*
     std::string nombre = "";
