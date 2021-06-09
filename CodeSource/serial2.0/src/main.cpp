@@ -1,6 +1,6 @@
 /// Les Inclusions
 #include <iostream>
-#include "ComInitCube.h"
+#include "../include/ComInitCube.h"
 #include <thread>
 #include <unistd.h>
 

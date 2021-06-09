@@ -1,7 +1,6 @@
 #ifndef COMINITCUBE_H
 #define COMINITCUBE_H
-#include <Serial.h>
-#include <mutex>
+#include "Serial.h"
 using namespace std;
 
 class ComInitCube

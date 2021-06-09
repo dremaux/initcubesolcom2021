@@ -1,9 +1,8 @@
 #include <iostream>
-#include "ComInitCube.h"
+#include "../include/ComInitCube.h"
 
 ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
 {
-	//mtx = new mutex();
     maLiaisonSerie = new Serial(port, baud_rate);
 }
 
@@ -46,9 +45,7 @@ bool ComInitCube::lireTrame(unsigned char *trame, int taille)
     else
     {
         return true;
-    }
-    
-	
+    }   
 }
 
 string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
