@@ -1,4 +1,5 @@
 #include "Serial.h"
+#include <iostream>
 
 using namespace boost::asio;
 

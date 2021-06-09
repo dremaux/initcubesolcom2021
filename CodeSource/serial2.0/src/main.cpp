@@ -6,7 +6,7 @@
 
 using namespace std;
 
-ComInitCube *comInitCube = new ComInitCube("/dev/ttyAMA0", 9600);
+ComInitCube *comInitCube = new ComInitCube("/dev/ttyUSB0", 9600);
 
 void threadLecture();
 void threadEcriture();
@@ -24,11 +24,16 @@ int main()
 
 void threadLecture()
 {
+    int compteur = 0;
+
     while(1)
     {
+        
         unsigned char trame[110];//le protocole Xbee nous permet des trames de 104 octets 
         comInitCube->lireTrame(trame, 110);
         cout<<"lecture"<<endl;
+        cout<<trame<<endl;
+        /*
         for (int i = 0; i < 110; i++)
         {
             if (trame[i] == 255)
@@ -41,22 +46,29 @@ void threadLecture()
                 
             }
         }
+        */
+    compteur++;
     }
+
+    cout << "nombre de trames recues: " << compteur <<endl;
+    //cout << endl;
+        
 }
 
 void threadEcriture()
 {
-    while(1)
+    for(int i = 0; i<5; i++)
     {
         cout << "ecriture" << endl;
+
         unsigned char message[10];
         message[0] = 't';
         message[1] = 'e';
         message[2] = 's';
         message[3] = 't';
-        message[4] = 'o';
-        message[5] = 'u';
-        message[6] = 'i';
+        message[4] = 'n';
+        message[5] = 'o';
+        message[6] = 'n';
         message[7] = '\r';
         message[8] = '\n';
         message[9] = 255;
