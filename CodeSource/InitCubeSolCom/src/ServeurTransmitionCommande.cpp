@@ -42,7 +42,6 @@ int ServeurTransmitionCommande::attendreCommande(int n)
         }
         mtx->unlock();
         send(connexionsM[n], "ACK", 3, 0);
-        cout << buffer;
     }
     return (1);
 }

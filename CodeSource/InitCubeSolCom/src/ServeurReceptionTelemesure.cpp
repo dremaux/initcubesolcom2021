@@ -1,7 +1,4 @@
 #include "ServeurReceptionTelemesure.hpp"
-
-#define NB_CLIENT_MAX 20
-#define ADRESSE "127.0.0.1"
 #define BUF_SIZE 500
 
 ServeurReceptionTelemesure::ServeurReceptionTelemesure(int port):Serveur(port) {

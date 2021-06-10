@@ -1,6 +1,6 @@
 #include "Serveur.hpp"
 
-#define NB_CLIENT_MAX 20
+#define NB_CLIENT_MAX 50
 #define ADRESSE "127.0.0.1"
 
 Serveur::Serveur(int port) {

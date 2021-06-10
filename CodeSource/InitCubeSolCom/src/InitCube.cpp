@@ -57,6 +57,7 @@ void InitCube::envoieVol()
             }
             mtxCommande->lock();
             bool set = commande->setTrame(serveurEcouteJTP->getRecu().front());
+            gestionCommandes->stockerCommande(serveurEcouteJTP->getRecu().front());
             serveurEcouteJTP->effacerPremierRecu();
             mtxCommande->unlock();
             if (set && commande->extraireDonnees() > 0)
@@ -127,10 +128,14 @@ void InitCube::envoieTelemesure()
             std::string recuR = reponse->identifierType();
             if (recuR == "JSON")
             {
-                std::string trameG = reponse->genererTrame();
+                std::string trameG;
+                trameG = reponse->genererTrame();
                 if (trameG != "")
                 {
                     char trameGC[trameG.size() + 1];
+                    for(int i = 0; i < trameG.size() + 1;i++){
+                        trameGC[i] = 0;
+                    }
                     for (int i = 0; i < trameG.size() + 1; i++)
                     {
                         trameGC[i] = trameG[i];

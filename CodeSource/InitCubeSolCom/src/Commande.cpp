@@ -102,27 +102,27 @@ int Commande::extraireDonnees()
 
 void Commande::extraireDonneesMis()
 {
-    if (trame["CMD"].find("option") != trame["CMD"].end())
+    if (trame["CMD"].find("options") != trame["CMD"].end())
     {
-        if (trame["CMD"]["option"].find("periodicite") != trame["CMD"].end())
+        if (trame["CMD"]["options"].find("periodicite") != trame["CMD"]["options"].end())
         {
-            periode = trame["CMD"]["option"]["periodicite"];
+            periode = trame["CMD"]["options"]["periodicite"];
             periode = "-P" + periode;
         }
 
-        if (trame["CMD"]["option"].find("duree") != trame["CMD"].end())
+        if (trame["CMD"]["options"].find("duree") != trame["CMD"]["options"].end())
         {
-            duree = trame["CMD"]["option"]["duree"];
+            duree = trame["CMD"]["options"]["duree"];
             duree = "-D" + duree;
         }
 
-        if (trame["CMD"]["option"].find("deteExec") != trame["CMD"].end())
+        if (trame["CMD"]["options"].find("dateExec") != trame["CMD"]["options"].end())
         {
-            date = trame["CMD"]["option"]["dateExec"];
+            date = trame["CMD"]["options"]["dateExec"];
             date = "-DT" + date;
         }
 
-        if (trame["CMD"]["option"].find("save") != trame["CMD"].end())
+        if (trame["CMD"]["options"].find("save") != trame["CMD"]["options"].end())
         {
             save = "-SAVE";
         }
