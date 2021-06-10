@@ -9,12 +9,22 @@ int main()
 
     mongocxx::instance instance{};
     GestionCommandes *gCommandes = new GestionCommandes();
+    int a;
 
     //cout << "Content-Type: text/html\r\n\r\n";
 
+
     std::string ma_trame=R"({ "CMD" : {"idSatellite":"1", "typeCommande":"MEASURE", "refInstrument":"CamInfra", "code":"TC", "dateEnvoi":"0000/00/00 00:00:00", "reponse": "non" }})";
     gCommandes->stockerCommande(ma_trame);
-    cout << "ok" << endl;
+    cout << "commande stocker" << endl;
+
+    cout << "saisissez 1 pour contuinuer" << endl;
+    cin >> a;
+
+    std::string ma_reponse;
+    ma_reponse = R"({"mesure":{"code":"TC","donnees":["36.7"],"type":"normal","unite":"°C"}})";
+    gCommandes->ajouterReponse(ma_reponse);
+    cout << "reponse stocker" << endl;
 
 /*
     std::string nombre = "";
@@ -36,11 +46,8 @@ int main()
     gCommandes->rechercherCommandesParDate(date);
 */
 
-/*
-    std::string ma_reponse;
-    ma_reponse = R"({"measure":{"code":"TC","donnee":["36.7","35.4"],"nom":"temperature","unite":"°C"}})";
-    gCommandes->ajouterReponse(json::parse(ma_reponse));
-    cout << "ok" << endl;
-*/
+
+
+
     return 0;
 }

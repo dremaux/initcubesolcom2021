@@ -77,21 +77,33 @@ int GestionCommandes::stockerCommande(std::string commande)
 int GestionCommandes::ajouterReponse(std::string laReponse)
 {
   std::string typeCommande, codeCommande;
+  
+if(laReponse.find("status")!=std::string::npos){
+  cout << "j'ai trouve le status" << endl;
   json reponseParse = json::parse(laReponse);
-
-if(reponseParse["CMD"]["typeCommande"]=="status"){
   typeCommande = "STATUS";
-  codeCommande = "non";
 
-}else if(reponseParse["CMD"]["typeCommande"]=="mesure"){
-    typeCommande = "MEASURE";
-    codeCommande = reponseParse["CMD"]["code"];
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande)),
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); 
 
-  }else if(reponseParse["CMD"]["typeCommande"]=="mission"){
-    typeCommande = "MISSION";
-    codeCommande = reponseParse["CMD"]["code"];
+
+}else if(laReponse.find("mesure")!=std::string::npos){
+  cout << "j'ai trouve la mesure" << endl;
+  json reponseParse = json::parse(laReponse);
+  typeCommande = "MEASURE";
+  codeCommande = reponseParse["mesure"]["code"];
+
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("CMD.code",codeCommande)),
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); 
+
+
+  }else if(laReponse.find("mission")!=std::string::npos){
+  json reponseParse = json::parse(laReponse);
+  typeCommande = "MISSION";
+  codeCommande = reponseParse["mission"]["code"];
+
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("CMD.code",codeCommande)),
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); 
+  
   }else return -1;
-
-  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("code",codeCommande)),
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", reponseParse))))); 
 }
