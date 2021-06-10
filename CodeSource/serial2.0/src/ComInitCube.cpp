@@ -1,10 +1,13 @@
+/// Les inclusions
 #include <iostream>
 #include "../include/ComInitCube.h"
+
 
 ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
 {
     maLiaisonSerie = new Serial(port, baud_rate);
 }
+
 
 void ComInitCube::transmettreTrame(unsigned char *s)
 {
@@ -20,6 +23,7 @@ void ComInitCube::transmettreTrame(unsigned char *s)
     }
     maLiaisonSerie->writeChar(s, taille);
 }
+
 
 bool ComInitCube::lireTrame(unsigned char *trame, int taille)
 {
@@ -48,6 +52,7 @@ bool ComInitCube::lireTrame(unsigned char *trame, int taille)
     }   
 }
 
+
 string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
 {
     string retour;
@@ -65,6 +70,7 @@ string ComInitCube::attendreAck() // attention methode non complete manque cas d
     }
     return "erreur";
 }
+
 
 bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
 {
@@ -91,6 +97,7 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
         return false;
     }
 }
+
 
 void ComInitCube::calculerChecksum( unsigned char* trame, unsigned char & PF, unsigned char & pf, int taille){
     short Checksum=0;
