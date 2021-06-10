@@ -28,8 +28,9 @@ int GestionConfiguration::transmettreConfiguration()
 }
 
 //ajout la date et stocke la trame reçu dans la BDD
-int GestionConfiguration::stockerConfiguration(json laConfig)
+int GestionConfiguration::stockerConfiguration(std::string config)
 {
+  json laConfig = json::parse(config);
   time_t rawtime;
   struct tm * timeinfo;
   char buffer [80];
@@ -38,9 +39,8 @@ int GestionConfiguration::stockerConfiguration(json laConfig)
   timeinfo = localtime (&rawtime);
 
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
-  puts (buffer);
 
   laConfig["CMD"]["dateEnvoi"] = buffer;
-
-    coll.insert_one(std::move(bsoncxx::from_json(laConfig)));
+  
+    coll.insert_one(std::move(bsoncxx::from_json(laConfig.dump())));
 }
