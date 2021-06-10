@@ -56,8 +56,9 @@ int GestionCommandes::transmettreCommandes()
 }
 
 //stocke les trames reçu et ajoute une date à la trames
-int GestionCommandes::stockerCommande(std::string laCommande)
+int GestionCommandes::stockerCommande(std::string commande)
 {
+  json laCommande = json::parse(commande);
   time_t rawtime;
   struct tm * timeinfo;
   char buffer [80];
@@ -66,10 +67,10 @@ int GestionCommandes::stockerCommande(std::string laCommande)
   timeinfo = localtime (&rawtime);
 
   strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
-  puts (buffer);  // stocke la date de la machine dans buffer sous forme yyyy/mm/jj hh/mm/ss                                        
+  puts (buffer);                                          
 
-  commande["CMD"]["dateEnvoi"] = buffer; // on stocke la date dans dateEnvoi               
-    coll.insert_one(std::move(bsoncxx::from_json(commande)));
+  laCommande["CMD"]["dateEnvoi"] = buffer;                
+    coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
 }
 
 //ajoute la reponse à la trame qui lui correspond
