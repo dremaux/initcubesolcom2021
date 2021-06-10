@@ -12,12 +12,11 @@ int main(){
 
     cout << "Content-Type: text/html\r\n\r\n";
 	
-/*
+
     std::string toto; 
     std::getline(std::cin,toto);
     gConfiguration->stockerConfiguration(toto);
     cout << "OK" << endl; 
-*/
 
 /*
     gConfiguration->restituerDerniereConfiguration();

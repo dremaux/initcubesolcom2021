@@ -45,5 +45,5 @@ class GestionConfiguration {
         mongocxx::database db;
         mongocxx::collection coll;
         
-        vector<std::string> configurations;
+        std::string configuration;
 };

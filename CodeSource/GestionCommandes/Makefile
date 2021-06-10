@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := main
+EXECUTABLE  := derniereCommande
 
 
 all: $(BIN)/$(EXECUTABLE)

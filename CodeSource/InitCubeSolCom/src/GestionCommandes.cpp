@@ -69,6 +69,7 @@ int GestionCommandes::stockerCommande(std::string commande)
 
 int GestionCommandes::ajouterReponse(std::string laReponse)
 {
+  json::parse(laReponse);
   coll.update_one(make_document ( kvp("CMD.reponse","non")),        
   make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse))))));
 }

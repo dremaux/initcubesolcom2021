@@ -1,10 +1,8 @@
 #include <iostream>
-#include "ComInitCube.h"
+#include "../include/ComInitCube.h"
 
 ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
 {
-	mtx = new mutex();
-    cout << "Mise en place du service d'envoi de trame" << endl;
     maLiaisonSerie = new Serial(port, baud_rate);
 }
 
@@ -12,60 +10,42 @@ void ComInitCube::transmettreTrame(unsigned char *s)
 {
     string retour = "";
     int taille = 0;
-    for (int i = 0; i < 130; i++)
+    for (int i = 0; i < 110; i++)
     { //le protocole Xbee nous permet des trames de 104 octets
         if (s[i] == 255)
         {
             taille = i + 1;
-            i = 130;
+            i = 110;
         }
     }
     maLiaisonSerie->writeChar(s, taille);
-    retour = attendreAck();
-    if (retour == "RECU")
-    {
-        cout << "ack recu" << endl;
-    }
-    else if (retour == "ERREUR_CKS")
-    {
-        cout << "erreur checksum" << endl;
-        transmettreTrame(s);
-    }
 }
 
 bool ComInitCube::lireTrame(unsigned char *trame, int taille)
 {
     bool checksum;
-
-	mtx->lock();
     for (int i = 0; i < taille; i++)
     {
         trame[i] = 0;
     }
     unsigned char buf;
-    int i = 0;
+    int y = 0;
     while (buf != 255)
     {
         buf = maLiaisonSerie->readChar();
-        trame[i] = buf;
-        i++;
+        trame[y] = buf;
+        y++;
     }
-
-    checksum = verifierChecksum(trame, taille);
+    
+    checksum = verifierChecksum(trame, y);
     if (!checksum)
     {
-        for (int i = 0; i < taille; i++)
-        {
-            trame[i] = 0;
-        }
         return false;
     }
     else
     {
         return true;
-    }
-    
-	mtx->unlock();
+    }   
 }
 
 string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
@@ -90,6 +70,7 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
 {
     unsigned char checkSum1;
     unsigned char checkSum2;
+    int h = 0;
 
     for(int i = 0; i < taille; i++){
 
@@ -97,12 +78,11 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
         {
             checkSum1 = trame[i - 2];
             checkSum2 = trame[i - 1];
+            h = i;
         }
     }
-
-    calculerChecksum(trame, trame[taille-2], trame[taille-1], taille);
-
-    if (checkSum1 == trame[taille-2] && checkSum2 == trame[taille-1])
+    calculerChecksum(trame, trame[h-2], trame[h-1], taille-3);
+    if (checkSum1 == trame[h-2] && checkSum2 == trame[h-1])
     {
         return true;
     }
@@ -115,8 +95,7 @@ bool ComInitCube::verifierChecksum(unsigned char* trame, int taille)
 void ComInitCube::calculerChecksum( unsigned char* trame, unsigned char & PF, unsigned char & pf, int taille){
     short Checksum=0;
     char leChecksum[2];
-
-    for (int i=1;i<taille+3;i++)
+    for (int i=0;i<taille;i++)
     {
         Checksum=Checksum^trame[i];
     }

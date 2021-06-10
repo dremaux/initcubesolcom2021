@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := cgiAjouterInstrument.cgi
+EXECUTABLE  := nettoyerInstrument
 
 
 all: $(BIN)/$(EXECUTABLE)
