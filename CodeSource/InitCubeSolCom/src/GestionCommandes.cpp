@@ -50,8 +50,9 @@ int GestionCommandes::transmettreCommandes()
   return nbreCommandesTransmises;
 }
 
-int GestionCommandes::stockerCommande(json laCommande)
+int GestionCommandes::stockerCommande(std::string commande)
 {
+  json laCommande = json::parse(commande);
   time_t rawtime;
   struct tm * timeinfo;
   char buffer [80];
@@ -66,8 +67,8 @@ int GestionCommandes::stockerCommande(json laCommande)
     coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
 }
 
-int GestionCommandes::ajouterReponse(json laReponse)
+int GestionCommandes::ajouterReponse(std::string laReponse)
 {
   coll.update_one(make_document ( kvp("CMD.reponse","non")),        
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse.dump()))))));
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(laReponse))))));
 }

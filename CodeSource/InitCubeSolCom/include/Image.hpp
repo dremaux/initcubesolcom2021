@@ -10,8 +10,8 @@ class Image : public Measure{
 public:
     Image();
     void extraireDonnee(unsigned char* trame, int nbOctetType);
-    bool genererImage(string nom, int width, int height);
-    string genererTrame(string nom, string typeMeasure, string type, string dt = "");
+    bool genererImage(std::string nom, int width, int height);
+    std::string genererTrame(std::string nom, std::string typeMeasure, std::string type, std::string dt = "");
     ~Image();
     
     
@@ -20,5 +20,5 @@ private:
     char donneeExtraite[NB_PIXEL_IMAGE];
     int height;
     int width;
-    string name;
+    std::string name;
 };

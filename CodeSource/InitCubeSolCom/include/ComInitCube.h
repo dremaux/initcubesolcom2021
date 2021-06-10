@@ -1,13 +1,13 @@
 #ifndef COMINITCUBE_H
 #define COMINITCUBE_H
-#include <Serial.h>
+#include "Serial.h"
 #include <mutex>
 using namespace std;
 
 class ComInitCube
 {
     private:
-    string attendreAck();
+    std::string attendreAck();
     Serial* maLiaisonSerie;
 	mutex* mtx;
     bool verifierChecksum(unsigned char* trame, int taille);

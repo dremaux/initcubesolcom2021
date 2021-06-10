@@ -8,8 +8,9 @@ InitCube::InitCube()
     commande = new Commande();
     reponse = new DispatcheurReponse();
     mtxCommande = serveurEcouteJTP->getMutex();
-    comInitCube = new ComInitCube("/dev/ttyUSB0", 9600);
+    comInitCube = new ComInitCube("/dev/ttyAMA0", 9600);
     mtxTelemesure = new mutex();
+    gestionCommandes = new GestionCommandes();
 }
 
 InitCube::~InitCube()
@@ -106,8 +107,10 @@ void InitCube::envoieTelemesure()
 {
     while (1)
     {
+        mtxTelemesure->lock();
         while (!telemesure.empty())
         {
+            mtxTelemesure->unlock();
             unsigned char trame[110];
             for (int i = 0; i < 110; i++)
             {
@@ -121,10 +124,10 @@ void InitCube::envoieTelemesure()
             telemesure.pop();
             mtxTelemesure->unlock();
             reponse->setTrame(trame);
-            string recuR = reponse->identifierType();
+            std::string recuR = reponse->identifierType();
             if (recuR == "JSON")
             {
-                string trameG = reponse->genererTrame();
+                std::string trameG = reponse->genererTrame();
                 if (trameG != "")
                 {
                     char trameGC[trameG.size() + 1];
@@ -132,10 +135,12 @@ void InitCube::envoieTelemesure()
                     {
                         trameGC[i] = trameG[i];
                     }
+                    gestionCommandes->ajouterReponse(trameG);
                     serveurEcriturePTJ->transmettre(trameGC, trameG.size());
                 }
             }
         }
+        mtxTelemesure->unlock();
     }
 }
 

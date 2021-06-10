@@ -11,7 +11,7 @@ void DispatcheurReponse::setTrame(unsigned char *trame)
     this->trame = trame;
 }
 
-string DispatcheurReponse::identifierType()
+std::string DispatcheurReponse::identifierType()
 {
     for (int i = 0; i < 100; i++)
     {
@@ -65,9 +65,9 @@ string DispatcheurReponse::identifierType()
     return "error";
 }
 
-string DispatcheurReponse::genererTrame()
+std::string DispatcheurReponse::genererTrame()
 {
-    string retour;
+    std::string retour;
     for (int i = 0; i < 100; i++)
     {
         if (trame[i] == 'M' && trame[i + 1] == 'I' && trame[i + 2] == 'S') //MISSION

@@ -5,7 +5,7 @@ DispatcheurMission::DispatcheurMission()
     simple = new SimpleMission();
 }
 
-string DispatcheurMission::genererTrame()
+std::string DispatcheurMission::genererTrame()
 {
     json instrument;
     instrument = R"({"ConfInstru":[
@@ -96,10 +96,10 @@ string DispatcheurMission::genererTrame()
     {
         for (int i = 0; i < instrument["ConfInstru"][p]["listeTypesMesure"].size(); i++)
         {
-            string id = instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
+            std::string id = instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
             if (type == id)
             {
-                string typeMesure = instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"];
+                std::string typeMesure = instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"];
                 if (typeMesure == "normal")
                 {
                     simple->extraireDonnee(trame, type.length());
@@ -113,7 +113,7 @@ string DispatcheurMission::genererTrame()
                 {
                     if (trame[NBRE_TRAMES] == trame[NUM_TRAME])
                     {
-                        string date = "";
+                        std::string date = "";
                         for (int h = (trame[1] + 2) - 18; h < ((trame[1] + 2) - 18) + 19; h++)
                         {
                             date += trame[h];
@@ -127,16 +127,16 @@ string DispatcheurMission::genererTrame()
                 }
                 if (typeMesure == "image")
                 {
-                    string date = "";
+                    std::string date = "";
                     for (int h = (trame[1] + 2) - 19; h < ((trame[1] + 2) - 19) + 19; h++)
                     {
                         date += trame[h];
                     }
                     time_t now = time(0);
-                    string dt = ctime(&now);
+                    std::string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1); //supprime le \n de fin
                     image->extraireDonnee(trame, type.length());
-                    ((Image *)image)->genererImage(dt, instrument["ConfInstru"][p]["listeTypesMesure"][i]["largeur"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["hauteur"]); // attention si hauteur et largeur sont en string dans le json ça ne marche pas
+                    ((Image *)image)->genererImage(dt, instrument["ConfInstru"][p]["listeTypesMesure"][i]["largeur"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["hauteur"]); // attention si hauteur et largeur sont en std::string dans le json ça ne marche pas
                     reponse = image->genererTrame(instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"], "mission", date);
                     return reponse;
                 }

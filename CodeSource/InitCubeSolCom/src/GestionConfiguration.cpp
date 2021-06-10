@@ -51,3 +51,7 @@ int GestionConfiguration::stockerConfiguration(json laConfig)
 
     coll.insert_one(std::move(bsoncxx::from_json(laConfig)));
 }
+
+std::string GestionConfiguration::getLastConfiguration(){
+  return configurations[configurations.size()-1];
+}

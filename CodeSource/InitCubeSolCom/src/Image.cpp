@@ -25,7 +25,7 @@ void Image::extraireDonnee(unsigned char *trame, int nbOctetType)
     }
 }
 
-bool Image::genererImage(string nom, int width, int height)
+bool Image::genererImage(std::string nom, int width, int height)
 {
     nom = "./images/" + nom + ".jpg";
     name = nom;
@@ -40,7 +40,7 @@ bool Image::genererImage(string nom, int width, int height)
     return 0;
 }
 
-string Image::genererTrame(string nom, string typeMeasure, string type, string dt)
+std::string Image::genererTrame(std::string nom, std::string typeMeasure, std::string type, std::string dt)
 {
     json trame;
 

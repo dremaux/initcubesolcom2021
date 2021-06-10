@@ -6,6 +6,7 @@
 #include "ComInitCube.h"
 #include <thread>
 #include "Lib.h"
+#include "GestionCommandes.h"
 
 using namespace std;
 
@@ -33,4 +34,5 @@ private:
     Commande *commande;
     DispatcheurReponse *reponse;
     ComInitCube *comInitCube;
+    GestionCommandes *gestionCommandes;
 };

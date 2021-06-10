@@ -27,7 +27,7 @@ Status::Status()
     Tcube = "";
 }
 
-void Status::extraireDonnee(string trame)
+void Status::extraireDonnee(std::string trame)
 {
     if (trame[NUM_TRAME] == compteur)
     {
@@ -241,7 +241,7 @@ void Status::extraireDonnee(string trame)
     }
 }
 
-string Status::genereTrame()
+std::string Status::genereTrame()
 {
     json trame;
     if (compteur == 1 && security == false)

@@ -12,11 +12,11 @@ public:
     Measure();
     virtual ~Measure();
     virtual void extraireDonnee(unsigned char* trame, int nbOctetType) = 0;
-    virtual string genererTrame(string nom, string type, string unite, string dt = "") = 0;
+    virtual std::string genererTrame(std::string nom, std::string type, std::string unite, std::string dt = "") = 0;
 
 protected:
     
-    vector<string> donneeExtraite;
+    vector<std::string> donneeExtraite;
     int caseFinM;
     int caseDebutM;
 

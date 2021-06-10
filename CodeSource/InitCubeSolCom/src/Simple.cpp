@@ -8,8 +8,8 @@ void Simple::extraireDonnee(unsigned char *trame, int nbOctetType)
 {
     caseFinM = trame[1] + 2;
     caseDebutM = DEBUT_TRAME + nbOctetType;
-    string donnee;
-    for (int i = 0; i < donneeExtraite.size(); i++)
+    std::string donnee;
+    while (!donneeExtraite.empty())
     {
         donneeExtraite.erase(donneeExtraite.begin());
     }
@@ -27,17 +27,18 @@ void Simple::extraireDonnee(unsigned char *trame, int nbOctetType)
     }
 }
 
-string Simple::genererTrame(string nom, string type, string unite, string dt)
+std::string Simple::genererTrame(std::string nom, std::string type, std::string unite, std::string dt)
 {
     json trame;
     trame["mesure"]["type"] = nom;
     trame["mesure"]["code"] = type;
     trame["mesure"]["donnees"] = donneeExtraite;
     trame["mesure"]["unite"] = unite;
-    if(dt != ""){
+    if (dt != "")
+    {
         trame["mesure"]["date"] = dt;
     }
-    
+
     return trame.dump();
 }
 

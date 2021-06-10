@@ -6,6 +6,7 @@ void threadConnexionEcriture();
 void threadEnvoieCommande();
 void threadReceptionTelemesure();
 void threadEnvoieTelemesure();
+mongocxx::instance instance{};
 
 InitCube* cube = new InitCube();
 

@@ -9,12 +9,12 @@ class Commande {
 
 public:
     Commande();
-    Commande(string json,int numeroCommande);
-    Commande(string json);
+    Commande(std::string json,int numeroCommande);
+    Commande(std::string json);
     ~Commande();
     int extraireDonnees();
     bool genererTrame(unsigned char* trameF);
-    bool setTrame(string trame);
+    bool setTrame(std::string trame);
 
 
 private:
@@ -27,18 +27,18 @@ private:
     char nCommande[1];
     Cmd CMD;
     nlohmann::json trame;
-    string id;
-    string cmd;
-    string periode;
-    string duree;
-    string date;
-    string ack;
-    string bord;
-    string inst;
-    string batt;
-    string reboot;
-    string cube;
-    string typeMeasure;
-    string save;
+    std::string id;
+    std::string cmd;
+    std::string periode;
+    std::string duree;
+    std::string date;
+    std::string ack;
+    std::string bord;
+    std::string inst;
+    std::string batt;
+    std::string reboot;
+    std::string cube;
+    std::string typeMeasure;
+    std::string save;
     int nbOctets;
 };

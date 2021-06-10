@@ -10,8 +10,8 @@ class Status {
 
 public:
     Status();
-    void extraireDonnee(string trame);
-    string genereTrame();
+    void extraireDonnee(std::string trame);
+    std::string genereTrame();
     ~Status();
 
 private:
@@ -20,25 +20,25 @@ private:
     bool security;
     int compteur;
     bool bord;
-    string SMo;
-    string Rp;
-    string Tbord;
-    string DTb;
+    std::string SMo;
+    std::string Rp;
+    std::string Tbord;
+    std::string DTb;
     bool batt;
-    string C;
-    string V;
-    string A;
+    std::string C;
+    std::string V;
+    std::string A;
     bool load;
-    string Tbatt;
+    std::string Tbatt;
     bool inst;
-    string marche;
+    std::string marche;
     bool erreur;
-    string modeExp;
-    string dureeSTBY;
-    string Tinst;
+    std::string modeExp;
+    std::string dureeSTBY;
+    std::string Tinst;
     bool cube;
-    string Tcube;
+    std::string Tcube;
     bool reboot;
-    string DTr;
-    string N;
+    std::string DTr;
+    std::string N;
 };

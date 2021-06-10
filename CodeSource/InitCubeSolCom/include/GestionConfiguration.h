@@ -38,6 +38,7 @@ class GestionConfiguration {
         int restituerDerniereConfiguration();  
         int transmettreConfiguration(); 
 	    int stockerConfiguration(json commande);
+        std::string getLastConfiguration();
     
     private:
 

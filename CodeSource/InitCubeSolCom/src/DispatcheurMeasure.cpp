@@ -7,6 +7,7 @@ DispatcheurMeasure::DispatcheurMeasure()
     matrice = new Matrice();
     simple = new Simple();
     image = new Image();
+    gestionConfiguration = new GestionConfiguration();//a developer quand la configuration dans la base de donne sera prete
 }
 
 DispatcheurMeasure::DispatcheurMeasure(unsigned char *trame) : trame(trame)
@@ -41,7 +42,7 @@ void DispatcheurMeasure::setTrame(unsigned char *trame)
     this->trame = trame;
 }
 
-string DispatcheurMeasure::genererTrame()
+std::string DispatcheurMeasure::genererTrame()
 {
     json instrument;
     instrument = R"({"ConfInstru":[
@@ -132,10 +133,10 @@ string DispatcheurMeasure::genererTrame()
     {
         for (int i = 0; i < instrument["ConfInstru"][p]["listeTypesMesure"].size(); i++)
         {
-            string id = instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
+            std::string id = instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"]; //si on ne stock pas le resultat et que on le test directement il retourne des ""
             if (type == id)
             {
-                string typeMesure = instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"];
+                std::string typeMesure = instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"];
                 if (typeMesure == "normal")
                 {
                     simple->extraireDonnee(trame, type.length());
@@ -158,9 +159,9 @@ string DispatcheurMeasure::genererTrame()
                 {
                     image->extraireDonnee(trame, type.length());
                     time_t now = time(0);
-                    string dt = ctime(&now);
+                    std::string dt = ctime(&now);
                     dt.erase(dt.length() - 1, 1);                                                                                                                                     //supprime le \n de fin
-                    ((Image *)image)->genererImage(dt, instrument["ConfInstru"][p]["listeTypesMesure"][i]["largeur"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["hauteur"]); // attention si hauteur et largeur sont en string dans le json ça ne marche pas
+                    ((Image *)image)->genererImage(dt, instrument["ConfInstru"][p]["listeTypesMesure"][i]["largeur"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["hauteur"]); // attention si hauteur et largeur sont en std::string dans le json ça ne marche pas
                     reponse = image->genererTrame(instrument["ConfInstru"][p]["listeTypesMesure"][i]["type"], instrument["ConfInstru"][p]["listeTypesMesure"][i]["code"], "mesure");
                     return reponse;
                 }

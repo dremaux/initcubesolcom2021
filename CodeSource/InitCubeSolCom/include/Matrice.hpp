@@ -8,7 +8,7 @@ public:
     Matrice();
     ~Matrice();
     void extraireDonnee(unsigned char* trame, int nbOctetType);
-    string genererTrame(string nom, string typeMeasure, string type, string dt = "");
+    std::string genererTrame(std::string nom, std::string typeMeasure, std::string type, std::string dt = "");
 
 private:
     bool security;

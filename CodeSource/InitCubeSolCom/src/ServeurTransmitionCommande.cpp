@@ -52,7 +52,7 @@ void ServeurTransmitionCommande::effacerPremierRecu()
     recu.pop();
 }
 
-queue<string> ServeurTransmitionCommande::getRecu()
+queue<std::string> ServeurTransmitionCommande::getRecu()
 {
     return recu;
 }

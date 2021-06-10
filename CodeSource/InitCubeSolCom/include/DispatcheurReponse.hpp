@@ -12,8 +12,8 @@ class DispatcheurReponse {
 public:
     DispatcheurReponse();
     void setTrame(unsigned char* trame);
-    string identifierType();
-    string genererTrame();
+    std::string identifierType();
+    std::string genererTrame();
     ~DispatcheurReponse();
 
 private:

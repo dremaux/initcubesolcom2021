@@ -10,7 +10,7 @@ ComInitCube::ComInitCube(std::string port, unsigned int baud_rate)
 
 void ComInitCube::transmettreTrame(unsigned char *s)
 {
-    string retour = "";
+    std::string retour = "";
     int taille = 0;
     for (int i = 0; i < 110; i++)
     { //le protocole Xbee nous permet des trames de 104 octets
@@ -64,9 +64,9 @@ bool ComInitCube::lireTrame(unsigned char *trame, int taille)
 	
 }
 
-string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
+std::string ComInitCube::attendreAck() // attention methode non complete manque cas de non recu
 {
-    string retour;
+    std::string retour;
     unsigned char trame[110];
 
     lireTrame(trame, 110);

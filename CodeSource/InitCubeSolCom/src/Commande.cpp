@@ -6,7 +6,7 @@ Commande::Commande()
 {
 }
 
-Commande::Commande(string tJson, int numeroCommande) : trame(tJson)
+Commande::Commande(std::string tJson, int numeroCommande) : trame(tJson)
 {
     trame = R"({ "CMD": {
             "idSatellite": "1",
@@ -21,7 +21,7 @@ Commande::Commande(string tJson, int numeroCommande) : trame(tJson)
     nCommande[0] = numeroCommande;
 }
 
-Commande::Commande(string tJson) : trame(tJson)
+Commande::Commande(std::string tJson) : trame(tJson)
 {
 }
 
@@ -223,7 +223,7 @@ void Commande::extraireDonneesDat()
 
 bool Commande::genererTrame(unsigned char *trameF)
 {
-    string trameInter;
+    std::string trameInter;
     switch (CMD)
     {
 
@@ -298,7 +298,7 @@ void Commande::calculerChecksum(unsigned char *trameF, unsigned char &PF, unsign
     pf = leChecksum[1];
 }
 
-bool Commande::setTrame(string trame)
+bool Commande::setTrame(std::string trame)
 {
     try
     {

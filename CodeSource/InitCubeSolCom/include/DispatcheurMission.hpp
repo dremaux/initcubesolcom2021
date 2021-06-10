@@ -7,7 +7,7 @@ class DispatcheurMission :public DispatcheurMeasure {
 public:
     DispatcheurMission();
     ~DispatcheurMission();
-    string genererTrame();
+    std::string genererTrame();
 
 
 };

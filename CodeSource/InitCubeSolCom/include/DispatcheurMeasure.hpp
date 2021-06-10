@@ -3,6 +3,7 @@
 #include "Matrice.hpp"
 #include "Simple.hpp"
 #include "Image.hpp"
+#include "GestionConfiguration.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -14,12 +15,13 @@ public:
     DispatcheurMeasure(unsigned char* trame);
     virtual void identifierType();
     void setTrame(unsigned char* trame);
-    virtual string genererTrame();
+    virtual std::string genererTrame();
     virtual ~DispatcheurMeasure();
 
 protected:
-    string reponse;
+    std::string reponse;
     unsigned char* trame;
-    string type;
+    std::string type;
     Measure *matrice , *simple, *image;
+    GestionConfiguration *gestionConfiguration;
 };
