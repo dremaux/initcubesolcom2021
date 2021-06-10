@@ -78,7 +78,7 @@ int GestionCommandes::ajouterReponse(std::string laReponse)
   std::string typeCommande, codeCommande;
   
 if(laReponse.find("status")!=std::string::npos){      // je recherhce dans la trame si il y a "status" à l'interieur.
-  cout << "j'ai trouve le status" << endl;
+
   json reponseParse = json::parse(laReponse);
   typeCommande = "STATUS";
 
@@ -87,7 +87,6 @@ if(laReponse.find("status")!=std::string::npos){      // je recherhce dans la tr
 
 
 }else if(laReponse.find("mesure")!=std::string::npos){
-  cout << "j'ai trouve la mesure" << endl;
   json reponseParse = json::parse(laReponse);
   typeCommande = "MEASURE";                       // typeCommande prend la valeur "MEASURE"
   codeCommande = reponseParse["mesure"]["code"];  // codeCommande prend la valeur de la reponce envoyer, qui ce citue dans "mesure":{"code":"....."}
@@ -97,7 +96,6 @@ if(laReponse.find("status")!=std::string::npos){      // je recherhce dans la tr
 
 
   }else if(laReponse.find("mission")!=std::string::npos){
-  cout << "j'ai trouve la mission" << endl;
   json reponseParse = json::parse(laReponse);
   typeCommande = "MISSION";
   codeCommande = reponseParse["mission"]["code"];
