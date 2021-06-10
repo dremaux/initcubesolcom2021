@@ -66,8 +66,7 @@ int GestionCommandes::stockerCommande(std::string commande)
   time (&rawtime);
   timeinfo = localtime (&rawtime);
 
-  strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);
-  puts (buffer);                                          
+  strftime (buffer,80,"%Y/%m/%d %H:%M:%S",timeinfo);                                        
 
   laCommande["CMD"]["dateEnvoi"] = buffer;                
     coll.insert_one(std::move(bsoncxx::from_json(laCommande.dump())));
@@ -78,7 +77,7 @@ int GestionCommandes::ajouterReponse(std::string laReponse)
 {
   std::string typeCommande, codeCommande;
   
-if(laReponse.find("status")!=std::string::npos){
+if(laReponse.find("status")!=std::string::npos){      // je recherhce dans la trame si il y a "status" à l'interieur.
   cout << "j'ai trouve le status" << endl;
   json reponseParse = json::parse(laReponse);
   typeCommande = "STATUS";
@@ -90,14 +89,15 @@ if(laReponse.find("status")!=std::string::npos){
 }else if(laReponse.find("mesure")!=std::string::npos){
   cout << "j'ai trouve la mesure" << endl;
   json reponseParse = json::parse(laReponse);
-  typeCommande = "MEASURE";
-  codeCommande = reponseParse["mesure"]["code"];
+  typeCommande = "MEASURE";                       // typeCommande prend la valeur "MEASURE"
+  codeCommande = reponseParse["mesure"]["code"];  // codeCommande prend la valeur de la reponce envoyer, qui ce citue dans "mesure":{"code":"....."}
 
-  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("CMD.code",codeCommande)),
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); 
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande), kvp("CMD.code",codeCommande)), // on cherche une commande dans la BDD avec valeur de reponse = non, typeCommande = (la variable de typeCommande), code = codeCommande 
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); // puis on rajout la trame 
 
 
   }else if(laReponse.find("mission")!=std::string::npos){
+  cout << "j'ai trouve la mission" << endl;
   json reponseParse = json::parse(laReponse);
   typeCommande = "MISSION";
   codeCommande = reponseParse["mission"]["code"];
