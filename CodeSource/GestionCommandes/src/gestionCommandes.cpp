@@ -107,3 +107,8 @@ if(laReponse.find("status")!=std::string::npos){
   
   }else return -1;
 }
+
+int GestionCommandes::nettoyerCommandes()
+{
+  coll.drop();
+}

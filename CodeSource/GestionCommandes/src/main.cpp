@@ -13,7 +13,7 @@ int main()
 
     //cout << "Content-Type: text/html\r\n\r\n";
 
-
+/*
     std::string ma_trame=R"({ "CMD" : {"idSatellite":"1", "typeCommande":"MEASURE", "refInstrument":"CamInfra", "code":"TC", "dateEnvoi":"0000/00/00 00:00:00", "reponse": "non" }})";
     gCommandes->stockerCommande(ma_trame);
     cout << "commande stocker" << endl;
@@ -25,7 +25,7 @@ int main()
     ma_reponse = R"({"mesure":{"code":"TC","donnees":["36.7"],"type":"normal","unite":"°C"}})";
     gCommandes->ajouterReponse(ma_reponse);
     cout << "reponse stocker" << endl;
-
+*/
 /*
     std::string nombre = "";
     nombre = getenv("QUERY_STRING");
@@ -46,6 +46,7 @@ int main()
     gCommandes->rechercherCommandesParDate(date);
 */
 
+    //gCommandes->nettoyerCommandes();
 
 
 

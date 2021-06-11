@@ -40,7 +40,8 @@ class GestionCommandes {
         int rechercherCommandesParDate(std::string date); 
 	    int stockerCommande(std::string commande);
         int ajouterReponse(std::string reponse);
-    
+        int nettoyerCommandes();
+
     private:
 
         mongocxx::client client{mongocxx::client{mongocxx::uri{}}};
