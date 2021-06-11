@@ -9,7 +9,7 @@ int main(){
     mongocxx::instance instance{};
     GestionInstrument * gInstrument = new GestionInstrument();
 
-    cout << "Content-Type: text/html\r\n\r\n";
+    //cout << "Content-Type: text/html\r\n\r\n";
 
 /*
     std::string toto;
@@ -23,9 +23,9 @@ int main(){
     gInstrument->transmettreInstruments();
 */
 
-/*
+
     gInstrument->nettoyerInstruments();
     cout<<"ok"<<endl;
-*/
+
     return 0;    
 }

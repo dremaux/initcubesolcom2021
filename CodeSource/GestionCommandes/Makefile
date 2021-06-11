@@ -7,7 +7,7 @@ INCLUDE := include
 LIB     := lib
  
 LIBRARIES   :=
-EXECUTABLE  := derniereCommande
+EXECUTABLE  := cgiNettoyerCommande.cgi
 
 
 all: $(BIN)/$(EXECUTABLE)

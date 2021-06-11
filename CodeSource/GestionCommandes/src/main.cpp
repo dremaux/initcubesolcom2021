@@ -46,6 +46,7 @@ int main()
     gCommandes->rechercherCommandesParDate(date);
 */
 
+    //gCommandes->nettoyerCommandes();
 
 
 
