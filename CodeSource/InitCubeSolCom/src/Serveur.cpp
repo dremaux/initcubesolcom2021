@@ -43,7 +43,7 @@ int Serveur::attendreConnexion(){
         iterateur++;
         connexionsM[iterateur] = sockAccept;
         connexionsV.push_back(sockAccept);
-	    cout << "Nombre de clients connectés : " << connexionsM.size() << endl;
+	    cout << "Nombre de clients connectés : " << connexionsV.size() << endl;
         return iterateur;
     }
     else{
