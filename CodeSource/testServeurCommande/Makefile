@@ -1,4 +1,4 @@
-CXX		  := aarch64-linux-gnu-g++
+CXX		  := g++
 CXX_FLAGS := -W -Wall -ansi -pedantic -std=c++11 -lpthread
 
 BIN		:= bin
@@ -7,7 +7,7 @@ INCLUDE	:= include
 LIB		:= lib
 
 LIBRARIES	:=
-EXECUTABLE	:= testCubeEventServer.cgi
+EXECUTABLE	:= testServeurCommandeAvecTraitement
 
 
 all: $(BIN)/$(EXECUTABLE)
