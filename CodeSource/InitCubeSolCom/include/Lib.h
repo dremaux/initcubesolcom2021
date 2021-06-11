@@ -35,6 +35,7 @@
 #include <unistd.h>
 #include <queue>
 #include <vector>
+#include <map>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <string>

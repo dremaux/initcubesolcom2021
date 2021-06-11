@@ -13,7 +13,10 @@
 
 #ifndef LIB_H
 #define LIB_H
-//#include "json.hpp"
+#include <mutex>
+#include <condition_variable>
+#include <math.h>
+#include "json.hpp"
 #include <chrono>
 #include <arpa/inet.h>
 #include <fstream>
@@ -30,15 +33,17 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
+#include <queue>
 #include <vector>
+#include <map>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <string>
 #include <sstream>
 #include <netinet/in.h>
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros
-#include <sys/select.h>
-#include <sys/sysmacros.h>
+# include <sys/select.h>
+# include <sys/sysmacros.h>
 
 #endif /* LIB_H */
 
