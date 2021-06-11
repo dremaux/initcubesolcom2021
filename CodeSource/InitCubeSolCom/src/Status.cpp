@@ -249,14 +249,14 @@ std::string Status::genereTrame()
         if (bord)
         {
             trame["status"]["bord"]["StockageSDLibreMo"] = SMo;
-            trame["status"]["bord"]["OccupationRAM%"] = Rp;
+            trame["status"]["bord"]["OccupationRAM"] = Rp;
             trame["status"]["bord"]["Temperature"] = Tbord;
-            trame["status"]["bord"]["Date/heureBord"] = DTb;
+            trame["status"]["bord"]["Date-heureBord"] = DTb;
         }
 
         if (batt)
         {
-            trame["status"]["batterie"]["NiveauCharge%"] = C;
+            trame["status"]["batterie"]["NiveauCharge"] = C;
             trame["status"]["batterie"]["TensionV"] = V;
             trame["status"]["batterie"]["CourantmA"] = A;
             trame["status"]["batterie"]["Temperature"] = Tbatt;
