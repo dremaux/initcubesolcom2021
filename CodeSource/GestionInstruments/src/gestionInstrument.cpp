@@ -13,7 +13,7 @@ int GestionInstrument::getListeInstruments(int nombre)
   this->instruments.clear();
 
   mongocxx::options::find opts;
-  opts.limit(nombre);// si nombre = 0 alors affiche toutes les trames      
+  opts.limit(nombre);                                           // si nombre = 0 alors affiche toutes les trames      
   auto cursor = coll.find({}, opts);
 
   int nombreInstruments = 0;
