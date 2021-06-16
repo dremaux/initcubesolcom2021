@@ -27,6 +27,27 @@ int GestionCommandes::getDernieresCommandes(int nombre)
   return nombreCommandes;
 }
 
+
+//compte et cout les trames pour getDerniereCommande
+int GestionCommandes::transmettreCommandes()
+{
+  int nbreCommandesTransmises = 0;
+  if (commandes.size()>1)
+  {
+    for (int i = 0; i < commandes.size()-1; i++)
+    {
+      cout << commandes[i] << endl;
+      nbreCommandesTransmises++;
+    }
+    cout << commandes[commandes.size()-1];
+    nbreCommandesTransmises++;
+  } else if (commandes.size() == 1) {
+    cout << commandes[0];
+    nbreCommandesTransmises++;
+  }  
+  return nbreCommandesTransmises;
+}
+
 //affiche toutes les commandes qui ont la "date" qui lui sera attribuer
 int GestionCommandes::rechercherCommandesParDate(std::string date)
 {
@@ -39,20 +60,6 @@ int GestionCommandes::rechercherCommandesParDate(std::string date)
     cout << to_json(doc) << endl;
   }
   return 0;
-}
-
-//compte et cout les trames pour getDerniereCommande
-int GestionCommandes::transmettreCommandes()
-{
-  int nbreCommandesTransmises = 0;
-  for (int i = 0; i < commandes.size()-1; i++)
-  {
-    cout << commandes[i] << endl;
-    nbreCommandesTransmises++;
-  }
-  cout << commandes[commandes.size()-1];
-  nbreCommandesTransmises++;
-  return nbreCommandesTransmises;
 }
 
 //stocke les trames reçu et ajoute une date à la trames
@@ -79,13 +86,13 @@ int GestionCommandes::ajouterReponse(std::string laReponse)
   std::string typeCommande, codeCommande;
 
 
-if(laReponse.find("status")!=std::string::npos){ // cherche si dans "laReponse" il y a "status", si la reponse est different de "npos" alors y a status dans la trame.
+if(laReponse.find("status")!=std::string::npos){                                                                                     // cherche si dans "laReponse" il y a "status", si la reponse est different de "npos" alors y a status dans la trame.
   cout << "j'ai trouve le status" << endl;       
   json reponseParse = json::parse(laReponse);    
-  typeCommande = "STATUS";                       // on attribut "STATUS" à typeCommande pour retrouver la commande dans update
+  typeCommande = "STATUS";                                                                                                          // on attribut "STATUS" à typeCommande pour retrouver la commande dans update
 
-  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande)),  // on recher une commande dans la BDD avec reponse = non, typeCommande = typeCommande soit = "STAUTS" et update_one prend par defaut la première commande enregistrer dans la BDD (FIFO)
-  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump())))))); // une fois la trame trouvé, on lui donne dans le champ reponse "laReponse".
+  coll.update_one(make_document ( kvp("CMD.reponse","non"), kvp("CMD.typeCommande",typeCommande)),                                  // on recher une commande dans la BDD avec reponse = non, typeCommande = typeCommande soit = "STAUTS" et update_one prend par defaut la première commande enregistrer dans la BDD (FIFO)
+  make_document(kvp("$set",make_document(kvp("CMD.reponse", bsoncxx::from_json(reponseParse.dump()))))));                           // une fois la trame trouvé, on lui donne dans le champ reponse "laReponse".
 
 
 }else if(laReponse.find("mesure")!=std::string::npos){
@@ -112,5 +119,5 @@ if(laReponse.find("status")!=std::string::npos){ // cherche si dans "laReponse" 
 //supprime la collection "commande" dans la BDD, si IHM essaye d'ecrire, la collection se re-creer 
 int GestionCommandes::nettoyerCommandes()
 {
-  coll.drop();
+  coll.delete_many({}); 
 }
