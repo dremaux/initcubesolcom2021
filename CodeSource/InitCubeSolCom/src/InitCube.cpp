@@ -1,4 +1,5 @@
 #include "InitCube.hpp"
+#include <unistd.h>
 
 InitCube::InitCube()
 {
@@ -49,6 +50,7 @@ void InitCube::envoieVol()
     unsigned char trameF[110];
     while (1)
     {
+        usleep(500);
         if (!serveurEcouteJTP->getRecu().empty())
         {
             for (int i = 0; i < 110; i++)
@@ -97,10 +99,6 @@ void InitCube::receptionVol()
             telemesure.push(v);
             mtxTelemesure->unlock();
         }
-        else
-        {
-            cout << "erreur cks" << endl;
-        }
     }
 }
 
@@ -108,6 +106,7 @@ void InitCube::envoieTelemesure()
 {
     while (1)
     {
+        usleep(500);
         mtxTelemesure->lock();
         while (!telemesure.empty())
         {

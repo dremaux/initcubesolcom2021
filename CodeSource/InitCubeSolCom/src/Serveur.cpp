@@ -35,6 +35,7 @@ int Serveur::attendreConnexion(){
     if(connexionsM.size()< NB_CLIENT_MAX){
         cout << "Connexion d'un nouveau client."<<endl;
     	if(sockAccept<0){
+
             close(canal);
             perror("Erreur d'acceptation de la socket.");
             return -1;
